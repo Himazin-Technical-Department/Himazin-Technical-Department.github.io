@@ -44,7 +44,7 @@ img {
   height: 60px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
 }
 
 .logo {
@@ -785,7 +785,7 @@ img {
   border: none;
   cursor: pointer;
   color: #666;
-  padding: 8px;
+  padding: 6px;
   border-radius: 6px;
   transition: all 0.2s;
 }

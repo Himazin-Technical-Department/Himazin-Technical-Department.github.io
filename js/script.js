@@ -34,9 +34,18 @@ async function loadPostMeta(section, slug) {
 async function loadPostMD(section, slug) {
   const key = `${section}/${slug}`;
   if (mdCache[key]) return mdCache[key];
-  const text = await fetchText(`${section}/${slug}/index.md`);
-  mdCache[key] = text;
-  return text;
+  try {
+    const text = await fetchText(`${section}/${slug}/index.md`);
+    mdCache[key] = text;
+    return text;
+  } catch {
+    const meta = await loadPostMeta(section, slug);
+    if (meta && meta.body) {
+      mdCache[key] = meta.body;
+      return meta.body;
+    }
+    throw new Error('Markdown content not found');
+  }
 }
 
 /* ── レンダリング ── */
