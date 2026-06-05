@@ -52,7 +52,9 @@ function renderProducts(containerId, items) {
     `<div class="product-card">
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
-      <a href="#products/${item.slug}" class="product-link">詳細を見る →</a>
+      <div class="product-actions">
+        <a href="#products/${item.slug}" class="product-btn product-btn-primary">詳細</a>
+      </div>
     </div>`
   ).join('');
 }
@@ -87,6 +89,13 @@ function renderDetail(section, slug) {
         : (txt => txt.replace(/\n/g, '<br>'));
 
       let html = `<h1 class="detail-title">${esc(meta.title)}</h1>`;
+
+      if (section === 'products' && meta.url) {
+        html += `<div style="margin-bottom:24px">
+          <a href="${esc(meta.url)}" target="_blank" rel="noopener" class="product-btn product-btn-primary" style="display:inline-block;padding:10px 28px;font-size:14px">サイトへ →</a>
+        </div>`;
+      }
+
       html += '<div class="detail-meta">';
       html += `<span class="detail-meta-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -95,11 +104,6 @@ function renderDetail(section, slug) {
         html += `<span class="detail-meta-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           ${esc(meta.author)}</span>`;
-      }
-      if (meta.url) {
-        html += `<span class="detail-meta-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-          <a href="${esc(meta.url)}" target="_blank" rel="noopener" style="color:#2563eb">${esc(meta.url)}</a></span>`;
       }
       if (meta.tags) {
         html += `<span class="detail-meta-item">${meta.tags.map(t => `<span class="blog-tag">${esc(t)}</span>`).join('')}</span>`;
@@ -114,27 +118,30 @@ function renderDetail(section, slug) {
 }
 
 /* ── トップページ 団体説明 ── */
+const DEFAULT_ABOUT = '**暇人技術部 (Himazin Technical Department)** は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。\n\n部員それぞれが自由な発想でものづくりに取り組み、開発したツールや知見を発信しています。';
+
+function renderMD(text) {
+  try {
+    if (typeof marked === 'function') {
+      return typeof marked.parse === 'function' ? marked.parse(text) : marked(text);
+    }
+  } catch {}
+  return text.replace(/\n/g, '<br>');
+}
+
 function renderAbout() {
   const container = document.getElementById('about-content');
   if (!container) return;
 
-  container.innerHTML = '読み込み中...';
+  const show = (text) => { container.innerHTML = renderMD(text); };
 
-  fetchJSON('about.json')
+  fetch('about.json')
+    .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
-      if (!data || !data.content) {
-        container.innerHTML = '';
-        return;
-      }
-      const renderMD = typeof marked === 'function'
-        ? (typeof marked.parse === 'function' ? marked.parse : marked)
-        : (txt => txt.replace(/\n/g, '<br>'));
-      const html = renderMD(data.content);
-      container.innerHTML = html;
+      if (data && data.content) show(data.content);
+      else show(DEFAULT_ABOUT);
     })
-    .catch(() => {
-      container.innerHTML = '';
-    });
+    .catch(() => show(DEFAULT_ABOUT));
 }
 
 /* ── ユーティリティ ── */
