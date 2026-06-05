@@ -1,12 +1,14 @@
 # 暇人技術部 公式ホームページ
 
-Himazin Technical Department の公式ホームページです。
+Himazin Technical Department の公式ホームページです。[GitHub Pages](https://pages.github.com/) で公開されています。
 
 ## 構成
 
 ```
-├── index.html             # メインページ
+├── index.html             # メインページ (SPA)
 ├── HTD.svg                # サイトアイコン
+├── logo.svg               # ロゴ
+├── about.json             # 団体説明 (Markdown形式)
 ├── css/style.css          # スタイルシート
 ├── js/script.js           # アプリケーションロジック
 ├── updates/               # お知らせ
@@ -18,7 +20,8 @@ Himazin Technical Department の公式ホームページです。
 │   ├── registry.json
 │   └── {slug}/
 │       ├── meta.json
-│       └── index.md
+│       ├── index.md
+│       └── icon.svg       # プロダクトアイコン
 ├── blog/                  # ブログ
 │   ├── registry.json
 │   └── {slug}/
@@ -38,20 +41,35 @@ Himazin Technical Department の公式ホームページです。
 2. `meta.json` と `index.md` を配置
 3. `{section}/registry.json` にエントリを追加
 
+`index.md` は通常の Markdown で記述します。画像も配置可能です。Markdown のレンダリングには [marked.js](https://marked.js.org/) を使用しています。
+
 **meta.json の形式:**
 
-```json
-{
-  "title": "記事タイトル",
-  "date": "2026-06-05",
-  "author": "著者名",
-  "excerpt": "一覧に表示される短い説明",
-  "tags": ["タグ1", "タグ2"],
-  "url": "https://..."
-}
-```
+- **お知らせ / ブログ:**
 
-`index.md` は通常の Markdown で記述します。画像も配置可能です。
+  ```json
+  {
+    "title": "記事タイトル",
+    "date": "2026-06-05",
+    "author": "著者名",
+    "excerpt": "一覧に表示される短い説明",
+    "tags": ["タグ1", "タグ2"]
+  }
+  ```
+
+- **プロダクト:**
+
+  ```json
+  {
+    "title": "プロダクト名",
+    "date": "2026-06-05",
+    "excerpt": "説明",
+    "icon": "products/{slug}/icon.svg",
+    "url": "https://...",
+    "urlLabel": "GitHub",
+    "detailLabel": "詳しく見る"
+  }
+  ```
 
 ### メンバー
 
@@ -72,13 +90,19 @@ Himazin Technical Department の公式ホームページです。
 
 `type` は `developer`（開発者・青）、`creator`（クリエイター・橙）、`supporter`（サポーター・緑）の3種類です。
 
+## 機能
+
+- **SPA ルーティング** — ハッシュベース (`#home`, `#updates`, `#products`, `#blog`, `#members`)
+- **Markdown レンダリング** — marked.js による変換
+- **検索** — Ctrl+K / ⌘K または検索ボタンから全コンテンツを横断検索
+
 ## ローカルでの確認
 
 ```bash
 python3 -m http.server 8080
 ```
 
-ブラウザで `http://localhost:8080` を開きます。`file://` では動作しません。
+ブラウザで `http://localhost:8080` を開きます。`fetch()` を使用しているため `file://` では動作しません。
 
 ## ライセンス
 
