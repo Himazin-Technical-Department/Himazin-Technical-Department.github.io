@@ -1,20 +1,30 @@
 [
   {
-    "slug": "himazin-toolkit",
-    "title": "Himazin Toolkit",
-    "date": "2026-06-01",
-    "excerpt": "開発効率を上げる便利ツール集。日常の作業を自動化します。",
-    "icon": "products/himazin-toolkit/icon.png",
-    "url": "https://github.com/Himazin-TD",
+    "slug": "himamarket",
+    "title": "HimaMarket",
+    "date": "2026-06-05",
+    "excerpt": "シンプルで使いやすいフリマアプリ。誰でも簡単に出品・購入できます。",
+    "icon": "products/himamarket/icon.svg",
+    "url": "https://github.com/Himazin-TD/himamarket",
     "urlLabel": "GitHub",
     "detailLabel": "詳しく見る"
   },
   {
-    "slug": "hima-chat",
-    "title": "HimaChat",
-    "date": "2026-05-15",
-    "excerpt": "暇人技術部が開発した軽量チャットアプリケーション。",
-    "icon": "products/hima-chat/icon.png",
+    "slug": "himaweather",
+    "title": "HimaWeather",
+    "date": "2026-05-20",
+    "excerpt": "洗練されたデザインの天気予報アプリ。週間予報・降水量など多彩な情報を提供。",
+    "icon": "products/himaweather/icon.svg",
     "detailLabel": "詳細を見る"
+  },
+  {
+    "slug": "himacanvas",
+    "title": "HimaCanvas",
+    "date": "2026-04-10",
+    "excerpt": "ブラウザで動作する軽量お絵かきツール。レイヤー・豊富なブラシ・フィルター完備。",
+    "icon": "products/himacanvas/icon.svg",
+    "url": "https://himacanvas.pages.dev",
+    "urlLabel": "使ってみる",
+    "detailLabel": "機能を見る"
   }
 ]
