@@ -59,10 +59,12 @@ function renderProducts(containerId, items) {
   }
   container.innerHTML = items.map(item =>
     `<div class="product-card">
+      ${item.icon ? `<div class="product-icon"><img src="${esc(item.icon)}" alt="${esc(item.title)}"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
-        <a href="#products/${item.slug}" class="product-btn product-btn-primary">詳細</a>
+        <a href="#products/${item.slug}" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
+        ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
       </div>
     </div>`
   ).join('');
@@ -93,11 +95,15 @@ function renderDetail(section, slug) {
 
   Promise.all([loadPostMeta(section, slug), loadPostMD(section, slug)])
     .then(([meta, md]) => {
-      let html = `<h1 class="detail-title">${esc(meta.title)}</h1>`;
+      let html = '';
+      if (meta.icon) {
+        html += `<div class="detail-icon"><img src="${esc(meta.icon)}" alt="${esc(meta.title)}"></div>`;
+      }
+      html += `<h1 class="detail-title">${esc(meta.title)}</h1>`;
 
       if (section === 'products' && meta.url) {
         html += `<div style="margin-bottom:24px">
-          <a href="${esc(meta.url)}" target="_blank" rel="noopener" class="product-btn product-btn-primary" style="display:inline-block;padding:10px 28px;font-size:14px">サイトへ →</a>
+          <a href="${esc(meta.url)}" target="_blank" rel="noopener" class="product-btn product-btn-primary" style="display:inline-block;padding:10px 28px;font-size:14px">${esc(meta.urlLabel || 'サイトへ')}</a>
         </div>`;
       }
 
