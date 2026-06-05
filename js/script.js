@@ -40,6 +40,23 @@ async function loadPostMD(section, slug) {
 }
 
 /* ── レンダリング ── */
+/* ── プロダクト ショーケース ── */
+function renderProducts(containerId, items) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  if (!items || !items.length) {
+    container.innerHTML = '<p style="color:#999;">まだプロダクトがありません</p>';
+    return;
+  }
+  container.innerHTML = items.map(item =>
+    `<div class="product-card">
+      <h3>${esc(item.title)}</h3>
+      <p>${esc(item.excerpt || '')}</p>
+      <a href="#products/${item.slug}" class="product-link">詳細を見る →</a>
+    </div>`
+  ).join('');
+}
+
 function renderItemList(containerId, items, section) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -101,12 +118,19 @@ function renderAbout() {
   const container = document.getElementById('about-content');
   if (!container) return;
 
+  container.innerHTML = '読み込み中...';
+
   fetchJSON('about.json')
     .then(data => {
+      if (!data || !data.content) {
+        container.innerHTML = '';
+        return;
+      }
       const renderMD = typeof marked === 'function'
         ? (typeof marked.parse === 'function' ? marked.parse : marked)
         : (txt => txt.replace(/\n/g, '<br>'));
-      container.innerHTML = renderMD(data.content);
+      const html = renderMD(data.content);
+      container.innerHTML = html;
     })
     .catch(() => {
       container.innerHTML = '';
@@ -167,17 +191,24 @@ function handleRoute() {
     showPage('home');
     renderAbout();
     loadRegistry('updates').then(d => renderItemList('home-updates', d.slice(0, 5), 'updates')).catch(() => {});
-    loadRegistry('products').then(d => renderItemList('home-products', d.slice(0, 3), 'products')).catch(() => {});
+    loadRegistry('products').then(d => renderProducts('home-products', d.slice(0, 3))).catch(() => {});
     loadRegistry('blog').then(d => renderItemList('home-blog', d.slice(0, 3), 'blog')).catch(() => {});
     return;
   }
 
   if (SECTIONS.includes(hash)) {
     showPage(hash);
-    loadRegistry(hash).then(d => renderItemList(`${hash}-list`, d, hash)).catch(() => {
-      const el = document.getElementById(`${hash}-list`);
-      if (el) el.innerHTML = '<p style="color:#999;">読み込みに失敗しました</p>';
-    });
+    if (hash === 'products') {
+      loadRegistry(hash).then(d => renderProducts(`${hash}-list`, d)).catch(() => {
+        const el = document.getElementById(`${hash}-list`);
+        if (el) el.innerHTML = '<p style="color:#999;">読み込みに失敗しました</p>';
+      });
+    } else {
+      loadRegistry(hash).then(d => renderItemList(`${hash}-list`, d, hash)).catch(() => {
+        const el = document.getElementById(`${hash}-list`);
+        if (el) el.innerHTML = '<p style="color:#999;">読み込みに失敗しました</p>';
+      });
+    }
     return;
   }
 

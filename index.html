@@ -14,23 +14,27 @@
 <body>
   <header class="header">
     <div class="header-inner">
-      <a href="#home" class="logo">
-        <img src="HTD.svg" alt="HTD" class="logo-icon">
-        <span class="logo-text">暇人技術部</span>
-      </a>
-      <nav class="nav">
-        <a href="#home" class="nav-link" data-nav>ホーム</a>
-        <a href="#updates" class="nav-link" data-nav>お知らせ</a>
-        <a href="#products" class="nav-link" data-nav>プロダクト</a>
-        <a href="#blog" class="nav-link" data-nav>ブログ</a>
-        <a href="#members" class="nav-link" data-nav>メンバー</a>
-      </nav>
-      <button class="search-btn" aria-label="検索">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      </button>
-      <button class="menu-toggle" aria-label="メニュー">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="header-left">
+        <a href="#home" class="logo">
+          <img src="HTD.svg" alt="HTD" class="logo-icon">
+          <span class="logo-text">暇人技術部</span>
+        </a>
+        <nav class="nav">
+          <a href="#home" class="nav-link" data-nav>ホーム</a>
+          <a href="#updates" class="nav-link" data-nav>お知らせ</a>
+          <a href="#products" class="nav-link" data-nav>プロダクト</a>
+          <a href="#blog" class="nav-link" data-nav>ブログ</a>
+          <a href="#members" class="nav-link" data-nav>メンバー</a>
+        </nav>
+      </div>
+      <div class="header-right">
+        <button class="search-btn" aria-label="検索">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button class="menu-toggle" aria-label="メニュー">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -70,7 +74,7 @@
       </div>
       <div class="section" id="home-products-preview">
         <h2 class="section-title">プロダクト</h2>
-        <div class="item-list" id="home-products"></div>
+        <div class="products-grid" id="home-products"></div>
         <a href="#products" class="section-more">すべて見る →</a>
       </div>
       <div class="section" id="home-blog-preview">
@@ -99,7 +103,7 @@
       <div class="section">
         <a href="#home" class="back-link">← ホームに戻る</a>
         <h2 class="section-title">プロダクト</h2>
-        <div class="item-list" id="products-list"></div>
+        <div class="products-grid" id="products-list"></div>
       </div>
     </section>
 
