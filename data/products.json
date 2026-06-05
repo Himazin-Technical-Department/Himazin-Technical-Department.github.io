@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Himazin Toolkit",
+    "description": "開発を効率化する便利ツール集。日常の作業を自動化し、生産性を向上させます。",
+    "url": "https://github.com/Himazin-TD"
+  },
+  {
+    "name": "HimaChat",
+    "description": "暇人技術部が開発した軽量チャットアプリケーション。シンプルで高速なコミュニケーションを実現します。",
+    "url": ""
+  },
+  {
+    "name": "HTD Core",
+    "description": "Himazin Technical Departmentの中核ライブラリ。様々なプロジェクトで再利用可能なモジュールを提供します。",
+    "url": "https://github.com/Himazin-TD"
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "date": "2026-06-05",
+    "title": "公式ホームページを公開しました",
+    "description": "暇人技術部の公式ホームページをGitHub Pagesで公開しました。今後はこのページで更新情報やプロダクト、ブログを発信していきます。"
+  },
+  {
+    "date": "2026-05-20",
+    "title": "HTD.svg アイコンを追加",
+    "description": "サイトのアイコンとしてHTD.svgを追加しました。"
+  },
+  {
+    "date": "2026-05-15",
+    "title": "リポジトリ作成",
+    "description": "Himazin Technical Department 公式サイト用のリポジトリを作成しました。"
+  }
+]

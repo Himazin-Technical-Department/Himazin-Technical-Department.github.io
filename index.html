@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>暇人技術部 - Himazin Technical Department</title>
+  <link rel="icon" type="image/svg+xml" href="HTD.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="#home" class="logo">
+        <img src="HTD.svg" alt="HTD" class="logo-icon">
+        <span class="logo-text">暇人技術部</span>
+      </a>
+      <nav class="nav">
+        <a href="#home" class="nav-link" data-nav>ホーム</a>
+        <a href="#updates" class="nav-link" data-nav>お知らせ</a>
+        <a href="#products" class="nav-link" data-nav>プロダクト</a>
+        <a href="#blog" class="nav-link" data-nav>ブログ</a>
+        <a href="#members" class="nav-link" data-nav>メンバー</a>
+      </nav>
+      <button class="search-btn" aria-label="検索">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <button class="menu-toggle" aria-label="メニュー">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-overlay-inner">
+      <div class="search-input-wrap">
+        <svg class="search-input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="search-input" id="search-input" placeholder="サイト内を検索..." autofocus>
+        <button class="search-close" id="search-close">✕</button>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+
+  <main class="main" id="main-content">
+    <section class="page active" id="page-home">
+      <div class="hero">
+        <div class="hero-heading">
+          <img src="HTD.svg" alt="" class="hero-heading-icon">
+          <h1 class="hero-title">暇人技術部</h1>
+        </div>
+        <p class="hero-sub">Himazin Technical Department</p>
+        <div class="hero-links">
+          <a href="#updates" class="hero-btn">お知らせ</a>
+          <a href="#products" class="hero-btn">プロダクト</a>
+          <a href="#blog" class="hero-btn">ブログ</a>
+          <a href="#members" class="hero-btn">メンバー</a>
+        </div>
+      </div>
+      <div class="section" id="home-updates-preview">
+        <h2 class="section-title">最新のお知らせ</h2>
+        <div class="updates-list" id="home-updates"></div>
+        <a href="#updates" class="section-more">すべて見る →</a>
+      </div>
+    </section>
+
+    <section class="page" id="page-updates">
+      <div class="section">
+        <a href="#home" class="back-link">← ホームに戻る</a>
+        <h2 class="section-title">お知らせ</h2>
+        <div class="updates-list" id="updates-list"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-products">
+      <div class="section">
+        <a href="#home" class="back-link">← ホームに戻る</a>
+        <h2 class="section-title">プロダクト</h2>
+        <div class="products-grid" id="products-grid"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-blog">
+      <div class="section">
+        <a href="#home" class="back-link">← ホームに戻る</a>
+        <h2 class="section-title">ブログ</h2>
+        <div class="blog-list" id="blog-list"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-blog-post">
+      <div class="section">
+        <a href="#blog" class="back-link">← ブログ一覧に戻る</a>
+        <div id="blog-post-content"></div>
+      </div>
+    </section>
+
+    <section class="page" id="page-members">
+      <div class="section">
+        <a href="#home" class="back-link">← ホームに戻る</a>
+        <h2 class="section-title">メンバー</h2>
+        <div class="members-grid" id="members-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 Himazin Technical Department</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
