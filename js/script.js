@@ -84,10 +84,6 @@ function renderDetail(section, slug) {
 
   Promise.all([loadPostMeta(section, slug), loadPostMD(section, slug)])
     .then(([meta, md]) => {
-      const renderMD = typeof marked === 'function'
-        ? (typeof marked.parse === 'function' ? marked.parse : marked)
-        : (txt => txt.replace(/\n/g, '<br>'));
-
       let html = `<h1 class="detail-title">${esc(meta.title)}</h1>`;
 
       if (section === 'products' && meta.url) {
@@ -121,12 +117,56 @@ function renderDetail(section, slug) {
 const DEFAULT_ABOUT = '**暇人技術部 (Himazin Technical Department)** は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。\n\n部員それぞれが自由な発想でものづくりに取り組み、開発したツールや知見を発信しています。';
 
 function renderMD(text) {
-  try {
-    if (typeof marked === 'function') {
+  if (typeof marked === 'function') {
+    try {
       return typeof marked.parse === 'function' ? marked.parse(text) : marked(text);
+    } catch {}
+  }
+  const escHtml = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  let html = '';
+  let inCode = false, inList = false, codeBuf = '';
+  const lines = text.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (/^```/.test(line)) {
+      if (inCode) {
+        html += '<pre><code>' + escHtml(codeBuf.replace(/\n$/, '')) + '</code></pre>';
+        codeBuf = ''; inCode = false;
+      } else { inCode = true; }
+      continue;
     }
-  } catch {}
-  return text.replace(/\n/g, '<br>');
+    if (inCode) { codeBuf += line + '\n'; continue; }
+    if (inList && !/^\s*[-*]\s/.test(line) && !/^\s*\d+\.\s/.test(line)) {
+      html += '</ul>\n'; inList = false;
+    }
+    if (/^#{1,3}\s/.test(line)) {
+      const level = line.match(/^#+/)[0].length;
+      html += `<h${level}>${parseInline(escHtml(line.replace(/^#+\s/, '')))}</h${level}>\n`;
+    } else if (/^>\s/.test(line)) {
+      html += `<blockquote><p>${parseInline(escHtml(line.replace(/^>\s/, '')))}</p></blockquote>\n`;
+    } else if (/^[-*]\s/.test(line)) {
+      if (!inList) { html += '<ul>\n'; inList = true; }
+      html += `<li>${parseInline(escHtml(line.replace(/^[-*]\s/, '')))}</li>\n`;
+    } else if (/^\d+\.\s/.test(line)) {
+      if (!inList) { html += '<ul>\n'; inList = true; }
+      html += `<li>${parseInline(escHtml(line.replace(/^\d+\.\s/, '')))}</li>\n`;
+    } else if (line.trim() === '') {
+      html += '\n';
+    } else {
+      html += `<p>${parseInline(escHtml(line))}</p>\n`;
+    }
+  }
+  if (inCode) html += '<pre><code>' + escHtml(codeBuf.replace(/\n$/, '')) + '</code></pre>';
+  if (inList) html += '</ul>\n';
+  return html;
+  function parseInline(s) {
+    return s
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.+?)\*/g, '<em>$1</em>')
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
 }
 
 function renderAbout() {
