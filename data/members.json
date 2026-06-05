@@ -1,0 +1,42 @@
+[
+  {
+    "name": "管理者",
+    "type": "developer",
+    "role": "Founder / Developer",
+    "description": "暇人技術部の創設者。フルスタックエンジニアとして活動中。",
+    "icon": "",
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/" },
+      { "label": "Twitter", "url": "https://twitter.com/" }
+    ]
+  },
+  {
+    "name": "開発者A",
+    "type": "developer",
+    "role": "Backend Developer",
+    "description": "サーバーサイドとインフラを担当。趣味は料理。",
+    "icon": "",
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/" }
+    ]
+  },
+  {
+    "name": "開発者B",
+    "type": "creator",
+    "role": "Frontend Developer / Designer",
+    "description": "UI/UXデザインとフロントエンド開発を担当。",
+    "icon": "",
+    "links": [
+      { "label": "GitHub", "url": "https://github.com/" },
+      { "label": "Portfolio", "url": "" }
+    ]
+  },
+  {
+    "name": "開発者C",
+    "type": "supporter",
+    "role": "Mobile Developer",
+    "description": "モバイルアプリ開発をメインに活動中。",
+    "icon": "",
+    "links": []
+  }
+]
