@@ -27,7 +27,7 @@
     "type": "creator",
     "role": "動画制作者",
     "description": "Youtubeにゲーム動画を上げてる。中身はMikan_1です。",
-    "icon": "",
+    "icon": "/data/members/aobukuro.jpg",
     "links": [
       { "label": "YouTube", "url": "https://www.youtube.com/@aobukuro" }
     ]
@@ -37,7 +37,7 @@
     "type": "supporter",
     "role": "サポートメンバー",
     "description": "改善機能の提案者かつデバッガー",
-    "icon": "",
+    "icon": "data/members/macaroni.png",
     "links": [
       { "label": "Flaxia", "url": "https://flaxia.app/profile/malymt" }
     ]
@@ -57,7 +57,7 @@
     "type": "supporter",
     "role": "サポートメンバー / マスコット",
     "description": "HTDのマスコット敵存在であり、ポエマーである。",
-    "icon": "",
+    "icon": "/data/members/midorigasa.jpg",
     "links": [
       { "label": "Flaxia", "url": "https://flaxia.app/profile/green" }
     ]
