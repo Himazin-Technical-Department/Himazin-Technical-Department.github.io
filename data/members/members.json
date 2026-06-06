@@ -46,10 +46,20 @@
     "name": "ソロータス",
     "type": "supporter",
     "role": "サポートメンバー",
-    "description": "ネーミングセンスが高く、名称などを考えてもらっている。",
+    "description": "ネーミングセンスが高く、名称などを考えてもらっている。生粋のダジャラー",
     "icon": "",
     "links": [
       { "label": "Flaxia", "url": "https://flaxia.app/profile/solotus" }
+    ]
+  },
+  {
+    "name": "緑傘",
+    "type": "supporter",
+    "role": "サポートメンバー / マスコット",
+    "description": "HTDのマスコット敵存在であり、ポエマーである。",
+    "icon": "",
+    "links": [
+      { "label": "Flaxia", "url": "https://flaxia.app/profile/green" }
     ]
   }
 ]
