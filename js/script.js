@@ -18,7 +18,7 @@ async function fetchText(url) {
 
 async function loadRegistry(section) {
   if (registryCache[section]) return registryCache[section];
-  const data = await fetchJSON(`${section}/registry.json`);
+  const data = await fetchJSON(`data/${section}/registry.json`);
   registryCache[section] = data;
   return data;
 }
@@ -26,7 +26,7 @@ async function loadRegistry(section) {
 async function loadPostMeta(section, slug) {
   const key = `${section}/${slug}`;
   if (metaCache[key]) return metaCache[key];
-  const data = await fetchJSON(`${section}/${slug}/meta.json`);
+  const data = await fetchJSON(`data/${section}/${slug}/meta.json`);
   metaCache[key] = data;
   return data;
 }
@@ -35,7 +35,7 @@ async function loadPostMD(section, slug) {
   const key = `${section}/${slug}`;
   if (mdCache[key]) return mdCache[key];
   try {
-    const text = await fetchText(`${section}/${slug}/index.md`);
+    const text = await fetchText(`data/${section}/${slug}/index.md`);
     mdCache[key] = text;
     return text;
   } catch {
@@ -190,7 +190,7 @@ function renderAbout() {
 
   const show = (text) => { container.innerHTML = renderMD(text); };
 
-  fetch('about.json')
+  fetch('data/about.json')
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
       if (data && data.content) show(data.content);
@@ -290,7 +290,7 @@ function renderMembers() {
   const container = document.getElementById('members-grid');
   if (!container) return;
 
-  fetchJSON('data/members.json')
+  fetchJSON('data/members/members.json')
     .then(data => {
       const typeLabel = { developer: '開発者', creator: 'クリエイター', supporter: 'サポーター' };
       container.innerHTML = data.map(item => `

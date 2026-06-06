@@ -1,13 +1,13 @@
 [
   {
-    "name": "管理者",
+    "name": "レミィドール・S",
     "type": "developer",
-    "role": "Founder / Developer",
+    "role": "Administrator / Developer",
     "description": "暇人技術部の創設者。フルスタックエンジニアとして活動中。",
     "icon": "",
     "links": [
       { "label": "GitHub", "url": "https://github.com/" },
-      { "label": "Twitter", "url": "https://twitter.com/" }
+      { "label": "Flaxia", "url": "https://twitter.com/" }
     ]
   },
   {

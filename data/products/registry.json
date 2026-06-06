@@ -4,7 +4,7 @@
     "title": "HimaMarket",
     "date": "2026-06-05",
     "excerpt": "シンプルで使いやすいフリマアプリ。誰でも簡単に出品・購入できます。",
-    "icon": "products/himamarket/icon.svg",
+    "icon": "data/products/himamarket/icon.svg",
     "url": "https://github.com/Himazin-TD/himamarket",
     "urlLabel": "GitHub",
     "detailLabel": "詳しく見る"
@@ -14,7 +14,7 @@
     "title": "HimaWeather",
     "date": "2026-05-20",
     "excerpt": "洗練されたデザインの天気予報アプリ。週間予報・降水量など多彩な情報を提供。",
-    "icon": "products/himaweather/icon.svg",
+    "icon": "data/products/himaweather/icon.svg",
     "detailLabel": "詳細を見る"
   },
   {
@@ -22,7 +22,7 @@
     "title": "HimaCanvas",
     "date": "2026-04-10",
     "excerpt": "ブラウザで動作する軽量お絵かきツール。レイヤー・豊富なブラシ・フィルター完備。",
-    "icon": "products/himacanvas/icon.svg",
+    "icon": "data/products/himacanvas/icon.svg",
     "url": "https://himacanvas.pages.dev",
     "urlLabel": "使ってみる",
     "detailLabel": "機能を見る"

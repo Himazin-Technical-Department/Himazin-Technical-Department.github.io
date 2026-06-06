@@ -8,27 +8,29 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 ├── index.html             # メインページ (SPA)
 ├── HTD.svg                # サイトアイコン
 ├── logo.svg               # ロゴ
-├── about.json             # 団体説明 (Markdown形式)
 ├── css/style.css          # スタイルシート
 ├── js/script.js           # アプリケーションロジック
-├── updates/               # お知らせ
-│   ├── registry.json      # 一覧データ
-│   └── {slug}/
-│       ├── meta.json      # メタデータ
-│       └── index.md       # Markdown本文
-├── products/              # プロダクト
-│   ├── registry.json
-│   └── {slug}/
-│       ├── meta.json
-│       ├── index.md
-│       └── icon.svg       # プロダクトアイコン
-├── blog/                  # ブログ
-│   ├── registry.json
-│   └── {slug}/
-│       ├── meta.json
-│       ├── index.md
-│       └── (画像ファイル)
-├── data/members.json      # メンバー情報
+├── data/                  # コンテンツデータ
+│   ├── about.json         # 団体説明 (Markdown形式)
+│   ├── members/
+│   │   └── members.json   # メンバー情報
+│   ├── updates/           # お知らせ
+│   │   ├── registry.json  # 一覧データ
+│   │   └── {slug}/
+│   │       ├── meta.json  # メタデータ
+│   │       └── index.md   # Markdown本文
+│   ├── products/          # プロダクト
+│   │   ├── registry.json
+│   │   └── {slug}/
+│   │       ├── meta.json
+│   │       ├── index.md
+│   │       └── icon.svg   # プロダクトアイコン
+│   └── blog/              # ブログ
+│       ├── registry.json
+│       └── {slug}/
+│           ├── meta.json
+│           ├── index.md
+│           └── (画像ファイル)
 ├── LICENSE                # MIT License
 └── README.md
 ```
@@ -37,9 +39,9 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 
 ### お知らせ / プロダクト / ブログ
 
-1. `{section}/{slug}/` フォルダを作成
+1. `data/{section}/{slug}/` フォルダを作成
 2. `meta.json` と `index.md` を配置
-3. `{section}/registry.json` にエントリを追加
+3. `data/{section}/registry.json` にエントリを追加
 
 `index.md` は通常の Markdown で記述します。画像も配置可能です。Markdown のレンダリングには [markdown-it](https://github.com/markdown-it/markdown-it) を使用しています。
 
@@ -64,7 +66,7 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
     "title": "プロダクト名",
     "date": "2026-06-05",
     "excerpt": "説明",
-    "icon": "products/{slug}/icon.svg",
+    "icon": "data/products/{slug}/icon.svg",
     "url": "https://...",
     "urlLabel": "GitHub",
     "detailLabel": "詳しく見る"
@@ -73,7 +75,7 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 
 ### メンバー
 
-`data/members.json` を編集します。
+`data/members/members.json` を編集します。
 
 ```json
 {
