@@ -15,7 +15,7 @@
     "type": "developer",
     "role": "サイト管理者 / 開発者",
     "description": "色々なことに手を出してる人。マイクラmod制作者でもある。",
-    "icon": "./Mikan_1.jpg",
+    "icon": "/data/members/Mikan_1.jpg",
     "links": [
       { "label": "GitHub", "url": "https://github.com/Mikan256" },
       { "label": "Flaxia", "url": "https://flaxia.app/profile/mikan256" },
