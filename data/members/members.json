@@ -2,41 +2,54 @@
   {
     "name": "レミィドール・S",
     "type": "developer",
-    "role": "Administrator / Developer",
-    "description": "暇人技術部の創設者。フルスタックエンジニアとして活動中。",
+    "role": "コミュニティ管理者 / 開発者",
+    "description": "暇人技術部の創設者。",
     "icon": "",
     "links": [
-      { "label": "GitHub", "url": "https://github.com/" },
-      { "label": "Flaxia", "url": "https://twitter.com/" }
+      { "label": "GitHub", "url": "https://github.com/RemydreScarlet" },
+      { "label": "Flaxia", "url": "https://flaxia.app/profile/remydrescarlet" }
     ]
   },
   {
-    "name": "開発者A",
+    "name": "Mikan_1",
     "type": "developer",
-    "role": "Backend Developer",
-    "description": "サーバーサイドとインフラを担当。趣味は料理。",
+    "role": "サイト管理者 / 開発者",
+    "description": "色々なことに手を出してる人。マイクラmod制作者でもある。",
     "icon": "",
     "links": [
-      { "label": "GitHub", "url": "https://github.com/" }
+      { "label": "GitHub", "url": "https://github.com/Mikan256" },
+      { "label": "Flaxia", "url": "https://flaxia.app/profile/mikan256" },
+      { "label": "Curse Forge", "url": "https://www.curseforge.com/members/mikan_1" }
     ]
   },
   {
-    "name": "開発者B",
+    "name": "青袋",
     "type": "creator",
-    "role": "Frontend Developer / Designer",
-    "description": "UI/UXデザインとフロントエンド開発を担当。",
+    "role": "動画制作者",
+    "description": "Youtubeにゲーム動画を上げてる。中身はMikan_1です。",
     "icon": "",
     "links": [
-      { "label": "GitHub", "url": "https://github.com/" },
-      { "label": "Portfolio", "url": "" }
+      { "label": "YouTube", "url": "https://www.youtube.com/@aobukuro" }
     ]
   },
   {
-    "name": "開発者C",
+    "name": "マカロニ",
     "type": "supporter",
-    "role": "Mobile Developer",
-    "description": "モバイルアプリ開発をメインに活動中。",
+    "role": "サポートメンバー",
+    "description": "改善機能の提案者かつデバッガー",
     "icon": "",
-    "links": []
+    "links": [
+      { "label": "Flaxia", "url": "https://flaxia.app/profile/malymt" }
+    ]
+  },
+  {
+    "name": "ソロータス",
+    "type": "supporter",
+    "role": "サポートメンバー",
+    "description": "ネーミングセンスが高く、名称などを考えてもらっている。",
+    "icon": "",
+    "links": [
+      { "label": "Flaxia", "url": "https://flaxia.app/profile/solotus" }
+    ]
   }
 ]
