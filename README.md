@@ -41,7 +41,7 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 2. `meta.json` と `index.md` を配置
 3. `{section}/registry.json` にエントリを追加
 
-`index.md` は通常の Markdown で記述します。画像も配置可能です。Markdown のレンダリングには [marked.js](https://marked.js.org/) を使用しています。
+`index.md` は通常の Markdown で記述します。画像も配置可能です。Markdown のレンダリングには [markdown-it](https://github.com/markdown-it/markdown-it) を使用しています。
 
 **meta.json の形式:**
 
@@ -93,7 +93,7 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 ## 機能
 
 - **SPA ルーティング** — ハッシュベース (`#home`, `#updates`, `#products`, `#blog`, `#members`)
-- **Markdown レンダリング** — marked.js による変換
+- **Markdown レンダリング** — markdown-it による変換
 - **検索** — Ctrl+K / ⌘K または検索ボタンから全コンテンツを横断検索
 
 ## ローカルでの確認

@@ -132,9 +132,9 @@ function renderDetail(section, slug) {
 const DEFAULT_ABOUT = '**暇人技術部 (Himazin Technical Department)** は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。\n\n部員それぞれが自由な発想でものづくりに取り組み、開発したツールや知見を発信しています。';
 
 function renderMD(text) {
-  if (typeof marked === 'function') {
+  if (typeof markdownit === 'function') {
     try {
-      return typeof marked.parse === 'function' ? marked.parse(text) : marked(text);
+      return markdownit().render(text);
     } catch {}
   }
   const escHtml = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');

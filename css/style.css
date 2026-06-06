@@ -51,7 +51,7 @@ img {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 16px;
   letter-spacing: 0.04em;
   flex-shrink: 0;
