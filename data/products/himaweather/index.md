@@ -1,3 +1,11 @@
+---
+title: HimaWeather
+date: 2026-05-20
+excerpt: 洗練されたデザインの天気予報アプリ。週間予報・降水量・風速など多彩な情報を提供します。
+icon: data/products/himaweather/icon.svg
+detailLabel: 詳細を見る
+---
+
 ## HimaWeather
 
 **HimaWeather** は、美しいUIと正確な天気情報を提供する天気予報アプリです。

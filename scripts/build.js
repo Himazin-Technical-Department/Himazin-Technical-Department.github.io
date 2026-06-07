@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { parseFrontmatter } from './frontmatter.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -279,7 +280,8 @@ function buildDetail(sectionKey, item) {
   const mdPath = join(root, 'data', sectionKey, item.slug, 'index.md');
   let bodyHtml = '';
   if (existsSync(mdPath)) {
-    bodyHtml = md.render(readFileSync(mdPath, 'utf-8'));
+    const { content } = parseFrontmatter(readFileSync(mdPath, 'utf-8'));
+    bodyHtml = md.render(content);
   } else if (item.body) {
     bodyHtml = md.render(item.body);
   }

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { parseFrontmatter } from './frontmatter.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -8,7 +9,7 @@ const root = join(__dirname, '..');
 const SITE_URL = 'https://himazin-technical-department.github.io';
 const sections = ['updates', 'products', 'blog'];
 
-/* ── registry.json ── */
+/* ── registry.json + meta.json (from frontmatter) ── */
 function generateRegistries() {
   for (const section of sections) {
     const dir = join(root, 'data', section);
@@ -17,14 +18,16 @@ function generateRegistries() {
 
     const items = entries
       .map(e => {
+        const mdPath = join(dir, e.name, 'index.md');
+        if (!existsSync(mdPath)) return null;
+        const text = readFileSync(mdPath, 'utf-8');
+        const { data, content } = parseFrontmatter(text);
+        if (!data.title) return null;
+
         const metaPath = join(dir, e.name, 'meta.json');
-        if (!existsSync(metaPath)) return null;
-        try {
-          const meta = JSON.parse(readFileSync(metaPath, 'utf-8'));
-          return { slug: e.name, ...meta };
-        } catch {
-          return null;
-        }
+        writeFileSync(metaPath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
+
+        return { slug: e.name, ...data };
       })
       .filter(Boolean)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
