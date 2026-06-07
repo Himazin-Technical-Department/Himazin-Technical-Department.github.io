@@ -187,7 +187,7 @@ function processExternalLinks(root) {
     link.setAttribute('data-og', '1');
     const href = link.getAttribute('href');
     if (!href || href.includes(SITE_DOMAIN) || href.includes('youtube.com') || href.includes('youtu.be')) return;
-    if (link.closest('.detail-meta, .blog-post-meta, .product-actions, .back-link, .header, .footer')) return;
+    if (link.closest('.detail-meta, .blog-post-meta, .product-actions, .product-btn, .back-link, .header, .footer')) return;
 
     const placeholder = document.createElement('div');
     placeholder.className = 'link-preview-loading';
@@ -230,6 +230,53 @@ function convertYouTubeEmbeds(html) {
     /<a\s[^>]*href="(?:https?:)?\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)(?:&[^"]*)?"[^>]*>.*?<\/a>/gi,
     (_, id) => `<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/${id}" frameborder="0" allowfullscreen loading="lazy"></iframe></div>`
   );
+}
+
+/* ── smooth standalone navigation ── */
+
+async function navigateTo(url, push = true) {
+  if (url === location.pathname + location.search) return;
+  if (url === '/') { window.location.href = url; return; }
+  const main = document.querySelector('main');
+  if (!main) { window.location.href = url; return; }
+  const scrollY = window.scrollY;
+  try {
+    const res = await fetch(url);
+    if (!res.ok) { window.location.href = url; return; }
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const newMain = doc.querySelector('main');
+    const newTitle = doc.querySelector('title');
+    if (!newMain) { window.location.href = url; return; }
+    main.innerHTML = newMain.innerHTML;
+    if (push) history.pushState({ url, scrollY }, '', url);
+    if (newTitle) document.title = newTitle.textContent;
+    ['description', 'og:title', 'og:description', 'og:url', 'og:image'].forEach(p => {
+      const el = doc.querySelector(p.includes(':') ? `meta[property="${p}"]` : `meta[name="${p}"]`);
+      const cur = document.querySelector(p.includes(':') ? `meta[property="${p}"]` : `meta[name="${p}"]`);
+      if (el && cur) cur.setAttribute('content', el.getAttribute('content'));
+    });
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || url);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    processExternalLinks(main);
+  } catch {
+    window.location.href = url;
+  }
+}
+
+function setupStandaloneNav() {
+  history.replaceState({ url: location.pathname }, '');
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href || !href.startsWith('/') || href === '/' || href.startsWith('//') || href.startsWith('http') || href.startsWith('#')) return;
+    e.preventDefault();
+    navigateTo(href);
+  });
+  window.addEventListener('popstate', e => {
+    if (e.state?.url) navigateTo(e.state.url, false);
+  });
 }
 
 function renderMD(text) {
@@ -520,6 +567,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!document.getElementById('page-home')) {
     processExternalLinks(document.querySelector('.section-detail'));
+  }
+
+  if (!document.getElementById('page-home')) {
+    setupStandaloneNav();
   }
 
   document.querySelector('.search-btn').addEventListener('click', openSearch);
