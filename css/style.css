@@ -489,7 +489,7 @@ img {
 .detail-icon {
   width: 80px;
   height: 80px;
-  margin: 0 auto 20px;
+  margin: 0 0 20px;
   border-radius: 18px;
   overflow: hidden;
   display: flex;

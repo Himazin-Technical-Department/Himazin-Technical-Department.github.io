@@ -256,6 +256,7 @@ function buildListing(sectionKey, registry) {
   if (sectionKey === 'products') {
     writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
 <div class="section">
+  <a href="/" class="back-link">← ホームに戻る</a>
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="products-grid">${registry.map(item => `
     <div class="product-card">
@@ -272,6 +273,7 @@ function buildListing(sectionKey, registry) {
   } else {
     writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
 <div class="section">
+  <a href="/" class="back-link">← ホームに戻る</a>
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="item-list">${registry.map(item => `
     <a href="/${sectionKey}/${item.slug}/" class="item-list-item">
@@ -409,6 +411,7 @@ function buildMembers(data) {
   const typeLabel = { developer: '開発者', creator: 'クリエイター', supporter: 'サポーター' };
   writePage(join(root, 'members', 'index.html'), 'メンバー', null, `${SITE_URL}/members/`, 'members', `
 <div class="section">
+  <a href="/" class="back-link">← ホームに戻る</a>
   <h2 class="section-title">メンバー</h2>
   <div class="members-grid">${data.map(item => `
     <div class="member-card">
