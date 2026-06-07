@@ -1,0 +1,12 @@
+{
+  "name": "htd-official",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "node scripts/generate-registry.js",
+    "build": "node scripts/generate-registry.js && node scripts/build.js"
+  },
+  "dependencies": {
+    "markdown-it": "^14.2.0"
+  }
+}

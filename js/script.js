@@ -1,9 +1,29 @@
+const SITE_NAME = '暇人技術部';
 const SECTIONS = ['updates', 'products', 'blog'];
+const PATH_TO_HASH = {
+  '/': 'home',
+  '/updates/': 'updates',
+  '/products/': 'products',
+  '/blog/': 'blog',
+  '/members/': 'members',
+};
 const registryCache = {};
 const metaCache = {};
 const mdCache = {};
 
-/* ── データ読み込み ── */
+function updatePageMeta(title, description, image) {
+  document.title = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - Himazin Technical Department`;
+  const desc = description || '暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。';
+  document.querySelector('meta[name="description"]').setAttribute('content', desc);
+  document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
+  document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+  document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://himazin-technical-department.github.io' + location.pathname);
+  document.querySelector('meta[property="og:image"]').setAttribute('content', image || 'https://himazin-technical-department.github.io/logo.svg');
+  document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title);
+  document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+  document.querySelector('meta[name="twitter:card"]').setAttribute('content', image ? 'summary_large_image' : 'summary');
+}
+
 async function fetchJSON(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -48,8 +68,6 @@ async function loadPostMD(section, slug) {
   }
 }
 
-/* ── レンダリング ── */
-/* ── プロダクト ショーケース ── */
 function renderProducts(containerId, items) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -59,12 +77,12 @@ function renderProducts(containerId, items) {
   }
   container.innerHTML = items.map(item =>
     `<div class="product-card">
-      ${item.icon ? `<div class="product-icon"><img src="${esc(item.icon)}" alt="${esc(item.title)}"></div>` : ''}
+      ${item.icon ? `<div class="product-icon"><img src="${esc(item.icon)}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
-        <a href="#products/${item.slug}" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
-        ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
+        <a href="/products/${item.slug}/" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
+        ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
       </div>
     </div>`
   ).join('');
@@ -78,7 +96,7 @@ function renderItemList(containerId, items, section) {
     return;
   }
   container.innerHTML = items.map(item =>
-    `<a href="#${section}/${item.slug}" class="item-list-item">
+    `<a href="/${section}/${item.slug}/" class="item-list-item">
       <div class="item-date">${esc(formatDate(item.date))}</div>
       <h3>${esc(item.title)}</h3>
       ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
@@ -95,15 +113,16 @@ function renderDetail(section, slug) {
 
   Promise.all([loadPostMeta(section, slug), loadPostMD(section, slug)])
     .then(([meta, md]) => {
+      updatePageMeta(meta.title, meta.excerpt, meta.icon ? 'https://himazin-technical-department.github.io/' + meta.icon : null);
       let html = '';
       if (meta.icon) {
-        html += `<div class="detail-icon"><img src="${esc(meta.icon)}" alt="${esc(meta.title)}"></div>`;
+        html += `<div class="detail-icon"><img src="${esc(meta.icon)}" alt="${esc(meta.title)}" loading="lazy"></div>`;
       }
       html += `<h1 class="detail-title">${esc(meta.title)}</h1>`;
 
       if (section === 'products' && meta.url) {
         html += `<div style="margin-bottom:24px">
-          <a href="${esc(meta.url)}" target="_blank" rel="noopener" class="product-btn product-btn-primary" style="display:inline-block;padding:10px 28px;font-size:14px">${esc(meta.urlLabel || 'サイトへ')}</a>
+          <a href="${esc(meta.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-primary" style="display:inline-block;padding:10px 28px;font-size:14px">${esc(meta.urlLabel || 'サイトへ')}</a>
         </div>`;
       }
 
@@ -120,7 +139,7 @@ function renderDetail(section, slug) {
         html += `<span class="detail-meta-item">${meta.tags.map(t => `<span class="blog-tag">${esc(t)}</span>`).join('')}</span>`;
       }
       html += '</div>';
-      html += `<div class="detail-content">${renderMD(md)}</div>`;
+      html += `<article class="detail-content">${renderMD(md)}</article>`;
       container.innerHTML = html;
     })
     .catch(err => {
@@ -128,7 +147,6 @@ function renderDetail(section, slug) {
     });
 }
 
-/* ── トップページ 団体説明 ── */
 const DEFAULT_ABOUT = '**暇人技術部 (Himazin Technical Department)** は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。\n\n部員それぞれが自由な発想でものづくりに取り組み、開発したツールや知見を発信しています。';
 
 function renderMD(text) {
@@ -180,16 +198,14 @@ function renderMD(text) {
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
   }
 }
 
 function renderAbout() {
   const container = document.getElementById('about-content');
   if (!container) return;
-
   const show = (text) => { container.innerHTML = renderMD(text); };
-
   fetch('data/about.json')
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(data => {
@@ -199,7 +215,6 @@ function renderAbout() {
     .catch(() => show(DEFAULT_ABOUT));
 }
 
-/* ── ユーティリティ ── */
 function formatDate(str) {
   if (!str) return '';
   const d = new Date(str);
@@ -213,10 +228,10 @@ function esc(str) {
   return div.innerHTML;
 }
 
-/* ── ルーティング ── */
 function showPage(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('[data-nav]').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('[data-nav]').forEach(n => n.removeAttribute('aria-current'));
 
   const page = document.getElementById(`page-${pageId}`);
   if (page) page.classList.add('active');
@@ -228,14 +243,18 @@ function showPage(pageId) {
   };
   const navKey = navMap[pageId];
   if (navKey) {
-    const navLink = document.querySelector(`[data-nav][href="#${navKey}"]`);
-    if (navLink) navLink.classList.add('active');
+    const navLink = document.querySelector(`[data-nav][data-section="${navKey}"]`);
+    if (navLink) {
+      navLink.classList.add('active');
+      navLink.setAttribute('aria-current', 'page');
+    }
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function handleRoute() {
+  if (!document.getElementById('page-home')) return;
   const hash = window.location.hash.replace('#', '') || 'home';
 
   const detailMatch = hash.match(/^(updates|products|blog)\/(.+)$/);
@@ -244,13 +263,15 @@ function handleRoute() {
     const slug = detailMatch[2];
     const pageId = section === 'blog' ? 'blog-detail' : `${section}-detail`;
     showPage(pageId);
-    document.querySelector(`#page-${pageId} .back-link`).href = `#${section}`;
+    const backLink = document.querySelector(`#page-${pageId} .back-link`);
+    if (backLink) backLink.href = `/${section}/`;
     renderDetail(section, slug);
     return;
   }
 
   if (hash === 'home') {
     showPage('home');
+    updatePageMeta();
     renderAbout();
     loadRegistry('updates').then(d => renderItemList('home-updates', d.slice(0, 5), 'updates')).catch(() => {});
     loadRegistry('products').then(d => renderProducts('home-products', d.slice(0, 3))).catch(() => {});
@@ -260,6 +281,8 @@ function handleRoute() {
 
   if (SECTIONS.includes(hash)) {
     showPage(hash);
+    const labels = { updates: 'お知らせ', products: 'プロダクト', blog: 'ブログ' };
+    updatePageMeta(labels[hash]);
     if (hash === 'products') {
       loadRegistry(hash).then(d => renderProducts(`${hash}-list`, d)).catch(() => {
         const el = document.getElementById(`${hash}-list`);
@@ -276,6 +299,7 @@ function handleRoute() {
 
   if (hash === 'members') {
     showPage('members');
+    updatePageMeta('メンバー');
     renderMembers();
     return;
   }
@@ -285,7 +309,6 @@ function handleRoute() {
 
 window.addEventListener('hashchange', handleRoute);
 
-/* ── メンバー ── */
 function renderMembers() {
   const container = document.getElementById('members-grid');
   if (!container) return;
@@ -296,20 +319,19 @@ function renderMembers() {
       container.innerHTML = data.map(item => `
         <div class="member-card">
           <div class="member-icon">
-            ${item.icon ? `<img src="${esc(item.icon)}" alt="${esc(item.name)}">` : esc(item.name.charAt(0))}
+            ${item.icon ? `<img src="${esc(item.icon)}" alt="${esc(item.name)}" loading="lazy">` : esc(item.name.charAt(0))}
           </div>
           ${item.type ? `<span class="member-type ${esc(item.type)}">${esc(typeLabel[item.type] || item.type)}</span>` : ''}
           <h3>${esc(item.name)}</h3>
           <div class="member-role">${esc(item.role)}</div>
           <div class="member-desc">${esc(item.description)}</div>
-          ${item.links && item.links.length ? `<div class="member-links">${item.links.map(link => link.url ? `<a href="${esc(link.url)}" class="member-link" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>${esc(link.label)}</a>` : '').join('')}</div>` : ''}
+          ${item.links && item.links.length ? `<div class="member-links">${item.links.map(link => link.url ? `<a href="${esc(link.url)}" class="member-link" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>${esc(link.label)}</a>` : '').join('')}</div>` : ''}
         </div>
       `).join('');
     })
     .catch(() => { container.innerHTML = '<p style="color:#999;">読み込みに失敗しました</p>'; });
 }
 
-/* ── 検索 ── */
 function preloadAll() {
   SECTIONS.forEach(s => loadRegistry(s).catch(() => {}));
 }
@@ -339,7 +361,7 @@ function performSearch(query) {
       i.title.toLowerCase().includes(q) || (i.excerpt || '').toLowerCase().includes(q)
     );
     if (items.length) {
-      out.push({ label: labels[section], items: items.map(i => ({ ...i, _page: `${section}/${i.slug}` })) });
+      out.push({ label: labels[section], items: items.map(i => ({ ...i, _page: `/${section}/${i.slug}/` })) });
     }
   }
 
@@ -352,7 +374,7 @@ function performSearch(query) {
     `<div class="search-section">
       <div class="search-section-label">${esc(s.label)}</div>
       ${s.items.map(item =>
-        `<a href="#${item._page}" class="search-result-item">
+        `<a href="${item._page}" class="search-result-item">
           <div class="search-result-title">${highlight(item.title, query)}</div>
           ${item.excerpt ? `<div class="search-result-desc">${highlight(item.excerpt.slice(0, 100), query)}</div>` : ''}
         </a>`
@@ -361,7 +383,17 @@ function performSearch(query) {
   ).join('');
 
   results.querySelectorAll('.search-result-item').forEach(el => {
-    el.addEventListener('click', closeSearch);
+    el.addEventListener('click', (e) => {
+      closeSearch();
+      const href = el.getAttribute('href');
+      if (href && document.getElementById('page-home')) {
+        e.preventDefault();
+        const m = href.match(/^\/(updates|products|blog)\/([^/]+)\/$/);
+        if (m) {
+          window.location.hash = `${m[1]}/${m[2]}`;
+        }
+      }
+    });
   });
 }
 
@@ -373,7 +405,6 @@ function highlight(text, query) {
 
 let searchTimer;
 
-/* ── 初期化 ── */
 document.addEventListener('DOMContentLoaded', () => {
   handleRoute();
 
@@ -387,11 +418,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelectorAll('[data-nav], .hero-btn, .section-more').forEach(el => {
+  document.querySelectorAll('[data-nav], .hero-btn, .section-more, .back-link').forEach(el => {
     el.addEventListener('click', (e) => {
-      e.preventDefault();
       const href = el.getAttribute('href');
-      if (href) window.location.hash = href.replace('#', '');
+      let hash = null;
+      if (href && href.startsWith('/')) {
+        hash = PATH_TO_HASH[href];
+      } else if (href && href.startsWith('#')) {
+        hash = href.replace('#', '');
+      }
+      if (hash && document.getElementById('page-home')) {
+        e.preventDefault();
+        window.location.hash = hash;
+      }
     });
   });
 
