@@ -61,7 +61,8 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap&font-display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
-  ${extraHead || ''}
+  <meta name="robots" content="index, follow">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="${SITE_NAME}">
   <meta property="og:title" content="${fullTitle}">
@@ -72,6 +73,7 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="${fullTitle}">
   <meta name="twitter:description" content="${desc}">
+  ${extraHead || ''}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -317,7 +319,12 @@ function buildDetail(sectionKey, item) {
 
   const slugUrl = `${SITE_URL}/${sectionKey}/${item.slug}/`;
 
-  let extraLd = `<script type="application/ld+json">
+  const ogImage = item.icon ? `${SITE_URL}/${esc(item.icon)}` : null;
+
+  let extraLd = ogImage ? `<meta property="og:image" content="${ogImage}">
+<meta name="twitter:card" content="summary_large_image">
+` : '';
+  extraLd += `<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",

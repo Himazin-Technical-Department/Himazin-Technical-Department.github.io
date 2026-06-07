@@ -4,14 +4,17 @@ const registryCache = {};
 const metaCache = {};
 const mdCache = {};
 
-function updatePageMeta(title, description) {
+function updatePageMeta(title, description, image) {
   document.title = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - Himazin Technical Department`;
   const desc = description || '暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。';
   document.querySelector('meta[name="description"]').setAttribute('content', desc);
   document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+  document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://himazin-technical-department.github.io' + location.hash);
+  document.querySelector('meta[property="og:image"]').setAttribute('content', image || 'https://himazin-technical-department.github.io/logo.svg');
   document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title);
   document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+  document.querySelector('meta[name="twitter:card"]').setAttribute('content', image ? 'summary_large_image' : 'summary');
 }
 
 async function fetchJSON(url) {
@@ -103,7 +106,7 @@ function renderDetail(section, slug) {
 
   Promise.all([loadPostMeta(section, slug), loadPostMD(section, slug)])
     .then(([meta, md]) => {
-      updatePageMeta(meta.title, meta.excerpt);
+      updatePageMeta(meta.title, meta.excerpt, meta.icon ? 'https://himazin-technical-department.github.io/' + meta.icon : null);
       let html = '';
       if (meta.icon) {
         html += `<div class="detail-icon"><img src="${esc(meta.icon)}" alt="${esc(meta.title)}" loading="lazy"></div>`;
