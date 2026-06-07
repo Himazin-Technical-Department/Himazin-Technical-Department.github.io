@@ -222,10 +222,10 @@ function buildHomepage(aboutHtml, updates, products, blog) {
 }
 
 const SECTION_META = {
-  updates: { title: 'お知らせ', label: 'お知らせ', back: '/updates/' },
-  products: { title: 'プロダクト', label: 'プロダクト', back: '/products/' },
-  blog: { title: 'ブログ', label: 'ブログ', back: '/blog/' },
-  members: { title: 'メンバー', label: 'メンバー', back: '/members/' },
+  updates: { title: 'お知らせ', label: 'お知らせ', back: '#updates' },
+  products: { title: 'プロダクト', label: 'プロダクト', back: '#products' },
+  blog: { title: 'ブログ', label: 'ブログ', back: '#blog' },
+  members: { title: 'メンバー', label: 'メンバー', back: '#members' },
 };
 
 function buildListing(sectionKey, registry) {
@@ -323,7 +323,7 @@ function buildDetail(sectionKey, item) {
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "${SITE_NAME}", "item": "${SITE_URL}/" },
-    { "@type": "ListItem", "position": 2, "name": "${esc(meta.label)}", "item": "${SITE_URL}/${sectionKey}/" },
+    { "@type": "ListItem", "position": 2, "name": "${esc(meta.label)}", "item": "${SITE_URL}/#${sectionKey}" },
     { "@type": "ListItem", "position": 3, "name": "${esc(item.title)}", "item": "${slugUrl}" }
   ]
 }
@@ -406,13 +406,31 @@ function buildMembers(data) {
 </div>`);
 }
 
+/* ── listing redirects ── */
+function buildRedirect(dir, hash) {
+  const html = ko`<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${SITE_NAME} - Himazin Technical Department</title>
+  <meta http-equiv="refresh" content="0;url=/${hash}">
+  <link rel="canonical" href="${SITE_URL}/">
+  <script>location.href="/${hash}"</script>
+</head>
+<body>
+  <p><a href="/${hash}">${SITE_NAME}</a></p>
+</body>
+</html>`;
+  const outPath = join(root, dir, 'index.html');
+  mkdirSync(dirname(outPath), { recursive: true });
+  writeFileSync(outPath, html, 'utf-8');
+  console.log(`  ${outPath} (redirect → /${hash})`);
+}
+
 /* ── main ── */
 
 console.log('Building pages...');
-
-// Load data
-const aboutData = readJSON(join(root, 'data', 'about.json'));
-const aboutHtml = md.render(aboutData.content);
 
 const sections = ['updates', 'products', 'blog'];
 const registries = {};
@@ -421,20 +439,13 @@ for (const section of sections) {
   registries[section] = existsSync(path) ? readJSON(path) : [];
 }
 
-const members = readJSON(join(root, 'data', 'members', 'members.json'));
+// Listing redirects (so /updates/ → /#updates, etc.)
+buildRedirect('updates', '#updates');
+buildRedirect('products', '#products');
+buildRedirect('blog', '#blog');
+buildRedirect('members', '#members');
 
-// Homepage
-buildHomepage(aboutHtml, registries.updates, registries.products, registries.blog);
-
-// Listing pages
-for (const section of sections) {
-  buildListing(section, registries[section]);
-}
-
-// Members page
-buildMembers(members);
-
-// Detail pages
+// Detail pages (separate HTML for SEO / crawlers)
 for (const section of sections) {
   for (const item of registries[section]) {
     buildDetail(section, item);
