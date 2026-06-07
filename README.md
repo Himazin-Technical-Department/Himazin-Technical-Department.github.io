@@ -5,32 +5,48 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 ## 構成
 
 ```
-├── index.html             # メインページ (SPA)
+├── index.html             # トップページ (自動生成)
 ├── HTD.svg                # サイトアイコン
 ├── logo.svg               # ロゴ
+├── 404.html               # カスタム404ページ
+├── robots.txt             # クローラ設定
+├── sitemap.xml            # サイトマップ (自動生成)
+├── package.json           # ビルドスクリプト
+├── scripts/
+│   ├── generate-registry.js  # registry.json / sitemap.xml 生成
+│   └── build.js              # HTMLページ生成 (マルチページ化)
 ├── css/style.css          # スタイルシート
-├── js/script.js           # アプリケーションロジック
-├── data/                  # コンテンツデータ
+├── js/script.js           # 検索・メニュー制御
+├── data/                  # コンテンツデータ (ソース)
 │   ├── about.json         # 団体説明 (Markdown形式)
+│   ├── about.json
 │   ├── members/
 │   │   └── members.json   # メンバー情報
 │   ├── updates/           # お知らせ
-│   │   ├── registry.json  # 一覧データ
 │   │   └── {slug}/
-│   │       ├── meta.json  # メタデータ
-│   │       └── index.md   # Markdown本文
+│   │       ├── meta.json
+│   │       └── index.md
 │   ├── products/          # プロダクト
-│   │   ├── registry.json
 │   │   └── {slug}/
 │   │       ├── meta.json
 │   │       ├── index.md
 │   │       └── icon.svg   # プロダクトアイコン
 │   └── blog/              # ブログ
-│       ├── registry.json
 │       └── {slug}/
 │           ├── meta.json
 │           ├── index.md
 │           └── (画像ファイル)
+├── updates/               # お知らせページ (自動生成)
+│   ├── index.html
+│   └── {slug}/index.html
+├── products/              # プロダクトページ (自動生成)
+│   ├── index.html
+│   └── {slug}/index.html
+├── blog/                  # ブログページ (自動生成)
+│   ├── index.html
+│   └── {slug}/index.html
+├── members/               # メンバーページ (自動生成)
+│   └── index.html
 ├── LICENSE                # MIT License
 └── README.md
 ```
@@ -41,7 +57,10 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 
 1. `data/{section}/{slug}/` フォルダを作成
 2. `meta.json` と `index.md` を配置
-3. `data/{section}/registry.json` にエントリを追加
+3. 以下のコマンドで全ページを自動生成:
+   ```bash
+   npm run build
+   ```
 
 `index.md` は通常の Markdown で記述します。画像も配置可能です。Markdown のレンダリングには [markdown-it](https://github.com/markdown-it/markdown-it) を使用しています。
 
@@ -94,17 +113,18 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 
 ## 機能
 
-- **SPA ルーティング** — ハッシュベース (`#home`, `#updates`, `#products`, `#blog`, `#members`)
-- **Markdown レンダリング** — markdown-it による変換
+- **静的マルチページ** — 全ページが個別のHTMLファイル、SEOフレンドリー
+- **Markdown レンダリング** — ビルド時に markdown-it で変換、コンテンツが直接HTMLに含まれる
 - **検索** — Ctrl+K / ⌘K または検索ボタンから全コンテンツを横断検索
 
 ## ローカルでの確認
 
 ```bash
+npm run build
 python3 -m http.server 8080
 ```
 
-ブラウザで `http://localhost:8080` を開きます。`fetch()` を使用しているため `file://` では動作しません。
+ブラウザで `http://localhost:8080` を開きます。
 
 ## ライセンス
 
