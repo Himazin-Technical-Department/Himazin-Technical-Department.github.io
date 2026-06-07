@@ -141,18 +141,101 @@ function renderDetail(section, slug) {
       html += '</div>';
       html += `<article class="detail-content">${renderMD(md)}</article>`;
       container.innerHTML = html;
+      processExternalLinks(container);
     })
     .catch(err => {
       container.innerHTML = `<p style="color:#999;">読み込みに失敗しました (${err.message})</p>`;
     });
 }
 
+/* ── link preview cards ── */
+
+const SITE_DOMAIN = 'himazin-technical-department.github.io';
+
+function getDomain(url) {
+  try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
+}
+
+async function fetchOG(url, proxy) {
+  try {
+    const ctrl = new AbortController();
+    const id = setTimeout(() => ctrl.abort(), 4000);
+    const res = await fetch(proxy + encodeURIComponent(url), { signal: ctrl.signal });
+    clearTimeout(id);
+    if (!res.ok) return null;
+    const html = await res.text();
+    const m = p => { const r = new RegExp('<meta\\s[^>]*(?:property|name)=["\']' + p + '["\'][^>]*content=["\']([^"\']*)["\']', 'i'); const x = html.match(r); return x ? x[1].replace(/&amp;/g,'&').replace(/&#x27;/g,"'") : null; };
+    return {
+      title: m('og:title') || m('twitter:title') || (html.match(/<title>([^<]*)<\/title>/i) || [])[1] || '',
+      description: m('og:description') || m('twitter:description') || m('description') || '',
+      image: m('og:image') || m('twitter:image') || '',
+    };
+  } catch { return null; }
+}
+
+const OG_PROXIES = [
+  url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+  url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+];
+
+let ogQueue = Promise.resolve();
+
+function processExternalLinks(root) {
+  if (!root) return;
+  const links = root.querySelectorAll('a[href^="http"]:not([data-og])');
+  links.forEach(link => {
+    link.setAttribute('data-og', '1');
+    const href = link.getAttribute('href');
+    if (!href || href.includes(SITE_DOMAIN) || href.includes('youtube.com') || href.includes('youtu.be')) return;
+    if (link.closest('.detail-meta, .blog-post-meta, .product-actions, .back-link, .header, .footer')) return;
+
+    const placeholder = document.createElement('div');
+    placeholder.className = 'link-preview-loading';
+    placeholder.textContent = getDomain(href) + ' のプレビューを読み込み中...';
+    link.parentNode.insertBefore(placeholder, link.nextSibling);
+
+    ogQueue = ogQueue.then(() =>
+      Promise.race(OG_PROXIES.map(p => fetchOG(href, p)))
+        .then(og => {
+          placeholder.remove();
+          if (og && (og.title || og.description)) {
+            const card = document.createElement('a');
+            card.href = href;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+            card.className = 'link-preview';
+            const img = og.image ? `<img src="${esc(og.image)}" alt="" loading="lazy">` : '<div class="link-preview-fallback">🔗</div>';
+            card.innerHTML = `<div class="link-preview-image">${img}</div><div class="link-preview-body"><div class="link-preview-title">${esc(og.title)}</div>${og.description ? `<div class="link-preview-desc">${esc(og.description)}</div>` : ''}<div class="link-preview-domain">${esc(getDomain(href))}</div></div>`;
+            link.parentNode.insertBefore(card, link.nextSibling);
+          } else {
+            const card = document.createElement('a');
+            card.href = href;
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
+            card.className = 'link-preview';
+            card.innerHTML = `<div class="link-preview-image"><div class="link-preview-fallback">🔗</div></div><div class="link-preview-body"><div class="link-preview-domain">${esc(getDomain(href))}</div></div>`;
+            link.parentNode.insertBefore(card, link.nextSibling);
+          }
+          link.style.display = 'none';
+        })
+        .catch(() => { placeholder.remove(); })
+    );
+  });
+}
+
 const DEFAULT_ABOUT = '**暇人技術部 (Himazin Technical Department)** は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。\n\n部員それぞれが自由な発想でものづくりに取り組み、開発したツールや知見を発信しています。';
+
+function convertYouTubeEmbeds(html) {
+  return html.replace(
+    /<a\s[^>]*href="(?:https?:)?\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)(?:&[^"]*)?"[^>]*>.*?<\/a>/gi,
+    (_, id) => `<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/${id}" frameborder="0" allowfullscreen loading="lazy"></iframe></div>`
+  );
+}
 
 function renderMD(text) {
   if (typeof markdownit === 'function') {
     try {
-      return markdownit().render(text);
+      return convertYouTubeEmbeds(markdownit().render(text));
     } catch {}
   }
   const escHtml = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
@@ -191,14 +274,15 @@ function renderMD(text) {
   }
   if (inCode) html += '<pre><code>' + escHtml(codeBuf.replace(/\n$/, '')) + '</code></pre>';
   if (inList) html += '</ul>\n';
-  return html;
+  return convertYouTubeEmbeds(html);
   function parseInline(s) {
     return s
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.+?)\*/g, '<em>$1</em>')
       .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" title="$2">$1</a>')
+      .replace(/(^|[^">])(https?:\/\/[^\s<>$)+]+(?:(?!\.(?:$|[\s<>)\]]))[^\s<>$)+])*)/g, '$1<a href="$2" target="_blank" rel="noopener noreferrer" class="link-auto" title="$2">$2</a>');
   }
 }
 
@@ -433,6 +517,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  if (!document.getElementById('page-home')) {
+    processExternalLinks(document.querySelector('.section-detail'));
+  }
 
   document.querySelector('.search-btn').addEventListener('click', openSearch);
   document.getElementById('search-close').addEventListener('click', closeSearch);

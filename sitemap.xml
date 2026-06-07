@@ -45,6 +45,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://himazin-technical-department.github.io/blog/macaroni.1/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://himazin-technical-department.github.io/blog/site-update-2026-06/</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://himazin-technical-department.github.io/blog/hello-world/</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>

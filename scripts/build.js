@@ -24,7 +24,7 @@ const formatDate = str => {
 let md;
 try {
   const MarkdownIt = (await import('markdown-it')).default;
-  md = new MarkdownIt();
+  md = new MarkdownIt({ linkify: true });
 } catch {
   md = { render: s => s };
 }
@@ -157,6 +157,15 @@ function ko(strs, ...vals) {
   return out;
 }
 
+/* ── youtube embed ── */
+
+function convertYouTubeEmbeds(html) {
+  return html.replace(
+    /<a\s[^>]*href="(?:https?:)?\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)(?:&[^"]*)?"[^>]*>.*?<\/a>/g,
+    (_, id) => `<div class="video-embed"><iframe src="https://www.youtube-nocookie.com/embed/${id}" frameborder="0" allowfullscreen loading="lazy"></iframe></div>`
+  );
+}
+
 /* ── page builders ── */
 
 function writePage(filePath, title, description, canonical, activeNav, content, extraHead) {
@@ -281,9 +290,9 @@ function buildDetail(sectionKey, item) {
   let bodyHtml = '';
   if (existsSync(mdPath)) {
     const { content } = parseFrontmatter(readFileSync(mdPath, 'utf-8'));
-    bodyHtml = md.render(content);
+    bodyHtml = convertYouTubeEmbeds(md.render(content));
   } else if (item.body) {
-    bodyHtml = md.render(item.body);
+    bodyHtml = convertYouTubeEmbeds(md.render(item.body));
   }
 
   let detailHtml = '';
