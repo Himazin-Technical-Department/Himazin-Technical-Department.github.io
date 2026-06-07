@@ -1,5 +1,12 @@
 const SITE_NAME = '暇人技術部';
 const SECTIONS = ['updates', 'products', 'blog'];
+const PATH_TO_HASH = {
+  '/': 'home',
+  '/updates/': 'updates',
+  '/products/': 'products',
+  '/blog/': 'blog',
+  '/members/': 'members',
+};
 const registryCache = {};
 const metaCache = {};
 const mdCache = {};
@@ -10,7 +17,7 @@ function updatePageMeta(title, description, image) {
   document.querySelector('meta[name="description"]').setAttribute('content', desc);
   document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
-  document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://himazin-technical-department.github.io' + location.hash);
+  document.querySelector('meta[property="og:url"]').setAttribute('content', 'https://himazin-technical-department.github.io' + location.pathname);
   document.querySelector('meta[property="og:image"]').setAttribute('content', image || 'https://himazin-technical-department.github.io/logo.svg');
   document.querySelector('meta[name="twitter:title"]').setAttribute('content', document.title);
   document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
@@ -74,7 +81,7 @@ function renderProducts(containerId, items) {
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
-        <a href="#products/${item.slug}" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
+        <a href="/products/${item.slug}/" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
         ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
       </div>
     </div>`
@@ -89,7 +96,7 @@ function renderItemList(containerId, items, section) {
     return;
   }
   container.innerHTML = items.map(item =>
-    `<a href="#${section}/${item.slug}" class="item-list-item">
+    `<a href="/${section}/${item.slug}/" class="item-list-item">
       <div class="item-date">${esc(formatDate(item.date))}</div>
       <h3>${esc(item.title)}</h3>
       ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
@@ -236,7 +243,7 @@ function showPage(pageId) {
   };
   const navKey = navMap[pageId];
   if (navKey) {
-    const navLink = document.querySelector(`[data-nav][href="#${navKey}"]`);
+    const navLink = document.querySelector(`[data-nav][data-section="${navKey}"]`);
     if (navLink) {
       navLink.classList.add('active');
       navLink.setAttribute('aria-current', 'page');
@@ -247,6 +254,7 @@ function showPage(pageId) {
 }
 
 function handleRoute() {
+  if (!document.getElementById('page-home')) return;
   const hash = window.location.hash.replace('#', '') || 'home';
 
   const detailMatch = hash.match(/^(updates|products|blog)\/(.+)$/);
@@ -256,7 +264,7 @@ function handleRoute() {
     const pageId = section === 'blog' ? 'blog-detail' : `${section}-detail`;
     showPage(pageId);
     const backLink = document.querySelector(`#page-${pageId} .back-link`);
-    if (backLink) backLink.href = `#${section}`;
+    if (backLink) backLink.href = `/${section}/`;
     renderDetail(section, slug);
     return;
   }
@@ -353,7 +361,7 @@ function performSearch(query) {
       i.title.toLowerCase().includes(q) || (i.excerpt || '').toLowerCase().includes(q)
     );
     if (items.length) {
-      out.push({ label: labels[section], items: items.map(i => ({ ...i, _page: `${section}/${i.slug}` })) });
+      out.push({ label: labels[section], items: items.map(i => ({ ...i, _page: `/${section}/${i.slug}/` })) });
     }
   }
 
@@ -366,7 +374,7 @@ function performSearch(query) {
     `<div class="search-section">
       <div class="search-section-label">${esc(s.label)}</div>
       ${s.items.map(item =>
-        `<a href="#${item._page}" class="search-result-item">
+        `<a href="${item._page}" class="search-result-item">
           <div class="search-result-title">${highlight(item.title, query)}</div>
           ${item.excerpt ? `<div class="search-result-desc">${highlight(item.excerpt.slice(0, 100), query)}</div>` : ''}
         </a>`
@@ -375,7 +383,17 @@ function performSearch(query) {
   ).join('');
 
   results.querySelectorAll('.search-result-item').forEach(el => {
-    el.addEventListener('click', closeSearch);
+    el.addEventListener('click', (e) => {
+      closeSearch();
+      const href = el.getAttribute('href');
+      if (href && document.getElementById('page-home')) {
+        e.preventDefault();
+        const m = href.match(/^\/(updates|products|blog)\/([^/]+)\/$/);
+        if (m) {
+          window.location.hash = `${m[1]}/${m[2]}`;
+        }
+      }
+    });
   });
 }
 
@@ -400,11 +418,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelectorAll('[data-nav], .hero-btn, .section-more').forEach(el => {
+  document.querySelectorAll('[data-nav], .hero-btn, .section-more, .back-link').forEach(el => {
     el.addEventListener('click', (e) => {
-      e.preventDefault();
       const href = el.getAttribute('href');
-      if (href) window.location.hash = href.replace('#', '');
+      let hash = null;
+      if (href && href.startsWith('/')) {
+        hash = PATH_TO_HASH[href];
+      } else if (href && href.startsWith('#')) {
+        hash = href.replace('#', '');
+      }
+      if (hash && document.getElementById('page-home')) {
+        e.preventDefault();
+        window.location.hash = hash;
+      }
     });
   });
 

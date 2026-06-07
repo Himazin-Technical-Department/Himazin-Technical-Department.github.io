@@ -224,26 +224,27 @@ function buildHomepage(aboutHtml, updates, products, blog) {
 }
 
 const SECTION_META = {
-  updates: { title: 'お知らせ', label: 'お知らせ', back: '#updates' },
-  products: { title: 'プロダクト', label: 'プロダクト', back: '#products' },
-  blog: { title: 'ブログ', label: 'ブログ', back: '#blog' },
-  members: { title: 'メンバー', label: 'メンバー', back: '#members' },
+  updates: { title: 'お知らせ', label: 'お知らせ', back: '/updates/' },
+  products: { title: 'プロダクト', label: 'プロダクト', back: '/products/' },
+  blog: { title: 'ブログ', label: 'ブログ', back: '/blog/' },
+  members: { title: 'メンバー', label: 'メンバー', back: '/members/' },
 };
 
 function buildListing(sectionKey, registry) {
   const meta = SECTION_META[sectionKey];
+  const canonical = `${SITE_URL}/${sectionKey}/`;
   const listingExtra = `<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "${SITE_NAME}", "item": "${SITE_URL}/" },
-    { "@type": "ListItem", "position": 2, "name": "${esc(meta.label)}", "item": "${SITE_URL}/${sectionKey}/" }
+    { "@type": "ListItem", "position": 2, "name": "${esc(meta.label)}", "item": "${canonical}" }
   ]
 }
 </script>`;
   if (sectionKey === 'products') {
-    writePage(join(root, sectionKey, 'index.html'), meta.title, null, null, sectionKey, `
+    writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
 <div class="section">
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="products-grid">${registry.map(item => `
@@ -259,7 +260,7 @@ function buildListing(sectionKey, registry) {
   </div>
 </div>`, listingExtra);
   } else {
-    writePage(join(root, sectionKey, 'index.html'), meta.title, null, null, sectionKey, `
+    writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
 <div class="section">
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="item-list">${registry.map(item => `
@@ -330,7 +331,7 @@ function buildDetail(sectionKey, item) {
   "@type": "BreadcrumbList",
   "itemListElement": [
     { "@type": "ListItem", "position": 1, "name": "${SITE_NAME}", "item": "${SITE_URL}/" },
-    { "@type": "ListItem", "position": 2, "name": "${esc(meta.label)}", "item": "${SITE_URL}/#${sectionKey}" },
+    { "@type": "ListItem", "position": 2, "name": "${esc(meta.label)}", "item": "${SITE_URL}/${sectionKey}/" },
     { "@type": "ListItem", "position": 3, "name": "${esc(item.title)}", "item": "${slugUrl}" }
   ]
 }
@@ -395,7 +396,7 @@ function buildDetail(sectionKey, item) {
 
 function buildMembers(data) {
   const typeLabel = { developer: '開発者', creator: 'クリエイター', supporter: 'サポーター' };
-  writePage(join(root, 'members', 'index.html'), 'メンバー', null, null, 'members', `
+  writePage(join(root, 'members', 'index.html'), 'メンバー', null, `${SITE_URL}/members/`, 'members', `
 <div class="section">
   <h2 class="section-title">メンバー</h2>
   <div class="members-grid">${data.map(item => `
@@ -413,28 +414,6 @@ function buildMembers(data) {
 </div>`);
 }
 
-/* ── listing redirects ── */
-function buildRedirect(dir, hash) {
-  const html = ko`<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${SITE_NAME} - Himazin Technical Department</title>
-  <meta http-equiv="refresh" content="0;url=/${hash}">
-  <link rel="canonical" href="${SITE_URL}/">
-  <script>location.href="/${hash}"</script>
-</head>
-<body>
-  <p><a href="/${hash}">${SITE_NAME}</a></p>
-</body>
-</html>`;
-  const outPath = join(root, dir, 'index.html');
-  mkdirSync(dirname(outPath), { recursive: true });
-  writeFileSync(outPath, html, 'utf-8');
-  console.log(`  ${outPath} (redirect → /${hash})`);
-}
-
 /* ── main ── */
 
 console.log('Building pages...');
@@ -446,11 +425,16 @@ for (const section of sections) {
   registries[section] = existsSync(path) ? readJSON(path) : [];
 }
 
-// Listing redirects (so /updates/ → /#updates, etc.)
-buildRedirect('updates', '#updates');
-buildRedirect('products', '#products');
-buildRedirect('blog', '#blog');
-buildRedirect('members', '#members');
+// Listing pages (no more redirects)
+buildListing('updates', registries.updates);
+buildListing('products', registries.products);
+buildListing('blog', registries.blog);
+
+// Members page
+const membersPath = join(root, 'data', 'members', 'members.json');
+if (existsSync(membersPath)) {
+  buildMembers(readJSON(membersPath));
+}
 
 // Detail pages (separate HTML for SEO / crawlers)
 for (const section of sections) {

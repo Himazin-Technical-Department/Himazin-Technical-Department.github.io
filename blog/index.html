@@ -3,12 +3,123 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>暇人技術部 - Himazin Technical Department</title>
-  <meta http-equiv="refresh" content="0;url=/#blog">
-  <link rel="canonical" href="https://himazin-technical-department.github.io/">
-  <script>location.href="/#blog"</script>
+  <title>ブログ | 暇人技術部</title>
+  <meta name="description" content="暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。">
+  <meta name="keywords" content="暇人技術部,Himazin Technical Department,HTD,プロダクト開発,コミュニティ">
+  <meta name="author" content="暇人技術部">
+  <meta name="theme-color" content="#0a0a0f">
+  <link rel="canonical" href="https://himazin-technical-department.github.io/blog/">
+  <link rel="icon" type="image/svg+xml" href="/HTD.svg">
+  <link rel="apple-touch-icon" href="/logo.svg">
+  <meta name="msapplication-TileColor" content="#0a0a0f">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap&font-display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="robots" content="index, follow">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="暇人技術部">
+  <meta property="og:title" content="ブログ | 暇人技術部">
+  <meta property="og:description" content="暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。">
+  <meta property="og:url" content="https://himazin-technical-department.github.io/blog/">
+  <meta property="og:image" content="https://himazin-technical-department.github.io/logo.svg">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ブログ | 暇人技術部">
+  <meta name="twitter:description" content="暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "暇人技術部", "item": "https://himazin-technical-department.github.io/" },
+    { "@type": "ListItem", "position": 2, "name": "ブログ", "item": "https://himazin-technical-department.github.io/blog/" }
+  ]
+}
+</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "暇人技術部",
+    "alternateName": "Himazin Technical Department",
+    "url": "https://himazin-technical-department.github.io/",
+    "logo": "https://himazin-technical-department.github.io/logo.svg",
+    "description": "技術好きが集まってプロダクト開発や研究を行うコミュニティです。"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "暇人技術部",
+    "url": "https://himazin-technical-department.github.io/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://himazin-technical-department.github.io/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 </head>
 <body>
-  <p><a href="/#blog">暇人技術部</a></p>
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <img src="/logo.svg" alt="HTD" class="logo-icon">
+        <span class="logo-text">暇人技術部</span>
+      </a>
+      <button class="search-btn" aria-label="検索" onclick="openSearch()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+      <nav class="nav">
+        <a href="/" class="nav-link">ホーム</a>
+        <a href="/updates/" class="nav-link">お知らせ</a>
+        <a href="/products/" class="nav-link">プロダクト</a>
+        <a href="/blog/" class="nav-link active" aria-current="page">ブログ</a>
+        <a href="/members/" class="nav-link">メンバー</a>
+      </nav>
+      <button class="menu-toggle" aria-label="メニュー" onclick="document.querySelector('.nav').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-overlay-inner">
+      <div class="search-input-wrap">
+        <svg class="search-input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="text" class="search-input" id="search-input" placeholder="サイト内を検索..." autofocus>
+        <button class="search-close" id="search-close">✕</button>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+
+  <main class="main">
+    
+<div class="section">
+  <h2 class="section-title">ブログ</h2>
+  <div class="item-list">
+    <a href="/blog/hello-world/" class="item-list-item">
+      <div class="item-date">2026.06.05</div>
+      <h3>HTD 公式サイトを開設しました</h3>
+      <div class="item-excerpt">この度、暇人技術部の公式ホームページを開設しました。</div>
+    </a>
+  </div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 暇人技術部</p>
+    </div>
+  </footer>
+
+  <script src="/js/script.js"></script>
 </body>
 </html>
