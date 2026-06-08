@@ -2,6 +2,8 @@
 
 Himazin Technical Department の公式ホームページです。[GitHub Pages](https://pages.github.com/) で公開されています。
 
+[![Build](https://github.com/himazin-technical-department/HTD-Official/actions/workflows/deploy.yml/badge.svg)](https://github.com/himazin-technical-department/HTD-Official/actions/workflows/deploy.yml)
+
 ## 目次
 
 1. [はじめに：このリポジトリの仕組み](#はじめにこのリポジトリの仕組み)
