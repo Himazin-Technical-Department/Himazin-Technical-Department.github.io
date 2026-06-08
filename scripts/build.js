@@ -209,11 +209,9 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
 </div>
 ${featured.length > 0 ? `
 <div class="carousel-wrap">
-  <h2 class="section-title">今日のトピック</h2>
   <div class="carousel-thumbs">
     ${carouselSlides}
   </div>
-  <div class="carousel-dots">${featured.map((_, i) => `<span class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`).join('')}</div>
 </div>` : ''}
 <div class="section section-about">
   <h2 class="section-title">${SITE_NAME}とは？</h2>

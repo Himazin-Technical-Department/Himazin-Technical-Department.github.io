@@ -576,16 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Carousel
   (function initCarousel() {
     const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-dot');
     if (!slides.length) return;
-    dots.forEach(dot => {
-      dot.addEventListener('click', () => {
-        const index = parseInt(dot.dataset.index);
-        slides[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        dots.forEach(d => d.classList.remove('active'));
-        dot.classList.add('active');
-      });
-    });
   })();
 
   document.querySelector('.search-btn').addEventListener('click', openSearch);
