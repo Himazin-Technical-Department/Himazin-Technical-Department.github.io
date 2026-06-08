@@ -189,7 +189,6 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
       <div class="carousel-slide-body">
         <span class="carousel-slide-tag">${item.section === 'updates' ? 'お知らせ' : 'ブログ'}</span>
         <h3>${esc(item.title)}</h3>
-        <p>${esc(item.excerpt || '')}</p>
       </div>
     </a>`).join('');
   }

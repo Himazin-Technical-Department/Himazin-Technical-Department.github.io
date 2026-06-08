@@ -1156,8 +1156,8 @@ img {
 }
 
 .carousel-slide {
-  flex: 0 0 200px;
-  height: 112px;
+  flex: 0 0 240px;
+  height: 135px;
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
@@ -1182,9 +1182,10 @@ img {
 
 .carousel-slide-body {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 8px 10px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -1289,8 +1290,8 @@ img {
   }
 
   .carousel-slide {
-    flex: 0 0 200px;
-    height: 112px;
+    flex: 0 0 240px;
+    height: 135px;
     scroll-snap-align: center;
     border-radius: 10px;
   }
