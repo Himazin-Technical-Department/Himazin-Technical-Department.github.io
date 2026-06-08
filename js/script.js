@@ -595,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const wrap = document.querySelector('.carousel-wrap');
     if (wrap) { wrap.addEventListener('mouseenter', stop); wrap.addEventListener('mouseleave', start); }
-    if (window.innerWidth > 768) start();
+    if (window.matchMedia('(min-width: 1101px)').matches) start();
   })();
 
   document.querySelector('.search-btn').addEventListener('click', openSearch);

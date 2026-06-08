@@ -11,6 +11,7 @@ const SITE_NAME = '暇人技術部';
 /* ── helpers ── */
 
 const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const imgPath = p => p ? (p.startsWith('/') ? p : '/' + p) : '';
 
 const readJSON = path => JSON.parse(readFileSync(path, 'utf-8'));
 
@@ -236,7 +237,7 @@ ${featured.length > 0 ? `
   <h2 class="section-title">プロダクト</h2>
   <div class="products-grid">${products.slice(0, 3).map(item => `
     <div class="product-card">
-      ${item.icon ? `<div class="product-icon"><img src="/${esc(item.icon)}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
+      ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
@@ -291,7 +292,7 @@ function buildListing(sectionKey, registry) {
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="products-grid">${registry.map(item => `
     <div class="product-card">
-      ${item.icon ? `<div class="product-icon"><img src="/${esc(item.icon)}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
+      ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
@@ -336,7 +337,7 @@ function buildDetail(sectionKey, item) {
 
   if (sectionKey === 'products') {
     if (item.icon) {
-      detailHtml += `<div class="detail-icon"><img src="/${esc(item.icon)}" alt="${esc(item.title)}" loading="lazy"></div>`;
+      detailHtml += `<div class="detail-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy"></div>`;
     }
     detailHtml += `<h1 class="detail-title">${esc(item.title)}</h1>`;
     if (item.url) {
@@ -374,7 +375,7 @@ function buildDetail(sectionKey, item) {
 
   const slugUrl = `${SITE_URL}/${sectionKey}/${item.slug}/`;
 
-  const ogImage = item.icon ? `${SITE_URL}/${esc(item.icon)}` : null;
+  const ogImage = item.icon ? `${SITE_URL}${esc(imgPath(item.icon))}` : null;
 
   let extraLd = ogImage ? `<meta property="og:image" content="${ogImage}">
 <meta name="twitter:card" content="summary_large_image">
@@ -398,7 +399,7 @@ function buildDetail(sectionKey, item) {
   "@type": "Product",
   "name": "${esc(item.title)}",
   "description": "${esc(item.excerpt || '')}",
-  ${item.icon ? `"image": "${SITE_URL}/${esc(item.icon)}",` : ''}
+  ${item.icon ? `"image": "${SITE_URL}${esc(imgPath(item.icon))}",` : ''}
   "url": "${esc(item.url || slugUrl)}",
   "offers": {
     "@type": "Offer",
@@ -457,7 +458,7 @@ function buildMembers(data) {
   <div class="members-grid">${data.map(item => `
     <div class="member-card">
       <div class="member-icon">
-        ${item.icon ? `<img src="/${esc(item.icon)}" alt="${esc(item.name)}" loading="lazy">` : esc(item.name.charAt(0))}
+        ${item.icon ? `<img src="${esc(imgPath(item.icon))}" alt="${esc(item.name)}" loading="lazy">` : esc(item.name.charAt(0))}
       </div>
       ${item.type ? `<span class="member-type ${esc(item.type)}">${esc(typeLabel[item.type] || item.type)}</span>` : ''}
       <h3>${esc(item.name)}</h3>
