@@ -573,6 +573,31 @@ document.addEventListener('DOMContentLoaded', () => {
     setupStandaloneNav();
   }
 
+  // Carousel
+  (function initCarousel() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+    if (!slides.length) return;
+    let current = 0;
+    let timer;
+    function goTo(index) {
+      slides.forEach(s => s.classList.remove('active'));
+      dots.forEach(d => d.classList.remove('active'));
+      slides[index].classList.add('active');
+      dots[index].classList.add('active');
+      current = index;
+    }
+    function next() { goTo((current + 1) % slides.length); }
+    function start() { timer = setInterval(next, 5000); }
+    function stop() { clearInterval(timer); }
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => { goTo(parseInt(dot.dataset.index)); stop(); start(); });
+    });
+    const wrap = document.querySelector('.carousel-wrap');
+    if (wrap) { wrap.addEventListener('mouseenter', stop); wrap.addEventListener('mouseleave', start); }
+    start();
+  })();
+
   document.querySelector('.search-btn').addEventListener('click', openSearch);
   document.getElementById('search-close').addEventListener('click', closeSearch);
   document.getElementById('search-overlay').addEventListener('click', (e) => {

@@ -178,7 +178,20 @@ function writePage(filePath, title, description, canonical, activeNav, content, 
   console.log(`  ${filePath}`);
 }
 
-function buildHomepage(aboutHtml, updates, products, blog) {
+function buildHomepage(aboutHtml, updates, products, blog, featured) {
+  let carouselSlides = '';
+  if (featured.length > 0) {
+    carouselSlides = featured.map((item, i) => `
+    <a href="/${item.section}/${item.slug}/" class="carousel-slide${i === 0 ? ' active' : ''}" data-index="${i}">
+      <div class="carousel-slide-img"><img src="/${esc(item.thumbnail)}" alt="${esc(item.title)}"></div>
+      <div class="carousel-slide-body">
+        <span class="carousel-slide-tag">${item.section === 'updates' ? 'お知らせ' : 'ブログ'}</span>
+        <h3>${esc(item.title)}</h3>
+        <p>${esc(item.excerpt || '')}</p>
+      </div>
+    </a>`).join('');
+  }
+
   writePage(join(root, 'index.html'), null, null, null, 'home', `
 <div class="hero">
   <div class="hero-heading">
@@ -193,6 +206,13 @@ function buildHomepage(aboutHtml, updates, products, blog) {
     <a href="/members/" class="hero-btn">メンバー</a>
   </div>
 </div>
+${featured.length > 0 ? `
+<div class="carousel-wrap">
+  <div class="carousel">
+    ${carouselSlides}
+  </div>
+  <div class="carousel-dots">${featured.map((_, i) => `<span class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`).join('')}</div>
+</div>` : ''}
 <div class="section section-about">
   <h2 class="section-title">${SITE_NAME}とは？</h2>
   <div class="about-content">${aboutHtml}</div>
@@ -485,7 +505,11 @@ if (existsSync(aboutPath)) {
   const aboutData = readJSON(aboutPath);
   aboutHtml = md.render(aboutData.about || '');
 }
-buildHomepage(aboutHtml, registries.updates, registries.products, registries.blog);
+const featured = [...registries.updates.map(i => ({ ...i, section: 'updates' })), ...registries.blog.map(i => ({ ...i, section: 'blog' }))]
+  .filter(i => i.thumbnail)
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .slice(0, 5);
+buildHomepage(aboutHtml, registries.updates, registries.products, registries.blog, featured);
 
 // Listing pages
 buildListing('updates', registries.updates);
