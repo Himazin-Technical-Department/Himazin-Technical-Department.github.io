@@ -218,6 +218,7 @@ function buildHomepage(aboutHtml, updates, products, blog) {
       <div class="product-actions">
         <a href="/products/${item.slug}/" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
         ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
+        ${item.downloadUrl ? `<a href="${esc(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.downloadLabel || 'ダウンロード')}</a>` : ''}
       </div>
     </div>`).join('')}
   </div>
@@ -269,6 +270,7 @@ function buildListing(sectionKey, registry) {
       <div class="product-actions">
         <a href="/products/${item.slug}/" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
         ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
+        ${item.downloadUrl ? `<a href="${esc(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.downloadLabel || 'ダウンロード')}</a>` : ''}
       </div>
     </div>`).join('')}
   </div>
@@ -309,6 +311,9 @@ function buildDetail(sectionKey, item) {
     detailHtml += `<h1 class="detail-title">${esc(item.title)}</h1>`;
     if (item.url) {
       detailHtml += `<div style="margin-bottom:24px"><a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-primary" style="display:inline-block;padding:10px 28px;font-size:14px">${esc(item.urlLabel || 'サイトへ')}</a></div>`;
+    }
+    if (item.downloadUrl) {
+      detailHtml += `<div style="margin-bottom:24px"><a href="${esc(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary" style="display:inline-block;padding:10px 28px;font-size:14px">${esc(item.downloadLabel || 'ダウンロード')}</a></div>`;
     }
   } else {
     detailHtml += `<h1 class="${sectionKey === 'blog' ? 'blog-post-title' : 'detail-title'}">${esc(item.title)}</h1>`;

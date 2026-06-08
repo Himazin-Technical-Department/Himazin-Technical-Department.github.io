@@ -407,6 +407,8 @@ HTD-Official/
 | `url` | | 外部リンク（GitHub や Web サイト） |
 | `urlLabel` | | 外部リンクのボタンに表示するテキスト（デフォルト: 「サイトへ」） |
 | `detailLabel` | | 詳細ボタンのテキスト（デフォルト: 「詳細」） |
+| `downloadUrl` | | ダウンロード用のURL（GitHub Releases のリンクなど）。設定するとダウンロードボタンが表示されます |
+| `downloadLabel` | | ダウンロードボタンのテキスト（デフォルト: 「ダウンロード」） |
 
 ### メンバーを編集する
 
@@ -504,6 +506,37 @@ data/
 - HTML のテンプレート: `scripts/build.js`（`shell` 関数内）
 
 **scripts/ 以下のファイルを編集する場合は、ビルドが壊れていないことを必ずローカルで確認してください。**
+
+### GitHub Releases を使ったファイル配布
+
+プロダクトのバイナリやアーカイブを配布するには **GitHub Releases** が便利です。
+
+#### リリースの作成手順
+
+1. GitHub のリポジトリページで **Releases** → **Create a new release** をクリック
+2. タグを入力（例: `v1.0.0`）
+3. リリースタイトルと説明を記入
+4. 配布するファイルをドラッグ＆ドロップで添付
+5. **Publish release** をクリック
+
+#### 記事からリンクする
+
+発行されたダウンロードURLは以下の形式です:
+
+```
+https://github.com/himazin-technical-department/HTD-Official/releases/download/v1.0.0/ファイル名
+```
+
+プロダクトの `index.md` の frontmatter に `downloadUrl` と `downloadLabel` を追加すると、一覧・詳細ページにダウンロードボタンが表示されます。
+
+```yaml
+---
+title: マイアプリ
+date: 2026-06-01
+downloadUrl: https://github.com/himazin-technical-department/HTD-Official/releases/download/v1.0.0/my-app.zip
+downloadLabel: v1.0.0 をダウンロード
+---
+```
 
 ## ローカルでビルドして確認する
 
