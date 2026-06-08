@@ -595,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     const wrap = document.querySelector('.carousel-wrap');
     if (wrap) { wrap.addEventListener('mouseenter', stop); wrap.addEventListener('mouseleave', start); }
-    start();
+    if (window.innerWidth > 768) start();
   })();
 
   document.querySelector('.search-btn').addEventListener('click', openSearch);
