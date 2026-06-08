@@ -200,10 +200,13 @@ function buildHomepage(aboutHtml, updates, products, blog) {
 <div class="section">
   <h2 class="section-title">最新のお知らせ</h2>
   <div class="item-list">${updates.slice(0, 5).map(item => `
-    <a href="/updates/${item.slug}/" class="item-list-item">
-      <div class="item-date">${formatDate(item.date)}</div>
-      <h3>${esc(item.title)}</h3>
-      ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+    <a href="/updates/${item.slug}/" class="item-list-item${item.thumbnail ? ' has-thumb' : ''}">
+      ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
+      <div class="item-body">
+        <div class="item-date">${formatDate(item.date)}</div>
+        <h3>${esc(item.title)}</h3>
+        ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+      </div>
     </a>`).join('')}
   </div>
   ${updates.length > 5 ? `<a href="/updates/" class="section-more">すべて見る →</a>` : ''}
@@ -227,10 +230,13 @@ function buildHomepage(aboutHtml, updates, products, blog) {
 <div class="section">
   <h2 class="section-title">最近のブログ</h2>
   <div class="item-list">${blog.slice(0, 3).map(item => `
-    <a href="/blog/${item.slug}/" class="item-list-item">
-      <div class="item-date">${formatDate(item.date)}</div>
-      <h3>${esc(item.title)}</h3>
-      ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+    <a href="/blog/${item.slug}/" class="item-list-item${item.thumbnail ? ' has-thumb' : ''}">
+      ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
+      <div class="item-body">
+        <div class="item-date">${formatDate(item.date)}</div>
+        <h3>${esc(item.title)}</h3>
+        ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+      </div>
     </a>`).join('')}
   </div>
   ${blog.length > 3 ? `<a href="/blog/" class="section-more">すべて見る →</a>` : ''}
@@ -281,10 +287,13 @@ function buildListing(sectionKey, registry) {
   <a href="/" class="back-link">← ホームに戻る</a>
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="item-list">${registry.map(item => `
-    <a href="/${sectionKey}/${item.slug}/" class="item-list-item">
-      <div class="item-date">${formatDate(item.date)}</div>
-      <h3>${esc(item.title)}</h3>
-      ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+    <a href="/${sectionKey}/${item.slug}/" class="item-list-item${item.thumbnail ? ' has-thumb' : ''}">
+      ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
+      <div class="item-body">
+        <div class="item-date">${formatDate(item.date)}</div>
+        <h3>${esc(item.title)}</h3>
+        ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+      </div>
     </a>`).join('')}
   </div>
 </div>`, listingExtra);
@@ -316,6 +325,9 @@ function buildDetail(sectionKey, item) {
       detailHtml += `<div style="margin-bottom:24px"><a href="${esc(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary" style="display:inline-block;padding:10px 28px;font-size:14px">${esc(item.downloadLabel || 'ダウンロード')}</a></div>`;
     }
   } else {
+    if (item.thumbnail) {
+      detailHtml += `<div class="detail-thumb"><img src="/${esc(item.thumbnail)}" alt="${esc(item.title)}" loading="lazy"></div>`;
+    }
     detailHtml += `<h1 class="${sectionKey === 'blog' ? 'blog-post-title' : 'detail-title'}">${esc(item.title)}</h1>`;
   }
 
@@ -465,6 +477,15 @@ for (const item of registries.products) {
     }
   }
 }
+
+// Homepage
+const aboutPath = join(root, 'data', 'about.json');
+let aboutHtml = '';
+if (existsSync(aboutPath)) {
+  const aboutData = readJSON(aboutPath);
+  aboutHtml = md.render(aboutData.about || '');
+}
+buildHomepage(aboutHtml, registries.updates, registries.products, registries.blog);
 
 // Listing pages
 buildListing('updates', registries.updates);

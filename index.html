@@ -4,22 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>暇人技術部 - Himazin Technical Department</title>
-  <meta name="description" content="暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。プロダクト開発やブログ記事などを発信しています。">
+  <meta name="description" content="暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。">
   <meta name="keywords" content="暇人技術部,Himazin Technical Department,HTD,プロダクト開発,コミュニティ">
   <meta name="author" content="暇人技術部">
   <meta name="theme-color" content="#0a0a0f">
   <link rel="canonical" href="https://himazin-technical-department.github.io/">
-  <link rel="icon" type="image/svg+xml" href="HTD.svg">
-  <link rel="apple-touch-icon" href="logo.svg">
+  <link rel="icon" type="image/svg+xml" href="/HTD.svg">
+  <link rel="apple-touch-icon" href="/logo.svg">
   <meta name="msapplication-TileColor" content="#0a0a0f">
-  <meta name="robots" content="index, follow">
-  <meta name="format-detection" content="telephone=no, email=no, address=no">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap&font-display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- Open Graph -->
+  <link rel="stylesheet" href="/css/style.css">
+  <meta name="robots" content="index, follow">
+  <meta name="format-detection" content="telephone=no, email=no, address=no">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="暇人技術部">
   <meta property="og:title" content="暇人技術部 - Himazin Technical Department">
@@ -27,13 +25,10 @@
   <meta property="og:url" content="https://himazin-technical-department.github.io/">
   <meta property="og:image" content="https://himazin-technical-department.github.io/logo.svg">
   <meta property="og:locale" content="ja_JP">
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="暇人技術部 - Himazin Technical Department">
   <meta name="twitter:description" content="暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。">
-
-  <!-- JSON-LD -->
+  
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -55,33 +50,31 @@
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://himazin-technical-department.github.io/#search={search_term_string}"
+        "urlTemplate": "https://himazin-technical-department.github.io/?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
   }
   </script>
-
-  <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
 </head>
 <body>
   <header class="header">
     <div class="header-inner">
       <a href="/" class="logo">
-        <img src="logo.svg" alt="HTD" class="logo-icon">
+        <img src="/logo.svg" alt="HTD" class="logo-icon">
         <span class="logo-text">暇人技術部</span>
       </a>
-      <button class="search-btn" aria-label="検索">
+      <button class="search-btn" aria-label="検索" onclick="openSearch()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
       <nav class="nav">
-        <a href="/" class="nav-link" data-nav data-section="home">ホーム</a>
-        <a href="/updates/" class="nav-link" data-nav data-section="updates">お知らせ</a>
-        <a href="/products/" class="nav-link" data-nav data-section="products">プロダクト</a>
-        <a href="/blog/" class="nav-link" data-nav data-section="blog">ブログ</a>
-        <a href="/members/" class="nav-link" data-nav data-section="members">メンバー</a>
+        <a href="/" class="nav-link active" aria-current="page">ホーム</a>
+        <a href="/updates/" class="nav-link">お知らせ</a>
+        <a href="/products/" class="nav-link">プロダクト</a>
+        <a href="/blog/" class="nav-link">ブログ</a>
+        <a href="/members/" class="nav-link">メンバー</a>
       </nav>
-      <button class="menu-toggle" aria-label="メニュー">
+      <button class="menu-toggle" aria-label="メニュー" onclick="document.querySelector('.nav').classList.toggle('open')">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -98,94 +91,105 @@
     </div>
   </div>
 
-  <main class="main" id="main-content">
-    <section class="page active" id="page-home">
-      <div class="hero">
-        <div class="hero-heading">
-          <img src="logo.svg" alt="" class="hero-heading-icon">
-          <h1 class="hero-title">暇人技術部</h1>
-        </div>
-        <p class="hero-sub">Himazin Technical Department</p>
-        <div class="hero-links">
-          <a href="/updates/" class="hero-btn">お知らせ</a>
-          <a href="/products/" class="hero-btn">プロダクト</a>
-          <a href="/blog/" class="hero-btn">ブログ</a>
-          <a href="/members/" class="hero-btn">メンバー</a>
-        </div>
+  <main class="main">
+    
+<div class="hero">
+  <div class="hero-heading">
+    <img src="/logo.svg" alt="" class="hero-heading-icon">
+    <h1 class="hero-title">暇人技術部</h1>
+  </div>
+  <p class="hero-sub">Himazin Technical Department</p>
+  <div class="hero-links">
+    <a href="/updates/" class="hero-btn">お知らせ</a>
+    <a href="/products/" class="hero-btn">プロダクト</a>
+    <a href="/blog/" class="hero-btn">ブログ</a>
+    <a href="/members/" class="hero-btn">メンバー</a>
+  </div>
+</div>
+<div class="section section-about">
+  <h2 class="section-title">暇人技術部とは？</h2>
+  <div class="about-content"></div>
+</div>
+<div class="section">
+  <h2 class="section-title">最新のお知らせ</h2>
+  <div class="item-list">
+    <a href="/updates/website-launch/" class="item-list-item">
+      
+      <div class="item-body">
+        <div class="item-date">2026.06.05</div>
+        <h3>公式ホームページを公開しました</h3>
+        <div class="item-excerpt">暇人技術部の公式ホームページをGitHub Pagesで公開しました。</div>
       </div>
-      <div class="section section-about" id="home-about">
-        <h2 class="section-title">暇人技術部とは？</h2>
-        <div class="about-content" id="about-content"></div>
+    </a>
+  </div>
+  
+</div>
+<div class="section">
+  <h2 class="section-title">プロダクト</h2>
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-icon"><img src="/data/products/himamarket/icon.svg" alt="HimaMarket" loading="lazy"></div>
+      <h3>HimaMarket</h3>
+      <p>暇人技術部が手がけるシンプルで使いやすいフリマアプリ。誰でも簡単に出品・購入ができます。</p>
+      <div class="product-actions">
+        <a href="/products/himamarket/" class="product-btn product-btn-primary">詳しく見る</a>
+        <a href="https://github.com/Himazin-TD/himamarket" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">GitHub</a>
+        
       </div>
-      <div class="section" id="home-updates-preview">
-        <h2 class="section-title">最新のお知らせ</h2>
-        <div class="item-list" id="home-updates"></div>
-        <a href="/updates/" class="section-more">すべて見る →</a>
+    </div>
+    <div class="product-card">
+      <div class="product-icon"><img src="/data/products/himaweather/icon.svg" alt="HimaWeather" loading="lazy"></div>
+      <h3>HimaWeather</h3>
+      <p>洗練されたデザインの天気予報アプリ。週間予報・降水量・風速など多彩な情報を提供します。</p>
+      <div class="product-actions">
+        <a href="/products/himaweather/" class="product-btn product-btn-primary">詳細を見る</a>
+        
+        
       </div>
-      <div class="section" id="home-products-preview">
-        <h2 class="section-title">プロダクト</h2>
-        <div class="products-grid" id="home-products"></div>
-        <a href="/products/" class="section-more">すべて見る →</a>
+    </div>
+    <div class="product-card">
+      <div class="product-icon"><img src="/data/products/himacanvas/icon.svg" alt="HimaCanvas" loading="lazy"></div>
+      <h3>HimaCanvas</h3>
+      <p>ブラウザで動作する軽量なお絵かきツール。レイヤー対応・豊富なブラシ・フィルター機能を備えています。</p>
+      <div class="product-actions">
+        <a href="/products/himacanvas/" class="product-btn product-btn-primary">機能を見る</a>
+        <a href="https://himacanvas.pages.dev" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">使ってみる</a>
+        
       </div>
-      <div class="section" id="home-blog-preview">
-        <h2 class="section-title">最近のブログ</h2>
-        <div class="item-list" id="home-blog"></div>
-        <a href="/blog/" class="section-more">すべて見る →</a>
+    </div>
+  </div>
+  
+</div>
+<div class="section">
+  <h2 class="section-title">最近のブログ</h2>
+  <div class="item-list">
+    <a href="/blog/macaroni.1/" class="item-list-item">
+      
+      <div class="item-body">
+        <div class="item-date">2026.06.08</div>
+        <h3>自己紹介</h3>
+        <div class="item-excerpt">てきとーに自己紹介でもしようかと</div>
       </div>
-    </section>
-
-    <section class="page" id="page-updates">
-      <div class="section">
-        <a href="/" class="back-link">← ホームに戻る</a>
-        <h2 class="section-title">お知らせ</h2>
-        <div class="item-list" id="updates-list"></div>
+    </a>
+    <a href="/blog/site-update-2026-06/" class="item-list-item">
+      
+      <div class="item-body">
+        <div class="item-date">2026.06.08</div>
+        <h3>サイトを大幅にアップデートしました</h3>
+        <div class="item-excerpt">SEO対策・リンクプレビュー・YouTube埋め込み・記事の自動生成など、様々な機能を追加しました。</div>
       </div>
-    </section>
-
-    <section class="page" id="page-updates-detail">
-      <div class="section section-detail">
-        <a href="/updates/" class="back-link">← お知らせ一覧に戻る</a>
-        <div id="updates-detail-content"></div>
+    </a>
+    <a href="/blog/thumbnail-test/" class="item-list-item has-thumb">
+      <div class="item-thumb"><img src="/data/blog/thumbnail-test/thumbnail.svg" alt="" loading="lazy"></div>
+      <div class="item-body">
+        <div class="item-date">2026.06.08</div>
+        <h3>サムネイル表示テスト</h3>
+        <div class="item-excerpt">この記事はサムネイル画像の表示をテストするためのものです。一覧ページと詳細ページでサムネイルが表示されます。</div>
       </div>
-    </section>
-
-    <section class="page" id="page-products">
-      <div class="section">
-        <a href="/" class="back-link">← ホームに戻る</a>
-        <h2 class="section-title">プロダクト</h2>
-        <div class="products-grid" id="products-list"></div>
-      </div>
-    </section>
-
-    <section class="page" id="page-products-detail">
-      <div class="section section-detail">
-        <a href="/products/" class="back-link">← プロダクト一覧に戻る</a>
-        <div id="products-detail-content"></div>
-      </div>
-    </section>
-
-    <section class="page" id="page-blog">
-      <div class="section">
-        <a href="/" class="back-link">← ホームに戻る</a>
-        <h2 class="section-title">ブログ</h2>
-        <div class="item-list" id="blog-list"></div>
-      </div>
-    </section>
-
-    <section class="page" id="page-blog-detail">
-      <div class="section section-detail">
-        <a href="/blog/" class="back-link">← ブログ一覧に戻る</a>
-        <div id="blog-detail-content"></div>
-      </div>
-    </section>
-
-    <section class="page" id="page-members">
-      <div class="section">
-        <a href="/" class="back-link">← ホームに戻る</a>
-        <h2 class="section-title">メンバー</h2>
-        <div class="members-grid" id="members-grid"></div>
-      </div>
-    </section>
+    </a>
+  </div>
+  <a href="/blog/" class="section-more">すべて見る →</a>
+</div>
   </main>
 
   <footer class="footer">
@@ -194,6 +198,6 @@
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="/js/script.js"></script>
 </body>
 </html>

@@ -23,6 +23,18 @@
     ]
   },
   {
+    "slug": "thumbnail-test",
+    "title": "サムネイル表示テスト",
+    "date": "2026-06-08",
+    "author": "管理者",
+    "excerpt": "この記事はサムネイル画像の表示をテストするためのものです。一覧ページと詳細ページでサムネイルが表示されます。",
+    "tags": [
+      "テスト",
+      "お知らせ"
+    ],
+    "thumbnail": "data/blog/thumbnail-test/thumbnail.svg"
+  },
+  {
     "slug": "hello-world",
     "title": "HTD 公式サイトを開設しました",
     "date": "2026-06-05",
