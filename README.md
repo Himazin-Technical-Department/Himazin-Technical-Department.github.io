@@ -43,7 +43,42 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 | [Node.js](https://nodejs.org/) | 20.x 以上 | ビルドスクリプトの実行 |
 | npm | Node.js に同梱 | パッケージ管理 |
 | [Python](https://www.python.org/) | 3.x | ローカルプレビュー用の簡易HTTPサーバー（後述） |
-| テキストエディタ | 任意 | ファイルの編集（Visual Studio Code 推奨） |
+| テキストエディタ | 任意 | ファイルの編集（後述の推奨ソフト一覧を参照） |
+
+## 推奨ソフトウェア
+
+編集作業をスムーズに行うための推奨ソフトウェアです。すべて無料で使えます。
+
+### テキストエディタ（Markdown / JSON 編集）
+
+| ソフトウェア | おすすめ度 | 用途・特徴 |
+|---|---|---|
+| [Visual Studio Code](https://code.visualstudio.com/) | ★★★ | 汎用エディタ。拡張機能で YAML バリデーション・Markdown プレビュー・Git 操作が全部入る。このプロジェクトのメイン推奨。 |
+| [Obsidian](https://obsidian.md/) | ★★★ | Markdown 特化。YAML frontmatter の表示やファイルツリーの管理に優れる。`data/` フォルダを vault として開くと直感的に編集できる。 |
+| [Cursor](https://cursor.sh/) | ★★ | VS Code 互換 + AI アシスト搭載。Markdown の文章作成を AI に手伝わせたい場合に。 |
+| [Zed](https://zed.dev/) | ★★ | 軽量・高速なエディタ。Markdown と JSON の編集に十分。 |
+
+### Git GUI クライアント
+
+| ソフトウェア | おすすめ度 | 用途・特徴 |
+|---|---|---|
+| [GitHub Desktop](https://desktop.github.com/) | ★★★ | GitHub 公式。コミット・プッシュ・PR 作成まで GUI で完結。ターミナル不要で最も簡単。 |
+| [SourceTree](https://www.sourcetreeapp.com/) | ★★ | 視覚的なブランチ図が見やすい。複数人運用での変更追跡に便利。 |
+
+### 画像編集（プロダクトアイコン用）
+
+| ソフトウェア | おすすめ度 | 用途・特徴 |
+|---|---|---|
+| [Inkscape](https://inkscape.org/) | ★★★ | SVG 編集の定番。プロダクトの `icon.svg` 作成・編集に。 |
+| [GIMP](https://www.gimp.org/) | ★★ | ラスター画像編集。スクリーンショットの加工などに。 |
+| [Figma](https://www.figma.com/) | ★★ | ブラウザベースのデザインツール。SVG 書き出しに対応。 |
+
+### JSON 編集・検証
+
+| ソフトウェア | おすすめ度 | 用途・特徴 |
+|---|---|---|
+| [JSON Viewer](https://jsonviewer.stack.hu/) | ★★ | Web ブラウザ上で JSON を整形・検証。 |
+| VS Code（拡張機能: YAML by Red Hat） | ★★★ | JSON / YAML のシンタックスエラーをリアルタイムに指摘。 |
 
 ## Git のインストール
 
@@ -695,14 +730,93 @@ GitHub のリポジトリページで **Actions** タブを開くと、ワーク
 | `git branch` | ブランチ一覧・現在のブランチを確認 |
 | `git checkout -b <名前>` | 新しいブランチを作成して移動 |
 
-### Q: Visual Studio Code のおすすめ設定
+### Q: Visual Studio Code での編集手順
 
-1. [VS Code](https://code.visualstudio.com/) をインストール
-2. リポジトリのフォルダを開く: `File > Open Folder` → `HTD-Official` を選択
-3. 推奨拡張機能:
-   - **Markdown Preview Mermaid Support** — Markdown のプレビュー
-   - **GitLens** — Git の履歴を視覚的に確認
-   - **YAML** — YAML/JSON のバリデーション
+#### インストール
+
+1. [VS Code 公式サイト](https://code.visualstudio.com/) からインストーラーをダウンロード
+2. インストーラーを実行（デフォルト設定で OK）
+3. 起動確認
+
+#### リポジトリのフォルダを開く
+
+**方法1: コマンドラインから開く**
+```bash
+cd HTD-Official
+code .
+```
+
+**方法2: VS Code のメニューから開く**
+1. VS Code を起動
+2. `File > Open Folder...`（または `Ctrl+K Ctrl+O`）
+3. `HTD-Official` フォルダを選択
+4. **「信頼します」** をクリック
+
+#### 画面の見方
+
+VS Code で開くと左側に **エクスプローラー** が表示され、リポジトリ全体のファイル構成がツリーで見えます。
+
+```
+HTD-Official
+├── data/            ← ここが編集対象
+│   ├── updates/
+│   ├── products/
+│   ├── blog/
+│   ├── members/
+│   └── about.json
+├── scripts/         ← ビルドスクリプト（基本触らない）
+├── css/
+├── js/
+├── index.html       ← 自動生成（直接編集しない）
+├── package.json
+└── README.md
+```
+
+#### Markdown ファイルの編集
+
+1. エクスプローラーで `data/` → `updates/`（または `products/` / `blog/`）→ 目的のスラグフォルダを展開
+2. `index.md` をクリックして開く
+3. 編集が完了したら `Ctrl+S` で保存
+
+**入力のヒント:**
+- `---` で囲まれた部分が YAML frontmatter（タイトル・日付などの設定）
+- 本文は通常の Markdown 形式で記述
+- 編集中は `Ctrl+Shift+V` でプレビュー表示
+
+#### VS Code 内蔵ターミナルでビルドする
+
+VS Code のターミナル機能を使うと、エディタから離れずにビルドできます。
+
+1. `Ctrl+」（バッククォート）` または `Terminal > New Terminal`
+2. ターミナルが開いたら以下のコマンドを実行:
+
+```bash
+npm run build
+```
+
+3. エラーが出た場合はターミナルに表示されるので、該当ファイルを修正して再度ビルド
+
+#### VS Code 内蔵の Git 操作
+
+左側の **ソース管理** アイコン（`Ctrl+Shift+G`）をクリックすると、変更したファイルの一覧が表示されます。
+
+1. 変更したファイルの横の `+` をクリック → ステージング
+2. 上部のメッセージ欄にコミットメッセージを入力
+3. `✓` ボタンをクリック → コミット
+4. 下部の `...` から `プッシュ` を選択 → GitHub に反映
+
+ターミナルが苦手な場合でも、VS Code の UI だけで基本的な Git 操作が完結します。
+
+#### 推奨拡張機能
+
+| 拡張機能 | 用途 | 入れ方 |
+|---|---|---|
+| **YAML** (Red Hat) | YAML frontmatter のバリデーション・シンタックスハイライト | 左側の拡張機能アイコン → `YAML` で検索 |
+| **Markdown Preview GitHub Styling** | プレビューを見やすく | 同様に検索 |
+| **GitLens** | ファイルの変更履歴をエディタ上で確認 | 同様に検索 |
+| **Japanese Language Pack** | VS Code のメニューを日本語化 | 同様に検索して `Ctrl+Shift+P` → `Configure Display Language` で切替 |
+
+拡張機能のインストールは左側のアクティビティバー（縦のアイコン列）の **拡張機能**（四角が4つのアイコン、`Ctrl+Shift+X`）をクリックし、検索ボックスに名前を入力して **インストール** をクリックします。
 
 ## ライセンス
 
