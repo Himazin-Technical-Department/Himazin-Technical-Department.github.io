@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'fs';
-import { join, dirname } from 'path';
+import { join, dirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { parseFrontmatter } from './frontmatter.js';
 
@@ -16,25 +16,83 @@ function generateRegistries() {
     const entries = readdirSync(dir, { withFileTypes: true })
       .filter(e => e.isDirectory());
 
+    let hasError = false;
     const items = entries
       .map(e => {
-        const mdPath = join(dir, e.name, 'index.md');
-        if (!existsSync(mdPath)) return null;
+        const slug = e.name;
+        const sectionRel = `data/${section}/${slug}`;
+        const mdPath = join(dir, slug, 'index.md');
+        if (!existsSync(mdPath)) {
+          console.error(`  ✖ ERROR: ${sectionRel}/ に index.md が見つかりません。
+    データフォルダは作成したが記事ファイルがない状態です。
+    解消法: ${sectionRel}/index.md を作成するか、不要ならフォルダごと削除してください。`);
+          hasError = true;
+          return null;
+        }
         const text = readFileSync(mdPath, 'utf-8');
-        const { data, content } = parseFrontmatter(text);
-        if (!data.title) return null;
+        const { data, content } = parseFrontmatter(text, mdPath);
 
-        const metaPath = join(dir, e.name, 'meta.json');
+        if (!data.title) {
+          console.error(`  ✖ ERROR: ${sectionRel}/index.md に title が設定されていません。
+    YAML frontmatter の先頭に title: 記事タイトル を追加してください。
+    例:
+      ---
+      title: ここにタイトル
+      date: 2026-06-08
+      ---`);
+          hasError = true;
+          return null;
+        }
+
+        if (!data.date) {
+          console.error(`  ✖ ERROR: ${sectionRel}/index.md に date が設定されていません。
+    YAML frontmatter に date: YYYY-MM-DD 形式の日付を追加してください。
+    例:
+      date: 2026-06-08`);
+          hasError = true;
+          return null;
+        }
+
+        const dateObj = new Date(data.date);
+        if (isNaN(dateObj.getTime())) {
+          console.error(`  ✖ ERROR: ${sectionRel}/index.md の date の形式が正しくありません。
+    現在の値: "${data.date}"
+    正しい形式: YYYY-MM-DD（例: 2026-06-08）`);
+          hasError = true;
+          return null;
+        }
+
+        if (data.tags && !Array.isArray(data.tags)) {
+          console.error(`  ✖ ERROR: ${sectionRel}/index.md の tags の形式が正しくありません。
+    tags は YAML のリスト形式（各行 - で始める）で記述してください。
+    例:
+      tags:
+        - タグ1
+        - タグ2`);
+          hasError = true;
+          return null;
+        }
+
+        if (content.trim() === '') {
+          console.error(`  ⚠ WARNING: ${sectionRel}/index.md に本文がありません。空の記事になります。`);
+        }
+
+        const metaPath = join(dir, slug, 'meta.json');
         writeFileSync(metaPath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
 
-        return { slug: e.name, ...data };
+        return { slug, ...data };
       })
       .filter(Boolean)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
 
+    if (hasError) {
+      console.error(`  ✖ エラーがあるため ${section} の registry.json は生成しませんでした。`);
+      continue;
+    }
+
     const outPath = join(dir, 'registry.json');
     writeFileSync(outPath, JSON.stringify(items, null, 2) + '\n', 'utf-8');
-    console.log(`Generated ${outPath} (${items.length} items)`);
+    console.log(`✓ Generated ${outPath} (${items.length} items)`);
   }
 }
 

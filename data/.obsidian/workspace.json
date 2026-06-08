@@ -184,5 +184,19 @@
     }
   },
   "active": "03c922b3e5ebe26f",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "updates/bad-yaml/meta.json",
+    "updates/bad-yaml/index.md",
+    "updates/bad-yaml",
+    "products/bad-icon/meta.json",
+    "products/bad-icon/index.md",
+    "products/bad-icon",
+    "updates/bad-tags/index.md",
+    "updates/bad-tags",
+    "updates/bad-date/index.md",
+    "updates/bad-date",
+    "updates/no-title/index.md",
+    "updates/no-title",
+    "updates/no-index"
+  ]
 }

@@ -17,7 +17,10 @@ const readJSON = path => JSON.parse(readFileSync(path, 'utf-8'));
 const formatDate = str => {
   if (!str) return '';
   const d = new Date(str);
-  if (isNaN(d.getTime())) return str;
+  if (isNaN(d.getTime())) {
+    console.error(`  ⚠ WARNING: 日付の形式が不正です: "${str}"（有効な日付として扱えません。そのまま表示します）`);
+    return str;
+  }
   return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 };
 
@@ -435,11 +438,30 @@ console.log('Building pages...');
 const sections = ['updates', 'products', 'blog'];
 const registries = {};
 for (const section of sections) {
-  const path = join(root, 'data', section, 'registry.json');
-  registries[section] = existsSync(path) ? readJSON(path) : [];
+  const registryPath = join(root, 'data', section, 'registry.json');
+  if (!existsSync(registryPath)) {
+    console.error(`  ✖ ERROR: data/${section}/registry.json が見つかりません。
+    先に \`node scripts/generate-registry.js\` を実行してください。`);
+    process.exit(1);
+  }
+  registries[section] = readJSON(registryPath);
 }
 
-// Listing pages (no more redirects)
+// Validate product icons
+for (const item of registries.products) {
+  if (item.icon) {
+    const iconPath = join(root, item.icon);
+    if (!existsSync(iconPath)) {
+      console.error(`  ✖ ERROR: プロダクト "${item.title}" のアイコンファイルが見つかりません。
+    設定パス: ${item.icon}
+    期待される場所: ${iconPath}
+    解消法: アイコンファイルを配置するか、frontmatter の icon のパスを修正してください。`);
+      process.exit(1);
+    }
+  }
+}
+
+// Listing pages
 buildListing('updates', registries.updates);
 buildListing('products', registries.products);
 buildListing('blog', registries.blog);
@@ -450,7 +472,7 @@ if (existsSync(membersPath)) {
   buildMembers(readJSON(membersPath));
 }
 
-// Detail pages (separate HTML for SEO / crawlers)
+// Detail pages
 for (const section of sections) {
   for (const item of registries[section]) {
     buildDetail(section, item);

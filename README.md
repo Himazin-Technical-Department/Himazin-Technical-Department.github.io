@@ -424,6 +424,43 @@ HTD-Official/
 
 **注意:** JSON 内で改行を入れるには `\\n` とエスケープします。
 
+### Obsidian を使って編集する（推奨）
+
+[Obsidian](https://obsidian.md/) は Markdown エディタです。YAML frontmatter の表示やプレビュー、ファイル管理に優れており、このプロジェクトの編集に最適です。
+
+#### Obsidian のインストール
+
+1. [Obsidian 公式サイト](https://obsidian.md/) にアクセス
+2. お使いの OS に合ったインストーラーをダウンロード
+3. インストールして起動
+
+#### データフォルダを開く
+
+1. Obsidian を起動し、左下の **「フォルダを開く」** をクリック（既存の vault が開いている場合は `Ctrl/Cmd + Shift + O`）
+2. `HTD-Official/data` フォルダを選択
+3. **「信頼します」** をクリック
+
+Obsidian で `data/` 以下が以下のように表示されます:
+
+```
+data/
+├── about.json
+├── members/members.json
+├── updates/
+│   └── {slug}/
+│       ├── index.md
+├── products/
+│   └── {slug}/
+│       ├── index.md
+│       └── icon.svg
+└── blog/
+    └── {slug}/
+        ├── index.md
+```
+
+左側のエクスプローラから目的の `index.md` をクリックして編集できます。  
+編集後は忘れずに `npm run build` でプレビュー確認してください。
+
 ### サイト全体のデザインを編集する
 
 - スタイル: `css/style.css`
