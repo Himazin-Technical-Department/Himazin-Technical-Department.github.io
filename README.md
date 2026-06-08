@@ -70,7 +70,7 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 | ソフトウェア | おすすめ度 | 用途・特徴 |
 |---|---|---|
 | [Inkscape](https://inkscape.org/) | ★★★ | SVG 編集の定番。プロダクトの `icon.svg` 作成・編集に。 |
-| [Affinity](https://affinity.serif.com/ja/) | ★★★ | プロ級のベクター・ラスター編集。無料。SVG 書き出し対応。 |
+| [Affinity](https://affinity.serif.com/ja-jp/v2/) | ★★★ | プロ級のベクター・ラスター編集。無料。SVG 書き出し対応。 |
 | [GIMP](https://www.gimp.org/) | ★★ | ラスター画像編集。スクリーンショットの加工などに。 |
 | [Figma](https://www.figma.com/) | ★★ | ブラウザベースのデザインツール。SVG 書き出しに対応。 |
 
