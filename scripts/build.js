@@ -424,7 +424,7 @@ function buildMembers(data) {
   <div class="members-grid">${data.map(item => `
     <div class="member-card">
       <div class="member-icon">
-        ${item.icon ? `<img src="${esc(item.icon)}" alt="${esc(item.name)}" loading="lazy">` : esc(item.name.charAt(0))}
+        ${item.icon ? `<img src="/${esc(item.icon)}" alt="${esc(item.name)}" loading="lazy">` : esc(item.name.charAt(0))}
       </div>
       ${item.type ? `<span class="member-type ${esc(item.type)}">${esc(typeLabel[item.type] || item.type)}</span>` : ''}
       <h3>${esc(item.name)}</h3>
