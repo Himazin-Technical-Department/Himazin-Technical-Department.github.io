@@ -1286,6 +1286,10 @@ img {
     padding: 0 0 24px;
   }
 
+  .carousel-dots {
+    display: none;
+  }
+
   .carousel-wrap .section-title {
     padding-left: 16px;
   }
@@ -1304,6 +1308,12 @@ img {
     height: 112px;
     scroll-snap-align: center;
     border-radius: 10px;
+  }
+
+  .carousel-slide.active {
+    flex: 0 0 200px;
+    height: 112px;
+    box-shadow: none;
   }
 
   .carousel-slide .carousel-slide-body {
