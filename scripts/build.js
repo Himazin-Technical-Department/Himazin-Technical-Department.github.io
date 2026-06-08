@@ -196,7 +196,7 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
   writePage(join(root, 'index.html'), null, null, null, 'home', `
 <div class="hero">
   <div class="hero-heading">
-    <img src="/logo.svg" alt="" class="hero-heading-icon">
+    <span class="hero-icon-wrap"><img src="/logo.svg" alt="" class="hero-heading-icon"></span>
     <h1 class="hero-title">${SITE_NAME}</h1>
   </div>
   <p class="hero-sub">Himazin Technical Department</p>
