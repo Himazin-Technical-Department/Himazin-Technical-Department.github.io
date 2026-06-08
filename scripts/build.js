@@ -208,6 +208,7 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
 </div>
 ${featured.length > 0 ? `
 <div class="carousel-wrap">
+  <h2 class="section-title" style="border-bottom:none;margin-bottom:24px">今日のトピック</h2>
   <div class="carousel-thumbs">
     ${carouselSlides}
   </div>

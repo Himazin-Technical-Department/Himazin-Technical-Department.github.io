@@ -1163,7 +1163,7 @@ img {
   text-decoration: none;
   color: inherit;
   background: #e8e8ed;
-  transition: all 0.4s ease;
+  transition: all 0.4s linear;
   cursor: pointer;
   position: relative;
 }
@@ -1280,29 +1280,49 @@ img {
     padding: 0 0 24px;
   }
 
+  .carousel-dots {
+    display: none;
+  }
+
+  .carousel-wrap .section-title {
+    padding-left: 16px;
+  }
+
   .carousel-thumbs {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 8px;
-    padding: 0 16px;
+    padding: 0 16px 12px;
     justify-content: flex-start;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .carousel-thumbs::-webkit-scrollbar {
-    display: none;
   }
 
   .carousel-slide {
-    flex: 0 0 160px;
-    height: 90px;
+    flex: 0 0 200px;
+    height: 112px;
     scroll-snap-align: center;
     border-radius: 10px;
   }
 
-  .carousel-slide.active {
-    flex: 0 0 200px;
-    height: 112px;
+  .carousel-slide .carousel-slide-body {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  }
+
+  .carousel-slide .carousel-slide-body h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
   }
 }

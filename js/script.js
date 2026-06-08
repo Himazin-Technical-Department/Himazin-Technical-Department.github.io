@@ -187,7 +187,7 @@ function processExternalLinks(root) {
     link.setAttribute('data-og', '1');
     const href = link.getAttribute('href');
     if (!href || href.includes(SITE_DOMAIN) || href.includes('youtube.com') || href.includes('youtu.be')) return;
-    if (link.closest('.detail-meta, .blog-post-meta, .product-actions, .product-btn, .back-link, .header, .footer')) return;
+    if (link.closest('.detail-meta, .blog-post-meta, .product-actions, .product-btn, .back-link, .header, .footer, .member-links, .member-link')) return;
 
     const placeholder = document.createElement('div');
     placeholder.className = 'link-preview-loading';
