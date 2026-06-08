@@ -208,7 +208,7 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
 </div>
 ${featured.length > 0 ? `
 <div class="carousel-wrap">
-  <div class="carousel">
+  <div class="carousel-thumbs">
     ${carouselSlides}
   </div>
   <div class="carousel-dots">${featured.map((_, i) => `<span class="carousel-dot${i === 0 ? ' active' : ''}" data-index="${i}"></span>`).join('')}</div>
