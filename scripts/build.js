@@ -503,11 +503,19 @@ const aboutPath = join(root, 'data', 'about.json');
 let aboutHtml = '';
 if (existsSync(aboutPath)) {
   const aboutData = readJSON(aboutPath);
-  aboutHtml = md.render(aboutData.about || '');
+  aboutHtml = md.render(aboutData.content || aboutData.about || '');
 }
 const featured = [...registries.updates.map(i => ({ ...i, section: 'updates' })), ...registries.blog.map(i => ({ ...i, section: 'blog' }))]
   .filter(i => i.thumbnail)
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .sort((a, b) => {
+    const af = a.featured != null ? Number(a.featured) : Infinity;
+    const bf = b.featured != null ? Number(b.featured) : Infinity;
+    if (af !== bf) return af - bf;
+    const aSec = a.section === 'updates' ? 0 : 1;
+    const bSec = b.section === 'updates' ? 0 : 1;
+    if (aSec !== bSec) return aSec - bSec;
+    return new Date(b.date) - new Date(a.date);
+  })
   .slice(0, 5);
 buildHomepage(aboutHtml, registries.updates, registries.products, registries.blog, featured);
 

@@ -1,0 +1,13 @@
+---
+title: サムネイル表示テスト 3
+date: 2026-06-06
+author: 管理者
+excerpt: これはサムネイルカルーセルのテスト用記事 3 です。
+thumbnail: data/blog/thumb-test-3/thumbnail.svg
+tags:
+  - テスト
+---
+
+## テスト記事 3
+
+カルーセル表示のテスト用記事です。

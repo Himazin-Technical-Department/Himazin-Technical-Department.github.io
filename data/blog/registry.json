@@ -23,16 +23,37 @@
     ]
   },
   {
-    "slug": "thumbnail-test",
-    "title": "サムネイル表示テスト",
+    "slug": "thumb-test-1",
+    "title": "サムネイル表示テスト 1",
     "date": "2026-06-08",
     "author": "管理者",
-    "excerpt": "この記事はサムネイル画像の表示をテストするためのものです。一覧ページと詳細ページでサムネイルが表示されます。",
+    "excerpt": "これはサムネイルカルーセルのテスト用記事 1 です。",
+    "thumbnail": "data/blog/thumb-test-1/thumbnail.svg",
     "tags": [
-      "テスト",
-      "お知らせ"
-    ],
-    "thumbnail": "data/blog/thumbnail-test/thumbnail.svg"
+      "テスト"
+    ]
+  },
+  {
+    "slug": "thumb-test-2",
+    "title": "サムネイル表示テスト 2",
+    "date": "2026-06-07",
+    "author": "管理者",
+    "excerpt": "これはサムネイルカルーセルのテスト用記事 2 です。",
+    "thumbnail": "data/blog/thumb-test-2/thumbnail.svg",
+    "tags": [
+      "テスト"
+    ]
+  },
+  {
+    "slug": "thumb-test-3",
+    "title": "サムネイル表示テスト 3",
+    "date": "2026-06-06",
+    "author": "管理者",
+    "excerpt": "これはサムネイルカルーセルのテスト用記事 3 です。",
+    "thumbnail": "data/blog/thumb-test-3/thumbnail.svg",
+    "tags": [
+      "テスト"
+    ]
   },
   {
     "slug": "hello-world",
@@ -43,6 +64,29 @@
     "tags": [
       "お知らせ",
       "サイト"
+    ]
+  },
+  {
+    "slug": "thumb-test-4",
+    "title": "サムネイル表示テスト 4",
+    "date": "2026-06-05",
+    "author": "管理者",
+    "excerpt": "これはサムネイルカルーセルのテスト用記事 4 です。",
+    "thumbnail": "data/blog/thumb-test-4/thumbnail.svg",
+    "tags": [
+      "テスト"
+    ]
+  },
+  {
+    "slug": "thumb-test-5",
+    "title": "サムネイル表示テスト 5",
+    "date": "2026-06-04",
+    "author": "管理者",
+    "excerpt": "これはサムネイルカルーセルのテスト用記事 5 です。",
+    "thumbnail": "data/blog/thumb-test-5/thumbnail.svg",
+    "featured": "1",
+    "tags": [
+      "テスト"
     ]
   }
 ]

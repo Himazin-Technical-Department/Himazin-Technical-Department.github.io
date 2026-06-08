@@ -1,0 +1,10 @@
+---
+title: お知らせサムネイルテスト 1
+date: 2026-06-08
+excerpt: お知らせのサムネイル表示テスト 1 です。
+thumbnail: data/updates/thumb-update-1/thumbnail.svg
+---
+
+## お知らせ 1
+
+お知らせのカルーセル表示テストです。
