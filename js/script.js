@@ -586,6 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
       slides[index].classList.add('active');
       dots[index].classList.add('active');
       current = index;
+      slides[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
     function next() { goTo((current + 1) % slides.length); }
     function start() { timer = setInterval(next, 5000); }

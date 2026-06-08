@@ -121,7 +121,7 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
       <nav class="nav">
         ${navs.map(n => `<a href="${n.href}" class="nav-link${activeNav === n.key ? ' active' : ''}"${activeNav === n.key ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`).join('\n        ')}
       </nav>
-      <button class="menu-toggle" aria-label="メニュー" onclick="document.querySelector('.nav').classList.toggle('open')">
+      <button class="menu-toggle" aria-label="メニュー">
         <span></span><span></span><span></span>
       </button>
     </div>
