@@ -26,7 +26,7 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 
 このサイトは **静的サイトジェネレーター** です。
 
-- 記事やメンバー情報は `data/` フォルダ内の **Markdown（`*.md`）** と **JSON** で管理します。
+- 記事は `data/` フォルダ内の **Markdown ファイル（`index.md`）** の YAML frontmatter にタイトル・日付などを、本文に内容を書いて管理します。
 - `npm run build` を実行すると、それらのデータから自動的に `index.html` や各ページの HTML が生成されます。
 - 生成された HTML を GitHub Pages で公開しています。
 - **GitHub Actions** により、`main` ブランチにプッシュすると自動でビルド → デプロイまで行われます。
@@ -42,6 +42,7 @@ Himazin Technical Department の公式ホームページです。[GitHub Pages](
 | [Git](https://git-scm.com/) | 最新安定版 | バージョン管理、GitHub へのプッシュ |
 | [Node.js](https://nodejs.org/) | 20.x 以上 | ビルドスクリプトの実行 |
 | npm | Node.js に同梱 | パッケージ管理 |
+| [Python](https://www.python.org/) | 3.x | ローカルプレビュー用の簡易HTTPサーバー（後述） |
 | テキストエディタ | 任意 | ファイルの編集（Visual Studio Code 推奨） |
 
 ## Git のインストール
@@ -119,6 +120,47 @@ node --version
 npm --version
 ```
 
+## Python のインストール
+
+Python は **ローカルでプレビュー確認するため** に使います。ビルド自体には不要ですが、編集内容をブラウザで確認するために必要です。
+
+すでにインストール済みかどうか確認:
+```bash
+python3 --version
+```
+
+### Windows
+
+[Python公式サイト](https://www.python.org/downloads/) から最新の **Python 3** をダウンロードしてインストール。
+インストーラーで **「Add Python to PATH」** にチェックを入れてください。
+
+確認:
+```bash
+python --version
+```
+
+### macOS
+
+```bash
+brew install python
+```
+
+### Linux (Ubuntu / Debian)
+
+```bash
+sudo apt update
+sudo apt install python3
+```
+
+確認:
+```bash
+python3 --version
+```
+
+### Python なしでプレビューする場合
+
+Python をインストールしなくても、Node.js の `serve` パッケージで代用できます（後述のプレビュー欄を参照）。
+
 ## リポジトリをローカルに取得する
 
 ### GitHub アカウントの作成
@@ -180,18 +222,21 @@ HTD-Official/
 │   ├── members/
 │   │   └── members.json   #   メンバー一覧
 │   ├── updates/           #   お知らせ
+│   │   ├── registry.json  #     一覧データ（index.md から自動生成）
 │   │   └── {slug}/
-│   │       ├── meta.json  #     タイトル・日付・抜粋など
-│   │       └── index.md   #     本文（Markdown）
+│   │       ├── meta.json  #     タイトル・日付など（index.md から自動生成）
+│   │       └── index.md   #     ★ 本文＋YAML frontmatter（ここを書く）
 │   ├── products/          #   プロダクト
+│   │   ├── registry.json  #     一覧データ（自動生成）
 │   │   └── {slug}/
-│   │       ├── meta.json
-│   │       ├── index.md
+│   │       ├── meta.json  #     自動生成
+│   │       ├── index.md   #     ★ YAML frontmatter + 本文
 │   │       └── icon.svg   #     プロダクトアイコン
 │   └── blog/              #   ブログ
+│       ├── registry.json  #     一覧データ（自動生成）
 │       └── {slug}/
-│           ├── meta.json
-│           └── index.md
+│           ├── meta.json  #     自動生成
+│           └── index.md   #     ★ YAML frontmatter + 本文
 │
 ├── updates/               # お知らせページ（自動生成。手動編集しない）
 │   ├── index.html
@@ -233,33 +278,31 @@ HTD-Official/
    mkdir -p data/updates/new-member-recruitment
    ```
 
-2. 作成したフォルダの中に `meta.json` を作成します。
-
-   ```json
-   {
-     "title": "新メンバー募集中！",
-     "date": "2026-06-08",
-     "author": "川上",
-     "excerpt": "暇人技術部では新しいメンバーを募集しています。",
-     "tags": ["お知らせ", "募集"]
-   }
-   ```
-
-3. 同じフォルダに `index.md` を作成し、本文を Markdown で記述します。
+2. そのフォルダに `index.md` を作成し、`---` で囲まれた **YAML frontmatter** と本文を Markdown で記述します。
 
    ```markdown
+   ---
+   title: 新メンバー募集中！
+   date: 2026-06-08
+   author: 川上
+   excerpt: 暇人技術部では新しいメンバーを募集しています。
+   tags:
+     - お知らせ
+     - 募集
+   ---
+
    暇人技術部では、新しいメンバーを募集しています！
-   
+
    興味のある方は以下の連絡先まで。
-   
+
    ## 募集要項
-   
+
    - 対象: 技術に興味がある人
    - 活動: プロダクト開発・研究
    - 連絡先: Twitter DM まで
    ```
 
-4. **meta.json の各フィールド:**
+   **frontmatter の各フィールド:**
 
    | フィールド | 必須 | 内容 |
    |---|---|---|
@@ -267,9 +310,15 @@ HTD-Official/
    | `date` | ✅ | 日付（`YYYY-MM-DD` 形式） |
    | `author` | | 著者名（省略可） |
    | `excerpt` | | 一覧ページに表示される短い説明（省略可） |
-   | `tags` | | タグの配列（省略可） |
+   | `tags` | | タグのリスト（省略可） |
 
-   **ブログ記事の場合も同じ形式です。**
+   **ブログ記事も同じ形式です。**
+
+3. `npm run build` を実行すると、`index.md` の frontmatter から自動的に `meta.json` と `registry.json` が生成され、全ページの HTML も更新されます。
+
+   ```bash
+   npm run build
+   ```
 
 #### 画像を記事内に配置する
 
@@ -283,7 +332,7 @@ HTD-Official/
 
 ### プロダクトを追加する
 
-プロダクトページもお知らせと同様の手順ですが、`meta.json` のフィールドが異なります。
+お知らせと同様に `index.md` に YAML frontmatter を書きますが、フィールドが一部異なります。
 
 1. `data/products/` の中にスラグフォルダを作成します。
 
@@ -291,25 +340,27 @@ HTD-Official/
    mkdir -p data/products/my-app
    ```
 
-2. `meta.json` を作成します。
+2. `index.md` を作成し、frontmatter と本文を記述します。
 
-   ```json
-   {
-     "title": "マイアプリ",
-     "date": "2026-06-01",
-     "excerpt": "便利なアプリケーションです。",
-     "icon": "data/products/my-app/icon.svg",
-     "url": "https://example.com",
-     "urlLabel": "サイトへ",
-     "detailLabel": "詳しく見る"
-   }
+   ```markdown
+   ---
+   title: マイアプリ
+   date: 2026-06-01
+   excerpt: 便利なアプリケーションです。
+   icon: data/products/my-app/icon.svg
+   url: https://example.com
+   urlLabel: サイトへ
+   detailLabel: 詳しく見る
+   ---
+
+   マイアプリの詳細説明をここに書きます。
    ```
 
-3. `index.md` を作成します（詳細ページの本文）。
+3. 必要に応じて `icon.svg` を同じフォルダに配置します（プロダクトカードに表示されるアイコン）。
 
-4. 必要に応じて `icon.svg` を配置します（プロダクトカードに表示されるアイコン）。
+4. `npm run build` で反映します。
 
-**meta.json の各フィールド:**
+**frontmatter の各フィールド:**
 
 | フィールド | 必須 | 内容 |
 |---|---|---|
@@ -392,22 +443,27 @@ npm run build
 ```
 
 以下の処理が実行されます:
-1. `data/` 以下の Markdown ファイルから `registry.json` と `meta.json` を生成
+1. `data/` 以下の `index.md` の YAML frontmatter を読み取り、`meta.json` と `registry.json` を自動生成
 2. 全ページの HTML（`index.html`, `updates/`, `products/`, `blog/`, `members/`, `sitemap.xml`）を生成
 
-### プレビュー
+### プレビュー（編集内容の確認）
 
+ビルドで生成されたサイトをローカルで確認するには、簡易 HTTP サーバーを起動します。
+
+**方法1: Python を使う**
 ```bash
 python3 -m http.server 8080
 ```
 
-ブラウザで `http://localhost:8080` を開きます。
-
-Python が使えない場合は Node.js の `serve` パッケージでも構いません:
-
+**方法2: Python が入っていない場合（Node.js の serve を使う）**
 ```bash
 npx serve .
 ```
+
+どちらも `http://localhost:8080` をブラウザで開けば確認できます。
+
+> `python3 -m http.server` は Python に標準で付属している機能なので、Python をインストールすれば追加のパッケージは不要です。
+> 逆に、`npx serve` は初回実行時に自動でダウンロードが入りますが、Python のインストールが不要という利点があります。
 
 ### 確認すべきポイント
 
@@ -554,7 +610,7 @@ GitHub のリポジトリページで **Actions** タブを開くと、ワーク
 赤い ✗ がついているジョブをクリックすると、どのステップでエラーが発生したか詳細が表示されます。
 
 よくある原因:
-- `meta.json` の JSON 形式が壊れている（カンマ漏れなど）
+- `index.md` の YAML frontmatter の形式が間違っている（インデントがタブになっている、`:` の後ろにスペースがない など）
 - `npm run build` でエラーが出ている
 - `package-lock.json` がコミットされていない
 
@@ -570,7 +626,7 @@ GitHub のリポジトリページで **Actions** タブを開くと、ワーク
 
 ### Q: `npm run build` でエラーが出る
 
-- `meta.json` の JSON 形式が正しいか確認してください（末尾のカンマなど）。
+- `index.md` の YAML frontmatter の形式を確認してください（`---` で正しく囲まれているか、インデントにタブではなくスペースを使っているか）。
 - `index.md` が存在するか確認してください。
 - `node_modules/` が正しくインストールされているか確認:
   ```bash
@@ -579,7 +635,7 @@ GitHub のリポジトリページで **Actions** タブを開くと、ワーク
 
 ### Q: 画像が表示されない
 
-- `meta.json` の `icon` パスが正しいか確認してください（`data/products/{slug}/icon.svg` のように `data/` からの相対パス）。
+- `index.md` の frontmatter 内の `icon` パスが正しいか確認してください（`data/products/{slug}/icon.svg` のように `data/` からの相対パス）。
 - 画像ファイルが実際に存在するか確認してください。
 - ファイル名の大文字小文字が一致しているか確認（特に Linux 環境では要注意）。
 
