@@ -7,6 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const SITE_URL = 'https://himazin-technical-department.github.io';
 const SITE_NAME = '暇人技術部';
+const BUILD_ID = Date.now().toString(36);
 
 /* ── helpers ── */
 
@@ -65,7 +66,7 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap&font-display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css?v=${BUILD_ID}">
   <meta name="robots" content="index, follow">
   <meta name="format-detection" content="telephone=no, email=no, address=no">
   <meta property="og:type" content="website">
@@ -147,7 +148,7 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
     </div>
   </footer>
 
-  <script src="/js/script.js"></script>
+  <script src="/js/script.js?v=${BUILD_ID}"></script>
 </body>
 </html>`;
 }
