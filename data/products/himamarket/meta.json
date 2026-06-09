@@ -5,5 +5,6 @@
   "icon": "data/products/himamarket/icon.svg",
   "url": "https://github.com/Himazin-TD/himamarket",
   "urlLabel": "GitHub",
-  "detailLabel": "詳しく見る"
+  "detailLabel": "詳しく見る",
+  "thumbnail": "data/products/himamarket/thumb-auto.svg"
 }

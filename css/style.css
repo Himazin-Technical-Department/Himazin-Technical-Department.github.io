@@ -252,8 +252,12 @@ img {
   font-weight: 700;
   letter-spacing: 0.05em;
   margin-bottom: 32px;
-  padding: 0 0 0 16px;
+  padding: 12px 0 12px 16px;
   border-left: 4px solid #1a1a1a;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.06) 1px, transparent 0),
+    linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 0);
+  background-size: 32px 32px;
 }
 
 .section-more {

@@ -7,7 +7,8 @@
     "icon": "data/products/himamarket/icon.svg",
     "url": "https://github.com/Himazin-TD/himamarket",
     "urlLabel": "GitHub",
-    "detailLabel": "詳しく見る"
+    "detailLabel": "詳しく見る",
+    "thumbnail": "data/products/himamarket/thumb-auto.svg"
   },
   {
     "slug": "himaweather",
@@ -15,7 +16,8 @@
     "date": "2026-05-20",
     "excerpt": "洗練されたデザインの天気予報アプリ。週間予報・降水量・風速など多彩な情報を提供します。",
     "icon": "data/products/himaweather/icon.svg",
-    "detailLabel": "詳細を見る"
+    "detailLabel": "詳細を見る",
+    "thumbnail": "data/products/himaweather/thumb-auto.svg"
   },
   {
     "slug": "himacanvas",
@@ -25,6 +27,7 @@
     "icon": "data/products/himacanvas/icon.svg",
     "url": "https://himacanvas.pages.dev",
     "urlLabel": "使ってみる",
-    "detailLabel": "機能を見る"
+    "detailLabel": "機能を見る",
+    "thumbnail": "data/products/himacanvas/thumb-auto.svg"
   }
 ]

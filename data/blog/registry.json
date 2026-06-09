@@ -8,7 +8,8 @@
     "tags": [
       "自己紹介",
       "雑談"
-    ]
+    ],
+    "thumbnail": "data/blog/macaroni.1/thumb-auto.svg"
   },
   {
     "slug": "site-update-2026-06",
@@ -20,7 +21,8 @@
       "お知らせ",
       "サイト",
       "技術"
-    ]
+    ],
+    "thumbnail": "data/blog/site-update-2026-06/thumb-auto.svg"
   },
   {
     "slug": "thumb-test-1",
@@ -64,7 +66,8 @@
     "tags": [
       "お知らせ",
       "サイト"
-    ]
+    ],
+    "thumbnail": "data/blog/hello-world/thumb-auto.svg"
   },
   {
     "slug": "thumb-test-4",

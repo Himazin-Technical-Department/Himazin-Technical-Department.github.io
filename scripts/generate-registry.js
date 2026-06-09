@@ -9,6 +9,10 @@ const root = join(__dirname, '..');
 const SITE_URL = 'https://himazin-technical-department.github.io';
 const sections = ['updates', 'products', 'blog'];
 
+function escXml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 /* ── registry.json + meta.json (from frontmatter) ── */
 function generateRegistries() {
   for (const section of sections) {
@@ -75,6 +79,49 @@ function generateRegistries() {
 
         if (content.trim() === '') {
           console.error(`  ⚠ WARNING: ${sectionRel}/index.md に本文がありません。空の記事になります。`);
+        }
+
+        if (!data.thumbnail) {
+          const thumbPath = `${sectionRel}/thumb-auto.svg`;
+          const titleLine = (data.title || '').split('\n')[0];
+          const titleLen = titleLine.length;
+          const authorText = data.author ? escXml(data.author) : '';
+
+          let parts, size;
+          if (titleLen <= 8) {
+            parts = [titleLine];
+            size = 20;
+          } else if (titleLen <= 12) {
+            parts = [titleLine];
+            size = 16;
+          } else {
+            const mid = Math.floor(titleLen / 2);
+            let sp = titleLine.indexOf(' ', mid);
+            if (sp === -1) sp = titleLine.lastIndexOf(' ', mid);
+            if (sp === -1) sp = mid;
+            parts = [titleLine.slice(0, sp), titleLine.slice(sp).trim()];
+            size = 14;
+          }
+
+          const titleSvg = parts.length === 1
+            ? `<text x="120" y="80" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="${size}" font-weight="700" fill="#333">${escXml(parts[0])}</text>`
+            : `<text x="120" y="71" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="${size}" font-weight="700" fill="#333">${escXml(parts[0])}</text>\n  <text x="120" y="92" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="${size}" font-weight="700" fill="#333">${escXml(parts[1])}</text>`;
+
+          const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="240" height="135" viewBox="0 0 240 135">
+  <defs>
+    <pattern id="g" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#000" stroke-width="1.2" opacity="0.12"/>
+    </pattern>
+  </defs>
+  <rect width="240" height="135" fill="#fafafa"/>
+  <rect width="240" height="135" fill="url(#g)"/>
+  <rect x="0.5" y="0.5" width="239" height="134" fill="none" stroke="#e0e0e0" stroke-width="1" rx="2"/>
+  ${authorText ? `<text x="232" y="26" text-anchor="end" font-family="Noto Sans JP, sans-serif" font-size="13" font-weight="500" fill="#666">${authorText}</text>` : ''}
+  ${titleSvg}
+</svg>
+`;
+          writeFileSync(join(root, thumbPath), svg, 'utf-8');
+          data.thumbnail = thumbPath;
         }
 
         const metaPath = join(dir, slug, 'meta.json');
