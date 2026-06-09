@@ -214,7 +214,7 @@ ${featured.length > 0 ? `
   </div>
 </div>` : ''}
 <div class="section section-about">
-  <h2 class="section-title">${SITE_NAME}とは？</h2>
+  <h2 class="section-title">${SITE_NAME}について</h2>
   <div class="about-content">${aboutHtml}</div>
 </div>
 <div class="section">
@@ -232,7 +232,7 @@ ${featured.length > 0 ? `
   ${updates.length > 5 ? `<a href="/updates/" class="section-more">すべて見る →</a>` : ''}
 </div>
 <div class="section">
-  <h2 class="section-title">プロダクト</h2>
+  <h2 class="section-title">最新のプロダクト</h2>
   <div class="products-grid">${products.slice(0, 3).map(item => `
     <div class="product-card">
       ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
@@ -248,7 +248,7 @@ ${featured.length > 0 ? `
   ${products.length > 3 ? `<a href="/products/" class="section-more">すべて見る →</a>` : ''}
 </div>
 <div class="section">
-  <h2 class="section-title">最近のブログ</h2>
+  <h2 class="section-title">最新のブログ</h2>
   <div class="item-list">${blog.slice(0, 3).map(item => `
     <a href="/blog/${item.slug}/" class="item-list-item${item.thumbnail ? ' has-thumb' : ''}">
       ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
