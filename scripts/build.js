@@ -16,6 +16,10 @@ const imgPath = p => p ? (p.startsWith('/') ? p : '/' + p) : '';
 
 const readJSON = path => JSON.parse(readFileSync(path, 'utf-8'));
 
+const memberCount = (() => {
+  try { return readJSON(join(root, 'data/members/members.json')).length; } catch { return 0; }
+})();
+
 const formatDate = str => {
   if (!str) return '';
   const d = new Date(str);
@@ -144,7 +148,31 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
 
   <footer class="footer">
     <div class="footer-inner">
-      <p>&copy; 2026 ${SITE_NAME}</p>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>${SITE_NAME}</h4>
+          <p>技術好きが集まってプロダクト開発や研究を行うコミュニティです。</p>
+        </div>
+        <div class="footer-col">
+          <h4>ナビゲーション</h4>
+          <ul class="footer-links">
+            <li><a href="/">ホーム</a></li>
+            <li><a href="/updates/">お知らせ</a></li>
+            <li><a href="/products/">プロダクト</a></li>
+            <li><a href="/blog/">ブログ</a></li>
+            <li><a href="/members/">メンバー</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>リンク</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/Himazin-Technical-Department" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 ${SITE_NAME}</p>
+      </div>
     </div>
   </footer>
 
@@ -195,16 +223,18 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
 
   writePage(join(root, 'index.html'), null, null, null, 'home', `
 <div class="hero">
-  <div class="hero-heading">
-    <span class="hero-icon-wrap"><img src="/logo.svg" alt="" class="hero-heading-icon"></span>
-    <h1 class="hero-title">${SITE_NAME}</h1>
-  </div>
-  <p class="hero-sub">Himazin Technical Department</p>
-  <div class="hero-links">
-    <a href="/updates/" class="hero-btn">お知らせ</a>
-    <a href="/products/" class="hero-btn">プロダクト</a>
-    <a href="/blog/" class="hero-btn">ブログ</a>
-    <a href="/members/" class="hero-btn">メンバー</a>
+  <div class="hero-inner">
+    <div class="hero-heading">
+      <span class="hero-icon-wrap"><img src="/logo.svg" alt="" class="hero-heading-icon"></span>
+      <h1 class="hero-title">${SITE_NAME}</h1>
+    </div>
+    <p class="hero-sub">Himazin Technical Department</p>
+    <div class="hero-links">
+      <a href="/updates/" class="hero-btn">お知らせ</a>
+      <a href="/products/" class="hero-btn">プロダクト</a>
+      <a href="/blog/" class="hero-btn">ブログ</a>
+      <a href="/members/" class="hero-btn">メンバー</a>
+    </div>
   </div>
 </div>
 ${featured.length > 0 ? `
@@ -215,17 +245,33 @@ ${featured.length > 0 ? `
 </div>` : ''}
 <div class="section section-about">
   <h2 class="section-title">${SITE_NAME}について</h2>
+  <div class="about-stats">
+    <div class="about-stat">
+      <span class="about-stat-number">${memberCount}</span>
+      <span class="about-stat-label">メンバー</span>
+    </div>
+    <div class="about-stat">
+      <span class="about-stat-number">${products.length}</span>
+      <span class="about-stat-label">プロダクト</span>
+    </div>
+    <div class="about-stat">
+      <span class="about-stat-number">${blog.length}</span>
+      <span class="about-stat-label">ブログ記事</span>
+    </div>
+  </div>
   <div class="about-content">${aboutHtml}</div>
 </div>
 <div class="section">
-  <h2 class="section-title">最新のお知らせ</h2>
-  <div class="item-list">${updates.slice(0, 5).map(item => `
-    <a href="/updates/${item.slug}/" class="item-list-item${item.thumbnail ? ' has-thumb' : ''}">
-      ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
-      <div class="item-body">
-        <div class="item-date">${formatDate(item.date)}</div>
+  <h2 class="section-title timeline-title">最新のお知らせ</h2>
+  <div class="timeline-list">${updates.slice(0, 5).map(item => `
+    <a href="/updates/${item.slug}/" class="timeline-item${item.thumbnail ? ' has-thumb' : ''}">
+      <div class="timeline-marker">
+        <time class="timeline-date">${formatDate(item.date)}</time>
+      </div>
+      ${item.thumbnail ? `<div class="timeline-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
+      <div class="timeline-body">
         <h3>${esc(item.title)}</h3>
-        ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+        ${item.excerpt ? `<div class="timeline-excerpt">${esc(item.excerpt)}</div>` : ''}
       </div>
     </a>`).join('')}
   </div>
@@ -249,13 +295,16 @@ ${featured.length > 0 ? `
 </div>
 <div class="section">
   <h2 class="section-title">最新のブログ</h2>
-  <div class="item-list">${blog.slice(0, 3).map(item => `
-    <a href="/blog/${item.slug}/" class="item-list-item${item.thumbnail ? ' has-thumb' : ''}">
-      ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
-      <div class="item-body">
-        <div class="item-date">${formatDate(item.date)}</div>
+  <div class="blog-cards">${blog.slice(0, 3).map(item => `
+    <a href="/blog/${item.slug}/" class="blog-card">
+      <div class="blog-card-thumb">
+        <img src="/${esc(item.thumbnail || '')}" alt="" loading="lazy">
+      </div>
+      <div class="blog-card-body">
+        <time class="blog-card-date">${formatDate(item.date)}</time>
         <h3>${esc(item.title)}</h3>
-        ${item.excerpt ? `<div class="item-excerpt">${esc(item.excerpt)}</div>` : ''}
+        ${item.excerpt ? `<p class="blog-card-excerpt">${esc(item.excerpt)}</p>` : ''}
+        ${item.tags ? `<div class="blog-card-tags">${item.tags.map(t => `<span class="blog-card-tag">${esc(t)}</span>`).join('')}</div>` : ''}
       </div>
     </a>`).join('')}
   </div>
