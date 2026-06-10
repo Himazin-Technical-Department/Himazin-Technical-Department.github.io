@@ -364,26 +364,19 @@ img {
   height: 22px;
   border-radius: 50%;
   background:
-    /* メタリック反射: 強めのハイライト */
     radial-gradient(circle at 32% 20%, rgba(255,255,255,0.55) 0%, transparent 30%),
-    /* メタリック反射: 二次反射 */
     radial-gradient(circle at 68% 68%, rgba(255,255,255,0.08) 0%, transparent 18%),
-    /* 下地: 金属ドーム (急峻な階調でツヤ感) */
     radial-gradient(circle at 50% 50%, #f0f0f0 0%, #ddd 25%, #aaa 48%, #777 68%, #444 100%);
   box-shadow:
-    /* 頭部の影: 紙面に密着 */
     0 2px 4px rgba(0,0,0,0.18),
-    /* 針の影: 中間 */
     0 8px 6px -4px rgba(0,0,0,0.10),
-    /* 針の影: 遠方 (針の長さを表現) */
     0 18px 10px -8px rgba(0,0,0,0.05),
-    /* ベベル: 下部の陰影 (縁の立ち上がり) */
     inset 0 -2.5px 4px rgba(0,0,0,0.15),
-    /* ベベル: 上部のハイライト */
     inset 0 1.5px 2px rgba(255,255,255,0.5);
   z-index: 5;
 }
 .section::before { left: -8px; }
+.section::after  { right: -8px; }
 .section::after  { right: -8px; }
 
 .about-content {
@@ -1754,6 +1747,9 @@ img {
   }
 
   /* mobile: scale down pins & holes */
+  .main {
+    padding-top: 76px;
+  }
   .section::before,
   .section::after {
     top: -6px;
