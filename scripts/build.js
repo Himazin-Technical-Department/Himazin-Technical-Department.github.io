@@ -213,7 +213,7 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
   if (featured.length > 0) {
     carouselSlides = featured.map((item, i) => `
     <a href="/${item.section}/${item.slug}/" class="carousel-slide${i === 0 ? ' active' : ''}" data-index="${i}">
-      <div class="carousel-slide-img"><img src="/${esc(item.thumbnail)}" alt="${esc(item.title)}"></div>
+      <div class="carousel-slide-img"><img src="/${esc(item.thumbnail)}" alt="${esc(item.title)}" width="240" height="135"></div>
       <div class="carousel-slide-body">
         <span class="carousel-slide-tag">${item.section === 'updates' ? 'お知らせ' : 'ブログ'}</span>
         <h3>${esc(item.title)}</h3>
@@ -229,6 +229,7 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
       <h1 class="hero-title">${SITE_NAME}</h1>
     </div>
     <p class="hero-sub">Himazin Technical Department</p>
+    <div class="hero-accent"></div>
     <div class="hero-links">
       <a href="/updates/" class="hero-btn">お知らせ</a>
       <a href="/products/" class="hero-btn">プロダクト</a>
@@ -254,7 +255,7 @@ ${featured.length > 0 ? `
       <div class="timeline-marker">
         <time class="timeline-date">${formatDate(item.date)}</time>
       </div>
-      ${item.thumbnail ? `<div class="timeline-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
+      ${item.thumbnail ? `<div class="timeline-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy" width="160" height="90"></div>` : ''}
       <div class="timeline-body">
         <h3>${esc(item.title)}</h3>
         ${item.excerpt ? `<div class="timeline-excerpt">${esc(item.excerpt)}</div>` : ''}
@@ -267,7 +268,7 @@ ${featured.length > 0 ? `
   <h2 class="section-title">最新のプロダクト</h2>
   <div class="products-grid">${products.slice(0, 3).map(item => `
     <div class="product-card">
-      ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
+      ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy" width="64" height="64"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
@@ -284,7 +285,7 @@ ${featured.length > 0 ? `
   <div class="blog-cards">${blog.slice(0, 3).map(item => `
     <a href="/blog/${item.slug}/" class="blog-card">
       <div class="blog-card-thumb">
-        <img src="/${esc(item.thumbnail || '')}" alt="" loading="lazy">
+        <img src="/${esc(item.thumbnail || '')}" alt="" loading="lazy" width="200" height="112">
       </div>
       <div class="blog-card-body">
         <time class="blog-card-date">${formatDate(item.date)}</time>
@@ -325,7 +326,7 @@ function buildListing(sectionKey, registry) {
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="products-grid">${registry.map(item => `
     <div class="product-card">
-      ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
+      ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy" width="64" height="64"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
@@ -343,7 +344,7 @@ function buildListing(sectionKey, registry) {
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="item-list">${registry.map(item => `
     <a href="/${sectionKey}/${item.slug}/" class="item-list-item${item.thumbnail ? ' has-thumb' : ''}">
-      ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy"></div>` : ''}
+      ${item.thumbnail ? `<div class="item-thumb"><img src="/${esc(item.thumbnail)}" alt="" loading="lazy" width="200" height="112"></div>` : ''}
       <div class="item-body">
         <div class="item-date">${formatDate(item.date)}</div>
         <h3>${esc(item.title)}</h3>
@@ -370,7 +371,7 @@ function buildDetail(sectionKey, item) {
 
   if (sectionKey === 'products') {
     if (item.icon) {
-      detailHtml += `<div class="detail-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy"></div>`;
+      detailHtml += `<div class="detail-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy" width="80" height="80"></div>`;
     }
     detailHtml += `<h1 class="detail-title">${esc(item.title)}</h1>`;
     if (item.url) {
@@ -381,7 +382,7 @@ function buildDetail(sectionKey, item) {
     }
   } else {
     if (item.thumbnail) {
-      detailHtml += `<div class="detail-thumb"><img src="/${esc(item.thumbnail)}" alt="${esc(item.title)}" loading="lazy"></div>`;
+      detailHtml += `<div class="detail-thumb"><img src="/${esc(item.thumbnail)}" alt="${esc(item.title)}" loading="lazy" width="900" height="450"></div>`;
     }
     detailHtml += `<h1 class="${sectionKey === 'blog' ? 'blog-post-title' : 'detail-title'}">${esc(item.title)}</h1>`;
   }
@@ -491,7 +492,7 @@ function buildMembers(data) {
   <div class="members-grid">${data.map(item => `
     <div class="member-card">
       <div class="member-icon">
-        ${item.icon ? `<img src="${esc(imgPath(item.icon))}" alt="${esc(item.name)}" loading="lazy">` : esc(item.name.charAt(0))}
+        ${item.icon ? `<img src="${esc(imgPath(item.icon))}" alt="${esc(item.name)}" loading="lazy" width="72" height="72">` : esc(item.name.charAt(0))}
       </div>
       ${item.type ? `<span class="member-type ${esc(item.type)}">${esc(typeLabel[item.type] || item.type)}</span>` : ''}
       <h3>${esc(item.name)}</h3>

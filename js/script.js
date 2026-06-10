@@ -77,7 +77,7 @@ function renderProducts(containerId, items) {
   }
   container.innerHTML = items.map(item =>
     `<div class="product-card">
-      ${item.icon ? `<div class="product-icon"><img src="${esc(item.icon)}" alt="${esc(item.title)}" loading="lazy"></div>` : ''}
+      ${item.icon ? `<div class="product-icon"><img src="${esc(item.icon)}" alt="${esc(item.title)}" loading="lazy" width="64" height="64"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
       <div class="product-actions">
@@ -116,7 +116,7 @@ function renderDetail(section, slug) {
       updatePageMeta(meta.title, meta.excerpt, meta.icon ? 'https://himazin-technical-department.github.io/' + meta.icon : null);
       let html = '';
       if (meta.icon) {
-        html += `<div class="detail-icon"><img src="${esc(meta.icon)}" alt="${esc(meta.title)}" loading="lazy"></div>`;
+        html += `<div class="detail-icon"><img src="${esc(meta.icon)}" alt="${esc(meta.title)}" loading="lazy" width="80" height="80"></div>`;
       }
       html += `<h1 class="detail-title">${esc(meta.title)}</h1>`;
 
