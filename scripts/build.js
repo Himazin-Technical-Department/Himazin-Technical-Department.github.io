@@ -123,7 +123,7 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
       <nav class="nav">
-        ${navs.map(n => `<a href="${n.href}" class="nav-link${activeNav === n.key ? ' active' : ''}"${activeNav === n.key ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`).join('\n        ')}
+        ${navs.map(n => `<a href="${n.href}" class="nav-link${activeNav === n.key ? ' active' : ''}"${activeNav === n.key ? ' aria-current="page"' : ''} data-nav data-section="${n.key}">${esc(n.label)}</a>`).join('\n        ')}
       </nav>
       <button class="menu-toggle" aria-label="メニュー">
         <span></span><span></span><span></span>

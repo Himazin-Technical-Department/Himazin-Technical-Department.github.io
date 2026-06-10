@@ -354,6 +354,29 @@ img {
   padding-bottom: 0;
 }
 
+/* ── section decor: 画鋲 (thumbtacks) ── */
+.section::before,
+.section::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 28%, rgba(255,255,255,0.45) 0%, transparent 38%),
+    radial-gradient(circle at 50% 50%, #e8e8e8, #bbb 40%, #888 60%, #555 100%);
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.18),
+    0 6px 6px -2px rgba(0,0,0,0.10),
+    0 14px 10px -6px rgba(0,0,0,0.06),
+    inset 0 -2px 3px rgba(0,0,0,0.15),
+    inset 0 1.5px 2px rgba(255,255,255,0.5);
+  z-index: 5;
+}
+.section::before { left: -8px; }
+.section::after  { right: -8px; }
+
 .about-content {
   font-size: 15px;
   line-height: 1.9;
@@ -1720,4 +1743,14 @@ img {
     top: 40px;
     left: 52%;
   }
+
+  /* mobile: scale down pins & holes */
+  .section::before,
+  .section::after {
+    top: -6px;
+    width: 16px;
+    height: 16px;
+  }
+  .section::before { left: -6px; }
+  .section::after  { right: -6px; }
 }

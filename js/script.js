@@ -259,9 +259,25 @@ async function navigateTo(url, push = true) {
     document.querySelector('link[rel="canonical"]')?.setAttribute('href', doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || url);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     processExternalLinks(main);
+    updateActiveNav(url);
   } catch {
     window.location.href = url;
   }
+}
+
+function updateActiveNav(url) {
+  const p = url.replace(/\/$/, '');
+  let key = PATH_TO_HASH[p + '/'] || PATH_TO_HASH[p] || null;
+  if (!key) {
+    const m = p.match(/^\/(updates|products|blog)\//);
+    if (m) key = m[1];
+  }
+  document.querySelectorAll('[data-nav]').forEach(n => {
+    const isActive = n.getAttribute('data-section') === key;
+    n.classList.toggle('active', isActive);
+    if (isActive) n.setAttribute('aria-current', 'page');
+    else n.removeAttribute('aria-current');
+  });
 }
 
 function setupStandaloneNav() {
