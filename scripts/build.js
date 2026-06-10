@@ -222,6 +222,16 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
   }
 
   writePage(join(root, 'index.html'), null, null, null, 'home', `
+<div class="deco-layer">
+  <div class="hero-deco-ring hero-deco-ring-1"></div>
+  <div class="hero-deco-ring hero-deco-ring-2"></div>
+  <div class="hero-deco-ring hero-deco-ring-3"></div>
+  <div class="hero-deco-ring hero-deco-ring-4"></div>
+  <div class="hero-deco-ring hero-deco-ring-5"></div>
+  <div class="hero-deco-ring hero-deco-ring-6"></div>
+  <div class="hero-deco-ring hero-deco-ring-7"></div>
+  <div class="hero-deco-ring hero-deco-ring-8"></div>
+</div>
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-heading">
