@@ -245,20 +245,6 @@ ${featured.length > 0 ? `
 </div>` : ''}
 <div class="section section-about">
   <h2 class="section-title">${SITE_NAME}について</h2>
-  <div class="about-stats">
-    <div class="about-stat">
-      <span class="about-stat-number">${memberCount}</span>
-      <span class="about-stat-label">メンバー</span>
-    </div>
-    <div class="about-stat">
-      <span class="about-stat-number">${products.length}</span>
-      <span class="about-stat-label">プロダクト</span>
-    </div>
-    <div class="about-stat">
-      <span class="about-stat-number">${blog.length}</span>
-      <span class="about-stat-label">ブログ記事</span>
-    </div>
-  </div>
   <div class="about-content">${aboutHtml}</div>
 </div>
 <div class="section">
