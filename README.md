@@ -320,10 +320,20 @@ npm run template:products "プロダクト名"
 
 実行すると `data/{section}/{slug}/index.md` が作成されます。
 
-- slug はタイトルから自動生成（英数字・ハイフン）
-- `title`, `date`（本日）, `author`, `excerpt`, `thumbnail`, `tags` が frontmatter に設定される
-- プロダクトの場合は `icon`, `url`, `urlLabel` が設定される（`thumbnail` は含まれない）
-- `npm run build` 後に生成される `meta.json` や `thumb-auto.svg` は常に再生成されるため、テンプレートの出力にこれらを含める必要はありません
+**slug の自動生成ルール:**
+- タイトルを英数字・ハイフンのみに変換
+- 小文字化、スペースはハイフンに置換
+- 記号類は除去
+
+**slug を明示的に指定する場合** は第3引数に渡します:
+
+```bash
+npm run template:blog "記事タイトル" my-custom-slug
+```
+
+**生成される frontmatter:**
+- `title`, `date`（本日）, `author`, `excerpt`, `thumbnail`, `tags` が設定される
+- プロダクトの場合は `icon`, `detailLabel` が設定される（`thumbnail` は含まれない）
 
 ### サムネイル自動生成
 
