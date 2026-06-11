@@ -301,6 +301,96 @@ HTD-Official/
 - `index.html`, `updates/`, `products/`, `blog/`, `members/`, `sitemap.xml` は **自動生成** されます。直接編集しても次回ビルドで上書きされるので意味がありません。
 - 生成ファイルも Git で管理していますが、`npm run build` を実行すれば自動的に最新化されます。
 
+## 自動生成のルール
+
+### テンプレートからの記事作成（`npm run template:*`）
+
+新しいブログ・お知らせ・プロダクトを追加する際、`npm run template:*` コマンドで frontmatter 付きの `index.md` を自動生成できます。
+
+```bash
+# ブログ記事
+npm run template:blog "記事のタイトル"
+
+# お知らせ
+npm run template:updates "お知らせのタイトル"
+
+# プロダクト
+npm run template:products "プロダクト名"
+```
+
+実行すると `data/{section}/{slug}/index.md` が作成されます。
+
+- slug はタイトルから自動生成（英数字・ハイフン）
+- `title`, `date`（本日）, `author`, `excerpt`, `thumbnail`, `tags` が frontmatter に設定される
+- プロダクトの場合は `icon`, `url`, `urlLabel` が設定される（`thumbnail` は含まれない）
+- `npm run build` 後に生成される `meta.json` や `thumb-auto.svg` は常に再生成されるため、テンプレートの出力にこれらを含める必要はありません
+
+### サムネイル自動生成
+
+ブログ・お知らせ記事の frontmatter で `thumbnail:` を空欄（値なし）にすると、ビルド時に `thumb-auto.svg` が自動生成されます。
+
+- 生成パス: `data/{section}/{slug}/thumb-auto.svg`
+- デザイン: グリッド背景 + 記事タイトルを中央配置
+- 条件: `thumbnail` が未設定または空の場合に生成。プロダクトにはサムネイルは付きません。
+- frontmatter で `[]` ではなく空文字列になるようパースされるため、`if (!data.thumbnail)` で正しく判定されます。
+
+```yaml
+---
+title: サンプル記事
+thumbnail:      # ← 空欄で thumb-auto.svg が生成される
+---
+```
+
+### プロダクトアイコン自動生成
+
+プロダクトの frontmatter で `icon:` を空欄にすると、ビルド時に `icon-auto.svg` が自動生成されます。
+
+- 生成パス: `data/products/{slug}/icon-auto.svg`
+- デザイン: 単色の幾何学図形（プロダクトごとに異なる形状）
+- 画像としての整合性を保つため、プロダクトはサムネイル自動生成の対象外です。
+
+### フロントマターのパース規則
+
+`scripts/frontmatter.js` が Markdown の YAML frontmatter をパースします。
+
+| 状態 | パース結果 | 備考 |
+|---|---|---|
+| `thumbnail:`（空） | `''`（空文字列） | `if (!data.thumbnail)` が `true` になる |
+| `tags:`（空） | `''` → 後続のリスト項目があれば `[]` | 遅延変換される |
+| `tags:` なし | `undefined` | 省略時と同じ挙動 |
+
+### スタイル生成規則
+
+`scripts/generate-registry.js`:
+- 各セクション（blog / updates / products）の `registry.json` を生成
+- サムネイル・アイコンの自動生成を実行
+- `sitemap.xml` を生成（`/about/` を含む）
+
+`scripts/build.js`:
+- `registry.json` を読み込み HTML を生成
+- トップページのカルーセル（featured 順 → updates優先 → 日付順 の上位5件）
+- 各詳細ページに `.detail-content` クラスを付与（共通のフォントサイズ・見出しマージンが適用される）
+- リンク切れになった古い生成フォルダを自動削除（stale cleanup）
+
+### リンクプレビュー機能
+
+記事内の外部リンクはクライアントサイド JS で OG メタデータを取得し、リッチカードに変換されます。
+
+- **対象:** `http(s)://` で始まる外部リンク（同一サイト内・YouTube は除外）
+- **取得:** CORS プロキシ（corsproxy.io / allorigins.win）経由で OG 情報を取得
+- **表示:** サムネイル画像（`background-size: cover` 中央配置）＋ タイトル ＋ 説明 ＋ ドメイン
+- **フォールバック:** OG 情報が取得できない場合は 🔗 アイコン＋ドメインのみ表示
+- **カード挿入位置:** `<p>` タグの外側（ブロック要素によるパース崩れ防止）
+- **空の `<p>` 削除:** リンクを非表示にした後、テキストのない `<p>` は自動除去
+
+### CSS 設計規則
+
+- クラスセレクタ主体（タグセレクタは最小限）
+- `!important` はリンクプレビューの一部プロパティに限定
+- ブレースバランスは常に `depth: 0` に保つ（`@media` クエリの閉じ忘れに注意）
+- 汎用クラス: `.section`, `.detail-content`, `.link-preview`
+- 各セクション固有: `.section-about`, `.section-detail`
+
 ## コンテンツの追加・編集
 
 ### お知らせ / ブログを追加する
@@ -314,6 +404,22 @@ HTD-Official/
    例: 「新メンバー募集」というお知らせの場合
    ```bash
    mkdir -p data/updates/new-member-recruitment
+   ```
+
+   **テンプレートコマンドを使うと frontmatter 付きのファイルが自動生成されます（推奨）:**
+   ```bash
+   npm run template:updates "新メンバー募集"
+   # → data/updates/new-member-recruitment/index.md が作成される
+   ```
+
+   ブログの場合:
+   ```bash
+   npm run template:blog "記事タイトル"
+   ```
+
+   プロダクトの場合:
+   ```bash
+   npm run template:products "プロダクト名"
    ```
 
 2. そのフォルダに `index.md` を作成し、`---` で囲まれた **YAML frontmatter** と本文を Markdown で記述します。
@@ -349,7 +455,7 @@ HTD-Official/
    | `author` | | 著者名（省略可） |
    | `excerpt` | | 一覧ページに表示される短い説明（省略可） |
    | `tags` | | タグのリスト（省略可） |
-   | `thumbnail` | | サムネイル画像のパス。一覧・詳細ページに表示されます（例: `data/blog/my-post/thumb.png`） |
+   | `thumbnail` | | サムネイル画像のパス。一覧・詳細ページに表示されます（例: `data/blog/my-post/thumb.png`）。空欄（`thumbnail:`）にすると SVG が自動生成されます |
    | `featured` | | トップページのカルーセル表示優先度（数値）。小さいほど優先。設定しない場合はお知らせ > ブログ > 日付順 |
 
    **ブログ記事も同じ形式です。**
@@ -383,6 +489,8 @@ thumbnail: data/blog/my-post/thumb.png
 ```
 
 パスは `data/` からの相対パスで指定します。画像ファイルは `index.md` と同じフォルダに配置するのが管理しやすいです。
+
+**自動生成:** `thumbnail:` のように空欄にすると、`build` 時にグリッド柄の SVG（`thumb-auto.svg`）が自動生成され、サムネイルとして使用されます。手動で画像を用意する手間が省けます。
 サムネイルは省略可能で、設定しない場合は今まで通りの表示になります。
 
 トップページのカルーセルには、サムネイルが設定された記事のうち最新5件が表示されます。
@@ -418,7 +526,7 @@ thumbnail: data/blog/my-post/thumb.png
    マイアプリの詳細説明をここに書きます。
    ```
 
-3. 必要に応じて `icon.svg` を同じフォルダに配置します（プロダクトカードに表示されるアイコン）。
+3. 必要に応じて `icon.svg` を同じフォルダに配置します（プロダクトカードに表示されるアイコン）。`icon:` を空欄にすると、菱形の SVG アイコンが自動生成されます。
 
 4. `npm run build` で反映します。
 
@@ -576,7 +684,10 @@ npm run build
 
 以下の処理が実行されます:
 1. `data/` 以下の `index.md` の YAML frontmatter を読み取り、`meta.json` と `registry.json` を自動生成
-2. 全ページの HTML（`index.html`, `updates/`, `products/`, `blog/`, `members/`, `sitemap.xml`）を生成
+2. `thumbnail:` や `icon:` が空の記事に SVG を自動生成
+3. `sitemap.xml` を生成
+4. 全ページの HTML（`index.html`, `updates/`, `products/`, `blog/`, `members/`, `about/`, `sitemap.xml`）を生成
+5. 古い生成フォルダを自動削除（stale cleanup）
 
 ### プレビュー（編集内容の確認）
 
