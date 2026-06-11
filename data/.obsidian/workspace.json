@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog/Hello_mikan/index.md",
+                "file": "about/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -185,6 +185,8 @@
   },
   "active": "c483321ac3428b47",
   "lastOpenFiles": [
+    "about.json~",
+    "blog/Hello_mikan/index.md",
     "blog/hello-world/index.md",
     "blog/macaroni.1/index.md",
     "blog/macaroni.1/thumb-auto.svg",
@@ -210,7 +212,6 @@
     "products/test-product",
     "updates/my-new/index.md",
     "updates/my-new/thumb-auto.svg",
-    "blog/Hello_mikan/index.md",
     "blog/verify-thumb/meta.json",
     "blog/verify-thumb/thumb-auto.svg",
     "updates/my-new/meta.json",
