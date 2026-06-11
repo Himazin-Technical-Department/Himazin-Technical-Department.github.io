@@ -185,6 +185,19 @@ const OG_PROXIES = [
 
 let ogQueue = Promise.resolve();
 
+function insertCardAfterLink(link, card) {
+  const parent = link.parentNode;
+  if (parent.tagName === 'P') {
+    let ref = parent.nextSibling;
+    while (ref && ref.nodeType === 1 && ref.classList.contains('link-preview')) {
+      ref = ref.nextSibling;
+    }
+    parent.parentNode.insertBefore(card, ref || null);
+  } else {
+    parent.insertBefore(card, link.nextSibling);
+  }
+}
+
 function processExternalLinks(root) {
   if (!root) return;
   const links = root.querySelectorAll('a[href^="http"]:not([data-og])');
@@ -198,6 +211,10 @@ function processExternalLinks(root) {
     placeholder.className = 'link-preview-loading';
     placeholder.textContent = getDomain(href) + ' のプレビューを読み込み中...';
     link.parentNode.insertBefore(placeholder, link.nextSibling);
+    if (link.parentNode.tagName === 'P') {
+      const p = link.parentNode;
+      p.parentNode.insertBefore(placeholder, p.nextSibling);
+    }
 
     ogQueue = ogQueue.then(() =>
       Promise.race(OG_PROXIES.map(p => fetchOG(href, p)))
@@ -209,9 +226,18 @@ function processExternalLinks(root) {
             card.target = '_blank';
             card.rel = 'noopener noreferrer';
             card.className = 'link-preview';
-            const img = og.image ? `<img src="${esc(og.image)}" alt="" loading="lazy">` : '<div class="link-preview-fallback">🔗</div>';
-            card.innerHTML = `<div class="link-preview-image">${img}</div><div class="link-preview-body"><div class="link-preview-title">${esc(og.title)}</div>${og.description ? `<div class="link-preview-desc">${esc(og.description)}</div>` : ''}<div class="link-preview-domain">${esc(getDomain(href))}</div></div>`;
-            link.parentNode.insertBefore(card, link.nextSibling);
+            const hasImg = og.image;
+            const fbHtml = hasImg ? '' : '<div class="link-preview-fallback">🔗</div>';
+            card.innerHTML = `<div class="link-preview-image">${fbHtml}</div><div class="link-preview-body"><div class="link-preview-title">${esc(og.title)}</div>${og.description ? `<div class="link-preview-desc">${esc(og.description)}</div>` : ''}<div class="link-preview-domain">${esc(getDomain(href))}</div></div>`;
+            if (hasImg) {
+              const imgDiv = card.querySelector('.link-preview-image');
+              const url = og.image.replace(/"/g, '%22');
+              imgDiv.style.backgroundImage = 'url("' + url + '")';
+              imgDiv.style.backgroundSize = 'cover';
+              imgDiv.style.backgroundPosition = 'center';
+              imgDiv.style.backgroundRepeat = 'no-repeat';
+            }
+            insertCardAfterLink(link, card);
           } else {
             const card = document.createElement('a');
             card.href = href;
@@ -219,9 +245,11 @@ function processExternalLinks(root) {
             card.rel = 'noopener noreferrer';
             card.className = 'link-preview';
             card.innerHTML = `<div class="link-preview-image"><div class="link-preview-fallback">🔗</div></div><div class="link-preview-body"><div class="link-preview-domain">${esc(getDomain(href))}</div></div>`;
-            link.parentNode.insertBefore(card, link.nextSibling);
+            insertCardAfterLink(link, card);
           }
           link.style.display = 'none';
+          const p = link.parentNode;
+          if (p.tagName === 'P' && !p.innerText.trim()) p.remove();
         })
         .catch(() => { placeholder.remove(); })
     );
