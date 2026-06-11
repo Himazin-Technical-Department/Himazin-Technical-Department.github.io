@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync, existsSync, mkdirSync, rmSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { parseFrontmatter } from './frontmatter.js';
@@ -143,16 +143,6 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
   </div>
 
   <main class="main">
-    <div class="bg-shapes" aria-hidden="true">
-      <span class="bg-shape bg-circle" style="width:56px;height:56px;left:3%;top:22vh"></span>
-      <span class="bg-shape bg-square" style="width:42px;height:42px;right:4%;top:35vh"></span>
-      <span class="bg-shape bg-diamond" style="width:34px;height:34px;left:5%;top:52vh"></span>
-      <span class="bg-shape bg-circle" style="width:64px;height:64px;right:3%;top:65vh"></span>
-      <span class="bg-shape bg-square bg-dashed" style="width:44px;height:44px;left:2%;top:82vh"></span>
-      <span class="bg-shape bg-diamond bg-dashed" style="width:30px;height:30px;right:6%;top:95vh"></span>
-      <span class="bg-shape bg-circle bg-dashed" style="width:28px;height:28px;left:6%;top:115vh"></span>
-      <span class="bg-shape bg-square" style="width:52px;height:52px;right:2%;top:130vh"></span>
-    </div>
     ${content}
   </main>
 
@@ -590,6 +580,20 @@ if (existsSync(membersPath)) {
 for (const section of sections) {
   for (const item of registries[section]) {
     buildDetail(section, item);
+  }
+}
+
+// Clean up stale directories (deleted items)
+for (const section of sections) {
+  const dir = join(root, section);
+  if (!existsSync(dir)) continue;
+  const slugs = new Set(registries[section].map(i => i.slug));
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory() && !slugs.has(entry.name)) {
+      const path = join(dir, entry.name);
+      rmSync(path, { recursive: true, force: true });
+      console.log(`  ✂ removed stale: ${section}/${entry.name}/`);
+    }
   }
 }
 

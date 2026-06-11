@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "scaffold": "node scripts/scaffold.js",
     "generate": "node scripts/generate-registry.js",
     "build": "node scripts/generate-registry.js && node scripts/build.js"
   },

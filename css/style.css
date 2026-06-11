@@ -379,31 +379,7 @@ img {
 .section::after  { right: -8px; }
 .section::after  { right: -8px; }
 
-/* ── bg shapes: margin decorations ── */
-.bg-shapes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-.bg-shape {
-  position: absolute;
-  display: block;
-  border: 2px solid rgba(0,0,0,0.18);
-}
-.bg-circle {
-  border-radius: 50%;
-}
-.bg-diamond {
-  transform: rotate(45deg);
-}
-.bg-dashed {
-  border-style: dashed;
-}
-@media (max-width: 900px) {
-  .bg-shapes { display: none; }
-}
+
 
 .about-content {
   font-size: 15px;
@@ -1679,6 +1655,9 @@ img {
     height: 135px;
     scroll-snap-align: center;
     border-radius: 10px;
+  }
+  .carousel-slide:hover {
+    transform: none;
   }
 }
 

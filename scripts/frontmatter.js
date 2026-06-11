@@ -24,14 +24,21 @@ export function parseFrontmatter(text, filePath) {
       currentKey = kvMatch[1];
       let val = kvMatch[2].trim();
       if (val === '' || val === '|') {
-        data[currentKey] = [];
+        data[currentKey] = '';
       } else {
         if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
           val = val.slice(1, -1);
         }
         data[currentKey] = val;
       }
-    } else if (currentKey && Array.isArray(data[currentKey]) && line.match(/^\s*-\s+/)) {
+    } else if (currentKey && line.match(/^\s*-\s+/)) {
+      if (!Array.isArray(data[currentKey])) {
+        if (data[currentKey] === '') {
+          data[currentKey] = [];
+        } else {
+          continue;
+        }
+      }
       let item = line.replace(/^\s*-\s+/, '').trim();
       if ((item.startsWith('"') && item.endsWith('"')) || (item.startsWith("'") && item.endsWith("'"))) {
         item = item.slice(1, -1);
