@@ -754,6 +754,8 @@ img {
   height: 100%;
   object-fit: cover;
 }
+
+.blog-card-body {
   flex: 1;
   min-width: 0;
 }
@@ -1128,6 +1130,7 @@ img {
     flex: 0 0 90px;
     min-height: 60px;
   }
+}
 
 .item-list {
   display: flex;
