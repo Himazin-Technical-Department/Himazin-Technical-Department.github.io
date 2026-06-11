@@ -1,13 +1,5 @@
 [
   {
-    "slug": "my-new",
-    "title": "my new",
-    "date": "2026-06-11",
-    "excerpt": "",
-    "icon": "data/products/my-new/icon.svg",
-    "detailLabel": "詳細を見る"
-  },
-  {
     "slug": "himamarket",
     "title": "HimaMarket",
     "date": "2026-06-05",
