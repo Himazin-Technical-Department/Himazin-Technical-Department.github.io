@@ -257,6 +257,7 @@ ${featured.length > 0 ? `
 <div class="section section-about">
   <h2 class="section-title">${SITE_NAME}について</h2>
   <div class="about-content">${aboutHtml}</div>
+  <a href="/about/" class="about-more">詳細を見る</a>
 </div>
 <div class="section">
   <h2 class="section-title timeline-title">最新のお知らせ</h2>
@@ -514,6 +515,14 @@ function buildMembers(data) {
 </div>`);
 }
 
+function buildAbout(aboutHtml) {
+  writePage(join(root, 'about', 'index.html'), '暇人技術部とは', null, `${SITE_URL}/about/`, 'about', `
+<div class="section section-detail">
+  <a href="/" class="back-link">← ホームに戻る</a>
+  ${aboutHtml}
+</div>`);
+}
+
 /* ── main ── */
 
 console.log('Building pages...');
@@ -544,12 +553,19 @@ for (const item of registries.products) {
   }
 }
 
-// Homepage
+// About (homepage excerpt + detail page)
 const aboutPath = join(root, 'data', 'about.json');
 let aboutHtml = '';
 if (existsSync(aboutPath)) {
   const aboutData = readJSON(aboutPath);
   aboutHtml = md.render(aboutData.content || aboutData.about || '');
+}
+
+const aboutMdPath = join(root, 'data', 'about', 'index.md');
+let aboutPageHtml = '';
+if (existsSync(aboutMdPath)) {
+  const { content } = parseFrontmatter(readFileSync(aboutMdPath, 'utf-8'));
+  aboutPageHtml = md.render(content);
 }
 const featured = [...registries.updates.map(i => ({ ...i, section: 'updates' })), ...registries.blog.map(i => ({ ...i, section: 'blog' }))]
   .filter(i => i.thumbnail)
@@ -574,6 +590,11 @@ buildListing('blog', registries.blog);
 const membersPath = join(root, 'data', 'members', 'members.json');
 if (existsSync(membersPath)) {
   buildMembers(readJSON(membersPath));
+}
+
+// About page
+if (aboutPageHtml) {
+  buildAbout(aboutPageHtml);
 }
 
 // Detail pages

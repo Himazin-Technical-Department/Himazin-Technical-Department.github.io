@@ -351,7 +351,37 @@ img {
 
 .section-about {
   padding-top: 32px;
-  padding-bottom: 0;
+  padding-bottom: 56px;
+  position: relative;
+}
+
+.about-more {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #888;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.about-more::after {
+  content: '→';
+  font-size: 15px;
+  transition: transform 0.25s;
+}
+.about-more:hover {
+  color: #1a1a1a;
+  border-color: #1a1a1a;
+}
+.about-more:hover::after {
+  transform: translateX(3px);
 }
 
 /* ── section decor: 画鋲 (thumbtacks) ── */
@@ -1673,6 +1703,12 @@ img {
   }
   .section-about {
     padding-top: 24px;
+  }
+  .about-more {
+    right: 20px;
+    bottom: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
   }
   .timeline-item {
     flex-wrap: wrap;
