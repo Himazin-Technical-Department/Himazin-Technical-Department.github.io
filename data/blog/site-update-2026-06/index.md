@@ -25,6 +25,18 @@ https://github.com/Himazin-TD/himamarket
 
 https://flaxia.app
 
+https://zenn.dev/cloudflare/articles/cloudflare-workers-hono-intro
+
+https://qiita.com/tomo_makes/items/d6aa3a4d9b9c8cbb1f19
+
+https://developers.cloudflare.com/workers/
+
+https://www.amazon.co.jp/dp/4814400857
+
+https://note.com/ryosuke_mg/n/n1cf7e4004b26
+
+https://ja.wikipedia.org/wiki/Cloudflare
+
 ### YouTube 埋め込み
 
 記事内に YouTube のリンクを書くと自動的にプレーヤーが埋め込まれます。

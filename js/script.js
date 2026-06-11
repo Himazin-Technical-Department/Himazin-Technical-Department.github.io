@@ -160,7 +160,7 @@ async function fetchOG(url, proxy) {
   try {
     const ctrl = new AbortController();
     const id = setTimeout(() => ctrl.abort(), 4000);
-    const res = await fetch(proxy + encodeURIComponent(url), { signal: ctrl.signal });
+    const res = await fetch(proxy(url), { signal: ctrl.signal });
     clearTimeout(id);
     if (!res.ok) return null;
     const html = await res.text();
