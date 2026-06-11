@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "scaffold": "node scripts/scaffold.js",
+    "template:blog": "node scripts/template.js blog",
+    "template:updates": "node scripts/template.js updates",
+    "template:products": "node scripts/template.js products",
     "generate": "node scripts/generate-registry.js",
     "build": "node scripts/generate-registry.js && node scripts/build.js"
   },

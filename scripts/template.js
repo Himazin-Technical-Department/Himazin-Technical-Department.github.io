@@ -29,8 +29,7 @@ const title = process.argv[3];
 const explicitSlug = process.argv[4];
 
 if (!section || !title || !SECTIONS.includes(section)) {
-  console.error(`Usage: node scripts/scaffold.js <section> "<title>" [slug]
-  section: ${SECTIONS.join(' | ')}`);
+  console.error(`Usage: npm run template:${SECTIONS.join('|')} "<title>" [slug]`);
   process.exit(1);
 }
 
@@ -91,5 +90,5 @@ writeFileSync(join(dir, 'index.md'), frontmatter + body, 'utf-8');
 console.log(`✓ Created data/${section}/${slug}/index.md`);
 console.log();
 console.log('Next:');
-console.log(`  node scripts/generate-registry.js`);
-console.log(`  node scripts/build.js`);
+console.log(`  npm run generate`);
+console.log(`  npm run build`);
