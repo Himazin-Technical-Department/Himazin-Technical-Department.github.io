@@ -321,15 +321,16 @@ npm run template:products "プロダクト名"
 実行すると `data/{section}/{slug}/index.md` が作成されます。
 
 **slug の自動生成ルール:**
-- タイトルを英数字・ハイフンのみに変換
-- 小文字化、スペースはハイフンに置換
-- 記号類は除去
+- タイトルを小文字化、英数字とハイフンのみに変換、スペースはハイフンに置換、記号類は除去
+- ⚠ **日本語タイトルの場合、自動生成では slug が空になるため、第3引数で明示指定が必須です**
 
 **slug を明示的に指定する場合** は第3引数に渡します:
 
 ```bash
-npm run template:blog "記事タイトル" my-custom-slug
+npm run template:blog "新機能追加のお知らせ" new-feature-announcement
 ```
+
+指定しない場合、スクリプトがエラー終了し、第3引数を求めるメッセージが表示されます。
 
 **生成される frontmatter:**
 - `title`, `date`（本日）, `author`, `excerpt`, `thumbnail`, `tags` が設定される
@@ -430,6 +431,12 @@ thumbnail:      # ← 空欄で thumb-auto.svg が生成される
    プロダクトの場合:
    ```bash
    npm run template:products "プロダクト名"
+   ```
+
+   **slug の自動生成:** タイトルを小文字化し、英数字とハイフンのみに変換します。
+   ⚠ **日本語タイトルは slug が空になるため、第3引数で明示指定してください:**
+   ```bash
+   npm run template:updates "新メンバー募集" new-member-recruitment
    ```
 
 2. そのフォルダに `index.md` を作成し、`---` で囲まれた **YAML frontmatter** と本文を Markdown で記述します。
