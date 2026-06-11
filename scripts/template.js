@@ -56,6 +56,7 @@ title: ${title}
 date: ${date}
 author: 
 excerpt: 
+thumbnail: 
 tags:
 ---
 `;
@@ -65,6 +66,7 @@ tags:
 title: ${title}
 date: ${date}
 excerpt: 
+thumbnail: 
 ---
 `;
     break;
@@ -73,7 +75,7 @@ excerpt:
 title: ${title}
 date: ${date}
 excerpt: 
-icon: data/products/${slug}/icon.svg
+icon: 
 detailLabel: 詳細を見る
 ---
 `;

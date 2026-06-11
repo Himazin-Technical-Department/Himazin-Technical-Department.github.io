@@ -81,7 +81,7 @@ function generateRegistries() {
           console.error(`  ⚠ WARNING: ${sectionRel}/index.md に本文がありません。空の記事になります。`);
         }
 
-        if (!data.thumbnail) {
+        if (section !== 'products' && !data.thumbnail) {
           const thumbPath = `${sectionRel}/thumb-auto.svg`;
           const titleLine = (data.title || '').split('\n')[0];
           const titleLen = titleLine.length;
@@ -122,6 +122,20 @@ function generateRegistries() {
 `;
           writeFileSync(join(root, thumbPath), svg, 'utf-8');
           data.thumbnail = thumbPath;
+        }
+
+        if (section === 'products' && !data.icon) {
+          const iconPath = `${sectionRel}/icon.svg`;
+          const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect width="100" height="100" rx="20" fill="#f5f5f5"/>
+  <rect x="0.5" y="0.5" width="99" height="99" rx="20" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+  <circle cx="50" cy="50" r="22" fill="none" stroke="#ccc" stroke-width="2"/>
+  <circle cx="50" cy="50" r="8" fill="none" stroke="#ccc" stroke-width="1.5"/>
+  <path d="M50 28v-4m0 52v-4M28 50h-4m52 0h-4M34 34l-3-3m38 38 3-3m0-38 3 3m-38 38-3-3" stroke="#ddd" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+`;
+          writeFileSync(join(root, iconPath), svg, 'utf-8');
+          data.icon = iconPath;
         }
 
         const metaPath = join(dir, slug, 'meta.json');

@@ -5,6 +5,5 @@
   "icon": "data/products/himacanvas/icon.svg",
   "url": "https://himacanvas.pages.dev",
   "urlLabel": "使ってみる",
-  "detailLabel": "機能を見る",
-  "thumbnail": "data/products/himacanvas/thumb-auto.svg"
+  "detailLabel": "機能を見る"
 }
