@@ -165,10 +165,15 @@ async function fetchOG(url, proxy) {
     if (!res.ok) return null;
     const html = await res.text();
     const m = p => { const r = new RegExp('<meta\\s[^>]*(?:property|name)=["\']' + p + '["\'][^>]*content=["\']([^"\']*)["\']', 'i'); const x = html.match(r); return x ? x[1].replace(/&amp;/g,'&').replace(/&#x27;/g,"'") : null; };
+    const resolve = (img, base) => {
+      if (!img) return '';
+      if (/^https?:\/\//i.test(img) || img.startsWith('//')) return img;
+      try { return new URL(img, base).href; } catch { return img; }
+    };
     return {
       title: m('og:title') || m('twitter:title') || (html.match(/<title>([^<]*)<\/title>/i) || [])[1] || '',
       description: m('og:description') || m('twitter:description') || m('description') || '',
-      image: m('og:image') || m('twitter:image') || '',
+      image: resolve(m('og:image') || m('twitter:image') || '', url),
     };
   } catch { return null; }
 }

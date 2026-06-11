@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog/site-update-2026-06/index.md",
+                "file": "blog/Hello_mikan/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -185,6 +185,11 @@
   },
   "active": "c483321ac3428b47",
   "lastOpenFiles": [
+    "blog/hello-world/index.md",
+    "blog/macaroni.1/index.md",
+    "blog/macaroni.1/thumb-auto.svg",
+    "blog/site-update-2026-06/index.md",
+    "blog/site-update-2026-06/thumb-auto.svg",
     "about/index.md",
     "about",
     "products/my-new/index.md",
@@ -211,11 +216,7 @@
     "updates/my-new/meta.json",
     "blog/verify-thumb/index.md",
     "blog/verify-thumb",
-    "blog/test-thumb/thumb-auto.svg",
-    "blog/my-new/thumb-auto.svg",
     "blog/test-thumb/index.md",
-    "blog/macaroni.1/index.md",
-    "blog/site-update-2026-06/index.md",
     "blog/my-new/index.md",
     "updates/notice/index.md",
     "products/myapp/index.md",
@@ -223,13 +224,11 @@
     "products/testapp/index.md",
     "updates/maintenance-notice/index.md",
     "blog/test-post/index.md",
-    "blog/hello-world/index.md",
     "products/himacanvas/index.md",
     "updates/thumb-update-2/index.md",
     "updates/thumb-update-1/index.md",
     "blog/thumb-test-5/index.md",
     "blog/thumb-test-4/index.md",
-    "blog/thumb-test-3/index.md",
-    "blog/thumb-test-2/index.md"
+    "blog/thumb-test-3/index.md"
   ]
 }
