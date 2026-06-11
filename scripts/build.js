@@ -412,11 +412,7 @@ function buildDetail(sectionKey, item) {
   }
   detailHtml += '</div>';
 
-  if (sectionKey === 'products') {
-    detailHtml += `<div class="detail-content">${bodyHtml}</div>`;
-  } else {
-    detailHtml += bodyHtml;
-  }
+  detailHtml += `<div class="detail-content">${bodyHtml}</div>`;
 
   const slugUrl = `${SITE_URL}/${sectionKey}/${item.slug}/`;
 
@@ -519,7 +515,7 @@ function buildAbout(aboutHtml) {
   writePage(join(root, 'about', 'index.html'), '暇人技術部とは', null, `${SITE_URL}/about/`, 'about', `
 <div class="section section-detail">
   <a href="/" class="back-link">← ホームに戻る</a>
-  ${aboutHtml}
+  <div class="detail-content">${aboutHtml}</div>
 </div>`);
 }
 
