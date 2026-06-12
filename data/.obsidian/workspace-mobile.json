@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "about/index.md",
+                "file": "blog/Hello_mikan/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -169,5 +169,9 @@
     }
   },
   "active": "9947cec4a7135a0e",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "blog/Hello_mikan/thumb-auto.svg",
+    "blog/Hello_mikan/index.md",
+    "about/index.md"
+  ]
 }
