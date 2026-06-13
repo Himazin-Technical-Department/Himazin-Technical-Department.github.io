@@ -331,16 +331,17 @@ function setupStandaloneNav() {
 function renderMD(text) {
   if (typeof markdownit === 'function') {
     try {
-      return convertYouTubeEmbeds(markdownit().render(text));
+      return convertYouTubeEmbeds(markdownit({ breaks: true }).render(text));
     } catch {}
   }
   const escHtml = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   let html = '';
-  let inCode = false, inList = false, codeBuf = '';
+  let inCode = false, inList = false, inPara = false, codeBuf = '', paraBuf = [];
   const lines = text.split('\n');
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     if (/^```/.test(line)) {
+      flushPara();
       if (inCode) {
         html += '<pre><code>' + escHtml(codeBuf.replace(/\n$/, '')) + '</code></pre>';
         codeBuf = ''; inCode = false;
@@ -352,25 +353,36 @@ function renderMD(text) {
       html += '</ul>\n'; inList = false;
     }
     if (/^#{1,3}\s/.test(line)) {
+      flushPara();
       const level = line.match(/^#+/)[0].length;
       html += `<h${level}>${parseInline(escHtml(line.replace(/^#+\s/, '')))}</h${level}>\n`;
     } else if (/^>\s/.test(line)) {
+      flushPara();
       html += `<blockquote><p>${parseInline(escHtml(line.replace(/^>\s/, '')))}</p></blockquote>\n`;
     } else if (/^[-*]\s/.test(line)) {
+      flushPara();
       if (!inList) { html += '<ul>\n'; inList = true; }
       html += `<li>${parseInline(escHtml(line.replace(/^[-*]\s/, '')))}</li>\n`;
     } else if (/^\d+\.\s/.test(line)) {
+      flushPara();
       if (!inList) { html += '<ul>\n'; inList = true; }
       html += `<li>${parseInline(escHtml(line.replace(/^\d+\.\s/, '')))}</li>\n`;
     } else if (line.trim() === '') {
-      html += '\n';
+      flushPara();
     } else {
-      html += `<p>${parseInline(escHtml(line))}</p>\n`;
+      paraBuf.push(parseInline(escHtml(line)));
+      inPara = true;
     }
   }
+  flushPara();
   if (inCode) html += '<pre><code>' + escHtml(codeBuf.replace(/\n$/, '')) + '</code></pre>';
   if (inList) html += '</ul>\n';
   return convertYouTubeEmbeds(html);
+  function flushPara() {
+    if (!inPara) return;
+    html += '<p>' + paraBuf.join('<br>\n') + '</p>\n';
+    paraBuf = []; inPara = false;
+  }
   function parseInline(s) {
     return s
       .replace(/`([^`]+)`/g, '<code>$1</code>')
