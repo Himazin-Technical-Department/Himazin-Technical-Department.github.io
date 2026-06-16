@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog/Hello_mikan/index.md",
+                "file": "blog/hello-world/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -170,9 +170,13 @@
   },
   "active": "9947cec4a7135a0e",
   "lastOpenFiles": [
-    "blog/site-update-2026-06/index.md",
-    "blog/hello-world/index.md",
     "blog/Hello_mikan/index.md",
+    "blog/My-favorite-artists-mikan/index.md",
+    "blog/hello-world/index.md",
+    "blog/My-favorite-artists-mikan/thumb-auto.svg",
+    "blog/My-favorite-artists-mikan/meta.json",
+    "blog/My-favorite-artists-mikan",
+    "blog/site-update-2026-06/index.md",
     "blog/Hello_mikan/thumb-auto.svg",
     "about/index.md"
   ]
