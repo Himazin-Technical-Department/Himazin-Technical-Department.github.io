@@ -33,7 +33,7 @@ const formatDate = str => {
 let md;
 try {
   const MarkdownIt = (await import('markdown-it')).default;
-  md = new MarkdownIt({ linkify: true });
+  md = new MarkdownIt({ linkify: true, breaks: true });
 } catch {
   md = { render: s => s };
 }
