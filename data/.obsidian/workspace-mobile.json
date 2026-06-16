@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog/hello-world/index.md",
+                "file": "blog/My-favorite-artists-mikan/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -112,7 +112,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "blog/Hello_mikan/index.md",
+            "file": "blog/My-favorite-artists-mikan/index.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -168,11 +168,17 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "9947cec4a7135a0e",
+  "active": "7ef9b58c39cacd52",
   "lastOpenFiles": [
+    "blog/hello-world/index.md",
+    "blog/my-first-post/thumb-auto.svg",
+    "blog/my-first-post/meta.json",
+    "blog/my-first-post/index.md",
+    "blog/my-first-post",
+    "blog/mikan_korosuzo/index.md",
+    "blog/mikan_korosuzo",
     "blog/Hello_mikan/index.md",
     "blog/My-favorite-artists-mikan/index.md",
-    "blog/hello-world/index.md",
     "blog/My-favorite-artists-mikan/thumb-auto.svg",
     "blog/My-favorite-artists-mikan/meta.json",
     "blog/My-favorite-artists-mikan",
