@@ -11,12 +11,14 @@
             "id": "9947cec4a7135a0e",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "products/Flaxia/thumb-auto.svg"
+                "file": "about/index.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "thumb-auto"
+              "icon": "lucide-file",
+              "title": "index"
             }
           }
         ]
@@ -110,7 +112,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "products/Flaxia/thumb-auto.svg",
+            "file": "about/index.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -168,11 +170,12 @@
   },
   "active": "9947cec4a7135a0e",
   "lastOpenFiles": [
+    "blog/My-favorite-artists-mikan/index.md",
+    "products/Flaxia/thumb-auto.svg",
     "products/himaweather/index.md",
     "products/無題のフォルダ",
     "products/Flaxia/index.md",
     "products/Flaxia/icon.svg",
-    "blog/My-favorite-artists-mikan/index.md",
     "blog/hello-world/index.md",
     "blog/my-first-post/thumb-auto.svg",
     "blog/my-first-post/meta.json",
