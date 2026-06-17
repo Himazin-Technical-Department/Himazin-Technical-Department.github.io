@@ -1,9 +1,10 @@
 ---
 title: Craft of Liberty
 date: 2026-06-18
-excerpt:
+excerpt: 物理演算を追加した四角い世界でとんでもない自由度を誇るゲームです。
 icon:
 detailLabel: 詳細を見る
+category: HTDプロジェクト
 ---
 ## Craft of Liberty
 
