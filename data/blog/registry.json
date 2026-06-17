@@ -13,19 +13,6 @@
     ]
   },
   {
-    "slug": "mikan_korosuzo",
-    "title": "mikan",
-    "date": "2026-06-16",
-    "author": "Mikan_1",
-    "excerpt": "Mikan_1の事故紹介",
-    "thumbnail": "data/blog/mikan_korosuzo/thumb-auto.svg",
-    "tags": [
-      "mikankorosuzo",
-      "soro-tasuhaikasuzo",
-      "吉田死ね"
-    ]
-  },
-  {
     "slug": "my-first-post",
     "title": "テスト",
     "date": "2026-06-16",
