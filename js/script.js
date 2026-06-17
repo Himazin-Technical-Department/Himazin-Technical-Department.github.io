@@ -7,6 +7,14 @@ const PATH_TO_HASH = {
   '/blog/': 'blog',
   '/members/': 'members',
 };
+const CATEGORY_LABELS = {
+  app: 'アプリ',
+  sns: 'SNS',
+  tool: 'ツール',
+  game: 'ゲーム',
+  hardware: 'ハードウェア',
+  other: 'その他'
+};
 const registryCache = {};
 const metaCache = {};
 const mdCache = {};
@@ -68,15 +76,36 @@ async function loadPostMD(section, slug) {
   }
 }
 
-function renderProducts(containerId, items) {
+function renderProducts(containerId, items, options = {}) {
   const container = document.getElementById(containerId);
   if (!container) return;
   if (!items || !items.length) {
     container.innerHTML = '<p style="color:#999;">まだプロダクトがありません</p>';
     return;
   }
-  container.innerHTML = items.map(item =>
-    `<div class="product-card">
+
+  const categories = [...new Set(items.map(i => i.category).filter(Boolean))];
+  const activeCategory = options.activeCategory || 'all';
+
+  let html = '';
+
+  if (options.showFilters && categories.length) {
+    html += '<div class="category-filters">';
+    html += `<button class="category-filter${activeCategory === 'all' ? ' active' : ''}" data-category="all">すべて</button>`;
+    categories.forEach(cat => {
+      html += `<button class="category-filter${activeCategory === cat ? ' active' : ''}" data-category="${cat}">${esc(CATEGORY_LABELS[cat] || cat)}</button>`;
+    });
+    html += '</div>';
+  }
+
+  const filtered = activeCategory !== 'all' ? items.filter(i => i.category === activeCategory) : items;
+
+  html += '<div class="products-grid">';
+  html += filtered.map(item => {
+    const catLabel = CATEGORY_LABELS[item.category] || '';
+    const catBadge = catLabel ? `<span class="product-category-badge">${esc(catLabel)}</span>` : '';
+    return `<div class="product-card">
+      ${catBadge}
       ${item.icon ? `<div class="product-icon"><img src="${esc(item.icon)}" alt="${esc(item.title)}" loading="lazy" width="64" height="64"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
@@ -84,8 +113,11 @@ function renderProducts(containerId, items) {
         <a href="/products/${item.slug}/" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
         ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
       </div>
-    </div>`
-  ).join('');
+    </div>`;
+  }).join('');
+  html += '</div>';
+
+  container.innerHTML = html;
 }
 
 function renderItemList(containerId, items, section) {
@@ -130,6 +162,11 @@ function renderDetail(section, slug) {
       html += `<span class="detail-meta-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         ${esc(formatDate(meta.date))}</span>`;
+      if (section === 'products' && meta.category) {
+        html += `<span class="detail-meta-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          ${esc(CATEGORY_LABELS[meta.category] || meta.category)}</span>`;
+      }
       if (meta.author) {
         html += `<span class="detail-meta-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -475,7 +512,10 @@ function handleRoute() {
     const labels = { updates: 'お知らせ', products: 'プロダクト', blog: 'ブログ' };
     updatePageMeta(labels[hash]);
     if (hash === 'products') {
-      loadRegistry(hash).then(d => renderProducts(`${hash}-list`, d)).catch(() => {
+      loadRegistry(hash).then(d => {
+        window.__productsCache = d;
+        renderProducts(`${hash}-list`, d, { showFilters: true, activeCategory: 'all' });
+      }).catch(() => {
         const el = document.getElementById(`${hash}-list`);
         if (el) el.innerHTML = '<p style="color:#999;">読み込みに失敗しました</p>';
       });
@@ -632,6 +672,29 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!document.getElementById('page-home')) {
     setupStandaloneNav();
   }
+
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.category-filter');
+    if (!btn) return;
+    const cat = btn.dataset.category;
+    const filters = btn.closest('.category-filters');
+    if (!filters) return;
+    filters.querySelectorAll('.category-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    const container = filters.parentElement;
+    const staticCards = container?.querySelectorAll('.product-card[data-category]');
+    if (staticCards?.length) {
+      staticCards.forEach(card => {
+        card.style.display = cat === 'all' || card.dataset.category === cat ? '' : 'none';
+      });
+      return;
+    }
+
+    const containerId = container?.id || 'products-list';
+    const items = window.__productsCache || [];
+    renderProducts(containerId, items, { showFilters: true, activeCategory: cat });
+  });
 
   // Carousel
   (function initCarousel() {

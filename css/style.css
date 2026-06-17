@@ -641,6 +641,47 @@ img {
   color: #fff;
 }
 
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.category-filter {
+  padding: 6px 18px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #555;
+}
+
+.category-filter:hover {
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+}
+
+.category-filter.active {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+.product-category-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 12px;
+  background: #f0f0f0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 12px;
+}
+
 .blog-list {
   display: flex;
   flex-direction: column;
