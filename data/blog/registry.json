@@ -1,5 +1,40 @@
 [
   {
+    "slug": "My-favorite-artists-mikan",
+    "title": "好きな曲やらなんやら",
+    "date": "2026-06-16",
+    "author": "Mikan_1",
+    "excerpt": "Mikan_1の他己紹介",
+    "thumbnail": "data/blog/My-favorite-artists-mikan/thumb-auto.svg",
+    "tags": [
+      "サイト",
+      "雑談",
+      "趣味"
+    ]
+  },
+  {
+    "slug": "mikan_korosuzo",
+    "title": "mikan",
+    "date": "2026-06-16",
+    "author": "Mikan_1",
+    "excerpt": "Mikan_1の事故紹介",
+    "thumbnail": "data/blog/mikan_korosuzo/thumb-auto.svg",
+    "tags": [
+      "mikankorosuzo",
+      "soro-tasuhaikasuzo",
+      "吉田死ね"
+    ]
+  },
+  {
+    "slug": "my-first-post",
+    "title": "テスト",
+    "date": "2026-06-16",
+    "author": "ソロータス",
+    "excerpt": "テスト投稿です。",
+    "thumbnail": "data/blog/my-first-post/thumb-auto.svg",
+    "tags": ""
+  },
+  {
     "slug": "Hello_mikan",
     "title": "Mikan_1の自己紹介",
     "date": "2026-06-10",

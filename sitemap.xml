@@ -11,18 +11,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://himazin-technical-department.github.io/updates/thumb-update-1/</loc>
-    <lastmod>2026-06-08</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://himazin-technical-department.github.io/updates/thumb-update-2/</loc>
-    <lastmod>2026-06-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://himazin-technical-department.github.io/updates/website-launch/</loc>
     <lastmod>2026-06-05</lastmod>
     <changefreq>monthly</changefreq>
@@ -34,20 +22,8 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://himazin-technical-department.github.io/products/himamarket/</loc>
-    <lastmod>2026-06-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://himazin-technical-department.github.io/products/himaweather/</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://himazin-technical-department.github.io/products/himacanvas/</loc>
-    <lastmod>2026-04-10</lastmod>
+    <loc>https://himazin-technical-department.github.io/products/Flaxia/</loc>
+    <lastmod>2026-03-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -55,6 +31,24 @@
     <loc>https://himazin-technical-department.github.io/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://himazin-technical-department.github.io/blog/My-favorite-artists-mikan/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://himazin-technical-department.github.io/blog/mikan_korosuzo/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://himazin-technical-department.github.io/blog/my-first-post/</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://himazin-technical-department.github.io/blog/Hello_mikan/</loc>

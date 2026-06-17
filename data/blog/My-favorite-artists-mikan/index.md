@@ -66,6 +66,17 @@ https://www.youtube.com/watch?v=bmzpmjk18m0&list=RDbmzpmjk18m0&start_radio=1
 
 ちなみに暇人技術部にはある意味でアブノーマルが足りてます。
 
+#### 代表曲
+
+https://www.youtube.com/watch?v=dFeb2LLMp4A&list=RDdFeb2LLMp4A&start_radio=1&pp=ygUM44Ki44Or44Kr44OpoAcB
+https://www.youtube.com/watch?v=DsiV5Ov7_JY&list=RDDsiV5Ov7_JY&start_radio=1&pp=ygUf5Y2K5b6EMzBjbeOBruS4reOCkuefpeOCieOBquOBhKAHAQ%3D%3D
+
+#### おすすめ曲
+
+https://www.youtube.com/watch?v=CXYW-BFeG9k&list=RDCXYW-BFeG9k&start_radio=1&pp=ygUe44Kt44Oj44OD44OB44O844KS56eR5a2m44GZ44KLoAcB
+https://www.youtube.com/watch?v=goQZ7nm2blA&list=RDgoQZ7nm2blA&start_radio=1&pp=ygUh44OI44Ot44OU44Kr44Or44GK44Gw44GC44Gh44KD44KToAcB
+---
+
 ### 凛として時雨
 
 神of神。日本の誇るスリーピースバンドです。先日、武道館ライブに行って改めて凄さを実感しました。
@@ -73,18 +84,25 @@ https://www.youtube.com/watch?v=bmzpmjk18m0&list=RDbmzpmjk18m0&start_radio=1
 
 #### 代表曲
 
+https://www.youtube.com/watch?v=lqYCMxhgeSU&list=RDlqYCMxhgeSU&start_radio=1&pp=ygUUdGVsZWNhc3RpYyBmYWtlIHNob3egBwHSBwkJPgsBhyohjO8%3D
+https://www.youtube.com/watch?v=DOKM9QWJG3g&list=RDDOKM9QWJG3g&start_radio=1&pp=ygULYWJub3JtYWxpemWgBwE%3D
+https://www.youtube.com/watch?v=0oXJY6vc9fQ&list=RD0oXJY6vc9fQ&start_radio=1&pp=ygURZW5pZ21hdGljIGZlZWxpbmegBwE%3D
+
 ---
 あとよくTKのソロ活動である「TK from 凛として時雨」と混同する方がいるのですが、そっちは自分もあんまり聞いてないので聞かれても分かりません。
 あと正直自分のおすすめ曲を書けと言われてもありすぎてこのページ的に書き切れるか分からないので、またいつかそれ用のブログを書くことにします。(いつかメンバーの紹介とかも含めて書きたい)ということでおすすめのアルバムでも紹介しましょうか。
 
 #### おすすめのアルバム(ミニアルバム含む)
 「#4」
+https://tower.jp/item/1813241?srsltid=AfmBOopB47pijYggNn-uMObD9EcPLTl05zgVlf-11a2inGVlz8pwkafs
 自主制作時代を除いたらファーストアルバムにあたるアルバムです。まさしく原点のアルバムであり、その後に出る曲達の礎になっているアルバムだと思います。このアルバムでの個人的なオススメ曲は「CRAZY感情STYLE」です。
 
 「Inspiration is DEAD」
+https://tower.jp/item/2265077?srsltid=AfmBOorrMd10AWcqoXBefbf1tElKiVrFsBDrzNh_WaUp7i2paDFEF14r
 2作目のアルバムです。名曲ぞろいで、今も人気のある曲が多く入っている印象です。全体的に曲の鋭さがより増してるように感じられて個人的には1番好きです。このアルバムでの個人的なおすすめ曲は「I not crazy am you are」です。
 
 「es or s」
+https://www.amazon.co.jp/es-s-%E5%87%9B%E3%81%A8%E3%81%97%E3%81%A6%E6%99%82%E9%9B%A8/dp/B011J6GE5I
 ミニアルバムです。このアルバムでも特にアルバム名になっているSOSOSは凛として時雨の曲の中でも特にしぐれ色の強くある意味での完成系とも言えるほどの曲だと思います。とりあえずそれだけでも聞いて欲しいです。個人的には「Tornado Mystery」も好きです。あとこのアルバムのジャケットが特に気に入ってます。
 
 とりあえずこれ以上話すと長くなりそうなのでここらでやめておきます。いつか全アルバム紹介してみたいですね。
@@ -96,6 +114,8 @@ https://www.youtube.com/watch?v=bmzpmjk18m0&list=RDbmzpmjk18m0&start_radio=1
 
 ヒハレンチという方でもともと原木ハムという名前でやってたそうです。去年の正月頃に発見してこんなボカロを作ってる方もいるんだと衝撃を受けました。
 特におすすめの曲のリンクを貼り付けておきます。
+
+https://www.youtube.com/watch?v=kpNSSIgNARE
 
 ---
 

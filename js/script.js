@@ -269,7 +269,6 @@ function convertYouTubeEmbeds(html) {
 
 async function navigateTo(url, push = true) {
   if (url === location.pathname + location.search) return;
-  if (url === '/') { window.location.href = url; return; }
   const main = document.querySelector('main');
   if (!main) { window.location.href = url; return; }
   const scrollY = window.scrollY;

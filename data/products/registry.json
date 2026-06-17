@@ -1,30 +1,12 @@
 [
   {
-    "slug": "himamarket",
-    "title": "HimaMarket",
-    "date": "2026-06-05",
-    "excerpt": "暇人技術部が手がけるシンプルで使いやすいフリマアプリ。誰でも簡単に出品・購入ができます。",
-    "icon": "data/products/himamarket/icon.svg",
-    "url": "https://github.com/Himazin-TD/himamarket",
-    "urlLabel": "GitHub",
-    "detailLabel": "詳しく見る"
-  },
-  {
-    "slug": "himaweather",
-    "title": "HimaWeather",
-    "date": "2026-05-20",
-    "excerpt": "洗練されたデザインの天気予報アプリ。週間予報・降水量・風速など多彩な情報を提供します。",
-    "icon": "data/products/himaweather/icon.svg",
-    "detailLabel": "詳細を見る"
-  },
-  {
-    "slug": "himacanvas",
-    "title": "HimaCanvas",
-    "date": "2026-04-10",
-    "excerpt": "ブラウザで動作する軽量なお絵かきツール。レイヤー対応・豊富なブラシ・フィルター機能を備えています。",
+    "slug": "Flaxia",
+    "title": "Flaxia",
+    "date": "2026-03-08",
+    "excerpt": "暇人技術部のメインプロジェクトであるSNS。Flashやゲームも投稿できる新世代のSNS。",
     "icon": "data/products/himacanvas/icon.svg",
     "url": "https://himacanvas.pages.dev",
-    "urlLabel": "使ってみる",
-    "detailLabel": "機能を見る"
+    "urlLabel": "SNSを始める",
+    "detailLabel": "詳細"
   }
 ]

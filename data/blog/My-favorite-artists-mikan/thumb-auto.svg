@@ -8,5 +8,5 @@
   <rect width="240" height="135" fill="url(#g)"/>
   <rect x="0.5" y="0.5" width="239" height="134" fill="none" stroke="#e0e0e0" stroke-width="1" rx="2"/>
   <text x="232" y="26" text-anchor="end" font-family="Noto Sans JP, sans-serif" font-size="13" font-weight="500" fill="#666">Mikan_1</text>
-  <text x="120" y="80" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="16" font-weight="700" fill="#333">Mikan_1の自己紹介</text>
+  <text x="120" y="80" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="16" font-weight="700" fill="#333">好きな曲やらなんやら</text>
 </svg>
