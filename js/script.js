@@ -7,14 +7,6 @@ const PATH_TO_HASH = {
   '/blog/': 'blog',
   '/members/': 'members',
 };
-const CATEGORY_LABELS = {
-  app: 'アプリ',
-  sns: 'SNS',
-  tool: 'ツール',
-  game: 'ゲーム',
-  hardware: 'ハードウェア',
-  other: 'その他'
-};
 const registryCache = {};
 const metaCache = {};
 const mdCache = {};
@@ -42,6 +34,24 @@ async function fetchText(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.text();
+}
+
+function parseFrontMatter(text) {
+  const m = text.match(/^---\s*\n([\s\S]*?)\n---\s*\n?/);
+  if (!m) return { attrs: {}, body: text };
+  const attrs = {};
+  m[1].split('\n').forEach(line => {
+    const sep = line.indexOf(':');
+    if (sep === -1) return;
+    const key = line.slice(0, sep).trim();
+    let val = line.slice(sep + 1).trim();
+    if (val.startsWith('"') && val.endsWith('"')) val = val.slice(1, -1);
+    if (val.startsWith("'") && val.endsWith("'")) val = val.slice(1, -1);
+    if (val === 'true') val = true;
+    else if (val === 'false') val = false;
+    attrs[key] = val;
+  });
+  return { attrs, body: text.slice(m[0].length) };
 }
 
 async function loadRegistry(section) {
@@ -93,16 +103,39 @@ function renderProducts(containerId, items, options = {}) {
     html += '<div class="category-filters">';
     html += `<button class="category-filter${activeCategory === 'all' ? ' active' : ''}" data-category="all">すべて</button>`;
     categories.forEach(cat => {
-      html += `<button class="category-filter${activeCategory === cat ? ' active' : ''}" data-category="${cat}">${esc(CATEGORY_LABELS[cat] || cat)}</button>`;
+      html += `<button class="category-filter${activeCategory === cat ? ' active' : ''}" data-category="${cat}">${esc(cat)}</button>`;
     });
     html += '</div>';
   }
 
-  const filtered = activeCategory !== 'all' ? items.filter(i => i.category === activeCategory) : items;
+  if (activeCategory !== 'all') {
+    const filtered = items.filter(i => i.category === activeCategory);
+    html += '<div class="products-grid">';
+    html += renderProductCards(filtered);
+    html += '</div>';
+  } else {
+    categories.forEach(cat => {
+      const group = items.filter(i => i.category === cat);
+      if (!group.length) return;
+      html += `<h3 class="products-group-title">${esc(cat)}</h3>`;
+      html += '<div class="products-grid">';
+      html += renderProductCards(group);
+      html += '</div>';
+    });
+    const uncategorized = items.filter(i => !i.category);
+    if (uncategorized.length) {
+      html += '<div class="products-grid">';
+      html += renderProductCards(uncategorized);
+      html += '</div>';
+    }
+  }
 
-  html += '<div class="products-grid">';
-  html += filtered.map(item => {
-    const catLabel = CATEGORY_LABELS[item.category] || '';
+  container.innerHTML = html;
+}
+
+function renderProductCards(items) {
+  return items.map(item => {
+    const catLabel = item.category || '';
     const catBadge = catLabel ? `<span class="product-category-badge">${esc(catLabel)}</span>` : '';
     return `<div class="product-card">
       ${catBadge}
@@ -115,9 +148,6 @@ function renderProducts(containerId, items, options = {}) {
       </div>
     </div>`;
   }).join('');
-  html += '</div>';
-
-  container.innerHTML = html;
 }
 
 function renderItemList(containerId, items, section) {
@@ -145,6 +175,10 @@ function renderDetail(section, slug) {
 
   Promise.all([loadPostMeta(section, slug), loadPostMD(section, slug)])
     .then(([meta, md]) => {
+      const { attrs, body } = parseFrontMatter(md);
+      const category = meta.category || attrs.category;
+      if (category && !meta.category) meta.category = category;
+
       updatePageMeta(meta.title, meta.excerpt, meta.icon ? 'https://himazin-technical-department.github.io/' + meta.icon : null);
       let html = '';
       if (meta.icon) {
@@ -162,10 +196,10 @@ function renderDetail(section, slug) {
       html += `<span class="detail-meta-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         ${esc(formatDate(meta.date))}</span>`;
-      if (section === 'products' && meta.category) {
+      if (section === 'products' && category) {
         html += `<span class="detail-meta-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          ${esc(CATEGORY_LABELS[meta.category] || meta.category)}</span>`;
+          ${esc(category)}</span>`;
       }
       if (meta.author) {
         html += `<span class="detail-meta-item">
@@ -176,7 +210,7 @@ function renderDetail(section, slug) {
         html += `<span class="detail-meta-item">${meta.tags.map(t => `<span class="blog-tag">${esc(t)}</span>`).join('')}</span>`;
       }
       html += '</div>';
-      html += `<article class="detail-content">${renderMD(md)}</article>`;
+      html += `<article class="detail-content">${renderMD(body)}</article>`;
       container.innerHTML = html;
       processExternalLinks(container);
     })
@@ -685,15 +719,46 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = filters.parentElement;
     const staticCards = container?.querySelectorAll('.product-card[data-category]');
     if (staticCards?.length) {
-      staticCards.forEach(card => {
-        card.style.display = cat === 'all' || card.dataset.category === cat ? '' : 'none';
-      });
+      if (cat === 'all') {
+        container.querySelectorAll('.products-group-title, .products-grid').forEach(el => el.style.display = '');
+        staticCards.forEach(card => card.style.display = '');
+      } else {
+        container.querySelectorAll('.products-grid').forEach(grid => {
+          const hasMatch = [...grid.querySelectorAll('.product-card[data-category]')].some(c => c.dataset.category === cat);
+          grid.style.display = hasMatch ? '' : 'none';
+        });
+        container.querySelectorAll('.products-group-title').forEach(title => {
+          const grid = title.nextElementSibling;
+          title.style.display = grid && grid.classList.contains('products-grid') ? grid.style.display : '';
+        });
+        staticCards.forEach(card => {
+          card.style.display = card.dataset.category === cat ? '' : 'none';
+        });
+      }
       return;
     }
 
     const containerId = container?.id || 'products-list';
     const items = window.__productsCache || [];
     renderProducts(containerId, items, { showFilters: true, activeCategory: cat });
+  });
+
+  document.querySelectorAll('.category-filters').forEach(filters => {
+    const container = filters.parentElement;
+    const cards = container?.querySelectorAll('.product-card[data-category]');
+    if (!cards?.length) return;
+    const seen = new Set(['all']);
+    cards.forEach(card => {
+      const cat = card.dataset.category;
+      if (!cat || seen.has(cat)) return;
+      seen.add(cat);
+      const label = cat;
+      const btn = document.createElement('button');
+      btn.className = 'category-filter';
+      btn.dataset.category = cat;
+      btn.textContent = label;
+      filters.appendChild(btn);
+    });
   });
 
   // Carousel

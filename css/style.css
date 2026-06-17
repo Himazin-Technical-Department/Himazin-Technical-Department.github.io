@@ -682,6 +682,19 @@ img {
   margin-bottom: 12px;
 }
 
+.products-group-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 32px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e8e8e8;
+  color: #333;
+}
+
+.products-group-title:first-of-type {
+  margin-top: 0;
+}
+
 .blog-list {
   display: flex;
   flex-direction: column;
