@@ -11,14 +11,12 @@
             "id": "9947cec4a7135a0e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "blog/My-favorite-artists-mikan/index.md",
-                "mode": "source",
-                "source": false
+                "file": "products/Flaxia/thumb-auto.svg"
               },
-              "icon": "lucide-file",
-              "title": "index"
+              "icon": "lucide-image",
+              "title": "thumb-auto"
             }
           }
         ]
@@ -112,7 +110,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "blog/My-favorite-artists-mikan/index.md",
+            "file": "products/Flaxia/thumb-auto.svg",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -170,6 +168,11 @@
   },
   "active": "9947cec4a7135a0e",
   "lastOpenFiles": [
+    "products/himaweather/index.md",
+    "products/無題のフォルダ",
+    "products/Flaxia/index.md",
+    "products/Flaxia/icon.svg",
+    "blog/My-favorite-artists-mikan/index.md",
     "blog/hello-world/index.md",
     "blog/my-first-post/thumb-auto.svg",
     "blog/my-first-post/meta.json",
@@ -178,7 +181,6 @@
     "blog/mikan_korosuzo/index.md",
     "blog/mikan_korosuzo",
     "blog/Hello_mikan/index.md",
-    "blog/My-favorite-artists-mikan/index.md",
     "blog/My-favorite-artists-mikan/thumb-auto.svg",
     "blog/My-favorite-artists-mikan/meta.json",
     "blog/My-favorite-artists-mikan",
