@@ -2,7 +2,7 @@
 title: Flaxia
 date: 2026-03-08
 excerpt: 暇人技術部のメインプロジェクトであるSNS。Flashやゲームも投稿できる新世代のSNS。
-category: Remydre_S
+category: HTDプロジェクト
 icon: data/products/Flaxia/icon.png
 url: https://flaxia.app
 urlLabel: SNSを始める

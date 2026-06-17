@@ -279,6 +279,7 @@ ${featured.length > 0 ? `
   <h2 class="section-title">最新のプロダクト</h2>
   <div class="products-grid">${products.slice(0, 3).map(item => `
     <div class="product-card">
+      ${item.category ? `<span class="product-category-badge">${esc(item.category)}</span>` : ''}
       ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy" width="64" height="64"></div>` : ''}
       <h3>${esc(item.title)}</h3>
       <p>${esc(item.excerpt || '')}</p>
@@ -331,11 +332,31 @@ function buildListing(sectionKey, registry) {
 }
 </script>`;
   if (sectionKey === 'products') {
+    const categories = [...new Set(registry.map(i => i.category).filter(Boolean))];
     writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
 <div class="section">
   <a href="/" class="back-link">← ホームに戻る</a>
   <h2 class="section-title">${esc(meta.label)}</h2>
-  <div class="products-grid">${registry.map(item => `
+  <div class="category-filters" id="products-filters">
+    <button class="category-filter active" data-category="all">すべて</button>
+  </div>
+  ${categories.map(cat => `
+  <h3 class="products-group-title">${esc(cat)}</h3>
+  <div class="products-grid">${registry.filter(i => i.category === cat).map(item => `
+    <div class="product-card" data-category="${esc(item.category)}">
+      <span class="product-category-badge">${esc(item.category)}</span>
+      ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy" width="64" height="64"></div>` : ''}
+      <h3>${esc(item.title)}</h3>
+      <p>${esc(item.excerpt || '')}</p>
+      <div class="product-actions">
+        <a href="/products/${item.slug}/" class="product-btn product-btn-primary">${esc(item.detailLabel || '詳細')}</a>
+        ${item.url ? `<a href="${esc(item.url)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.urlLabel || 'サイトへ')}</a>` : ''}
+        ${item.downloadUrl ? `<a href="${esc(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.downloadLabel || 'ダウンロード')}</a>` : ''}
+      </div>
+    </div>`).join('')}
+  </div>`).join('')}
+  ${registry.filter(i => !i.category).length ? `
+  <div class="products-grid">${registry.filter(i => !i.category).map(item => `
     <div class="product-card">
       ${item.icon ? `<div class="product-icon"><img src="${esc(imgPath(item.icon))}" alt="${esc(item.title)}" loading="lazy" width="64" height="64"></div>` : ''}
       <h3>${esc(item.title)}</h3>
@@ -346,7 +367,7 @@ function buildListing(sectionKey, registry) {
         ${item.downloadUrl ? `<a href="${esc(item.downloadUrl)}" target="_blank" rel="noopener noreferrer" class="product-btn product-btn-secondary">${esc(item.downloadLabel || 'ダウンロード')}</a>` : ''}
       </div>
     </div>`).join('')}
-  </div>
+  </div>` : ''}
 </div>`, listingExtra);
   } else {
     writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
@@ -402,6 +423,11 @@ function buildDetail(sectionKey, item) {
   detailHtml += `<span class="${sectionKey === 'blog' ? 'blog-post-meta-item' : 'detail-meta-item'}">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
     ${formatDate(item.date)}</span>`;
+  if (sectionKey === 'products' && item.category) {
+    detailHtml += `<span class="detail-meta-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      ${esc(item.category)}</span>`;
+  }
   if (item.author) {
     detailHtml += `<span class="${sectionKey === 'blog' ? 'blog-post-meta-item' : 'detail-meta-item'}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;opacity:.6"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "products/Flaxia/index.md",
+                "file": "products/chronicle/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -185,8 +185,14 @@
   },
   "active": "c483321ac3428b47",
   "lastOpenFiles": [
-    "products/Flaxia/icon.png",
+    "products/chronicle/icon.svg",
     "products/Flaxia/index.md",
+    "products/chronicle/index.md",
+    "members/Remydre_S.png",
+    "products/chronicle/meta.json",
+    "products/chronicle",
+    "products/Chronicle",
+    "products/Flaxia/icon.png",
     "products/Flaxia/icon.svg",
     "blog/My-favorite-artists-mikan/index.md",
     "blog/mikan_korosuzo/meta.json",
@@ -211,13 +217,8 @@
     "products/test-p/meta.json",
     "products/test-p/icon.svg",
     "products/test-p/index.md",
-    "products/test-p",
-    "products/himaweather/thumb-auto.svg",
-    "products/my-new/thumb-auto.svg",
     "products/himaweather/index.md",
-    "products/test-product/meta.json",
     "products/test-product/index.md",
-    "products/test-product",
     "updates/my-new/index.md",
     "blog/verify-thumb/index.md",
     "blog/test-thumb/index.md",
@@ -228,7 +229,6 @@
     "products/testapp/index.md",
     "updates/maintenance-notice/index.md",
     "blog/test-post/index.md",
-    "products/himacanvas/index.md",
-    "updates/thumb-update-2/index.md"
+    "products/himacanvas/index.md"
   ]
 }

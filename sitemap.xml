@@ -22,6 +22,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://himazin-technical-department.github.io/products/chronicle/</loc>
+    <lastmod>2026-06-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://himazin-technical-department.github.io/products/Flaxia/</loc>
     <lastmod>2026-03-08</lastmod>
     <changefreq>monthly</changefreq>
