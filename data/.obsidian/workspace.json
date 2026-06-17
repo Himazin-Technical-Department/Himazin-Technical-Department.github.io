@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "products/chronicle/index.md",
+                "file": "products/craft-of-liberty/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -185,9 +185,12 @@
   },
   "active": "c483321ac3428b47",
   "lastOpenFiles": [
+    "blog/Hello_mikan/index.md",
+    "products/craft-of-liberty/index.md",
+    "products/chronicle/index.md",
+    "products/craft-of-liberty",
     "products/chronicle/icon.svg",
     "products/Flaxia/index.md",
-    "products/chronicle/index.md",
     "members/Remydre_S.png",
     "products/chronicle/meta.json",
     "products/chronicle",
@@ -205,7 +208,6 @@
     "blog/mikan_korosuzo",
     "blog/site-update-2026-06/thumb-auto.svg",
     "blog/my-first-post/index.md",
-    "blog/Hello_mikan/index.md",
     "about/index.md",
     "about.json~",
     "blog/hello-world/index.md",
@@ -214,7 +216,6 @@
     "products/my-new/icon.svg",
     "products/my-new/meta.json",
     "products/my-new",
-    "products/test-p/meta.json",
     "products/test-p/icon.svg",
     "products/test-p/index.md",
     "products/himaweather/index.md",
