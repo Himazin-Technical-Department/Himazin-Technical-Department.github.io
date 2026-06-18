@@ -30,3 +30,7 @@ https://flaxia.app
 ## 更新履歴
 
 大型アップデートまでお待ちください。
+
+## GIthub(ソースコード)
+
+https://github.com/RemydreScarlet/flaxia
