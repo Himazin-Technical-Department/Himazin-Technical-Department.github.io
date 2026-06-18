@@ -209,8 +209,9 @@
 .video-embed {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
+  max-width: 560px;
   margin: 24px 0;
+  aspect-ratio: 16 / 9;
 }
 
 .video-embed iframe {
@@ -234,6 +235,7 @@
   text-decoration: none !important;
   color: inherit !important;
   border-bottom: 1px solid #e8e8e8 !important;
+  max-width: 520px;
 }
 
 .link-preview:hover {
