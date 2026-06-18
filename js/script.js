@@ -358,19 +358,24 @@ async function navigateTo(url, push = true) {
     if (!newMain) { window.location.href = url; return; }
     main.innerHTML = newMain.innerHTML;
     if (push) history.pushState({ url, scrollY }, '', url);
-    if (newTitle) document.title = newTitle.textContent;
-    ['description', 'og:title', 'og:description', 'og:url', 'og:image'].forEach(p => {
-      const el = doc.querySelector(p.includes(':') ? `meta[property="${p}"]` : `meta[name="${p}"]`);
-      const cur = document.querySelector(p.includes(':') ? `meta[property="${p}"]` : `meta[name="${p}"]`);
-      if (el && cur) cur.setAttribute('content', el.getAttribute('content'));
-    });
-    document.querySelector('link[rel="canonical"]')?.setAttribute('href', doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || url);
+    applyDocMeta(doc, url);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     processExternalLinks(main);
     updateActiveNav(url);
   } catch {
     window.location.href = url;
   }
+}
+
+function applyDocMeta(doc, url) {
+  const newTitle = doc.querySelector('title');
+  if (newTitle) document.title = newTitle.textContent;
+  ['description', 'og:title', 'og:description', 'og:url', 'og:image'].forEach(p => {
+    const el = doc.querySelector(p.includes(':') ? `meta[property="${p}"]` : `meta[name="${p}"]`);
+    const cur = document.querySelector(p.includes(':') ? `meta[property="${p}"]` : `meta[name="${p}"]`);
+    if (el && cur) cur.setAttribute('content', el.getAttribute('content'));
+  });
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', doc.querySelector('link[rel="canonical"]')?.getAttribute('href') || url);
 }
 
 function updateActiveNav(url) {
@@ -398,8 +403,25 @@ function setupStandaloneNav() {
     e.preventDefault();
     navigateTo(href);
   });
-  window.addEventListener('popstate', e => {
-    if (e.state?.url) navigateTo(e.state.url, false);
+  window.addEventListener('popstate', async e => {
+    const url = location.pathname + location.search;
+    const main = document.querySelector('main');
+    if (!main) return;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) { location.reload(); return; }
+      const html = await res.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const newMain = doc.querySelector('main');
+      if (!newMain) { location.reload(); return; }
+      main.innerHTML = newMain.innerHTML;
+      applyDocMeta(doc, url);
+      window.scrollTo({ top: e.state?.scrollY || 0 });
+      processExternalLinks(main);
+      updateActiveNav(url);
+    } catch {
+      location.reload();
+    }
   });
 }
 
