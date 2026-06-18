@@ -30,6 +30,7 @@ PCおよびスマホで使うことのできる軽量で多機能な小説エデ
 | Linux(deb版)      | [chronicle_0.2.9-1_amd64.deb](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.9/chronicle_0.2.9-1_amd64.deb)                 |
 | Linux(rpm版)      | [chronicle-0.2.9-1.x86_64.rpm](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.9/chronicle-0.2.9-1.x86_64.rpm)               |
 | Linux(ポータブル版)    | [chronicle-0.2.9-x86_64-linux.tar.gz](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.9/chronicle-0.2.9-x86_64-linux.tar.gz) |
+| Android          | [Chronicle-release.apk](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.9/Chronicle-release.apk)                             |
 
 ## Github(ソースコード)
 
