@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "87e2c20fead2e4b6",
+        "id": "7a85f56622bf8979",
         "type": "tabs",
         "children": [
           {
-            "id": "c483321ac3428b47",
+            "id": "dc49a391e872008f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "products/Flaxia/index.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "index"
+              "title": "新規タブ"
             }
           }
         ]
@@ -183,13 +179,13 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "c483321ac3428b47",
+  "active": "dc49a391e872008f",
   "lastOpenFiles": [
+    "products/Flaxia/index.md",
     "products/craft-of-liberty/index.md",
     "products/Flaxia/icon.png",
     "products/craft-of-liberty/icon.png",
     "products/chronicle/index.md",
-    "products/Flaxia/index.md",
     "products/categories.json",
     "products/chronicle/icon.png",
     "products/craft-of-liberty/icon.svg",
