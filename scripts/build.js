@@ -42,7 +42,7 @@ try {
 
 function shell(title, description, canonical, activeNav, content, extraHead) {
   const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - Himazin Technical Department`;
-  const desc = description || '暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。';
+  const desc = description || '暇人技術部 (Himazin Technical Department) とは、SNSの運営やソフトの開発を行う日本のコミュニティです。';
   const canonicalUrl = canonical || SITE_URL + '/';
 
   const navs = [
@@ -92,7 +92,7 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
     "alternateName": "Himazin Technical Department",
     "url": "${SITE_URL}/",
     "logo": "${SITE_URL}/logo.svg",
-    "description": "技術好きが集まってプロダクト開発や研究を行うコミュニティです。"
+    "description": "SNSの運営やソフトの開発を行う日本のコミュニティです。"
   }
   </script>
   <script type="application/ld+json">
@@ -151,7 +151,7 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
       <div class="footer-grid">
         <div class="footer-col">
           <h4>${SITE_NAME}</h4>
-          <p>技術好きが集まってプロダクト開発や研究を行うコミュニティです。</p>
+          <p>SNSの運営やソフトの開発を行う日本のコミュニティです。</p>
         </div>
         <div class="footer-col">
           <h4>ナビゲーション</h4>

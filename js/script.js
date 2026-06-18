@@ -13,7 +13,7 @@ const mdCache = {};
 
 function updatePageMeta(title, description, image) {
   document.title = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - Himazin Technical Department`;
-  const desc = description || '暇人技術部 (Himazin Technical Department) は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。';
+  const desc = description || '暇人技術部 (Himazin Technical Department) とは、SNSの運営やソフトの開発を行う日本のコミュニティです。';
   document.querySelector('meta[name="description"]').setAttribute('content', desc);
   document.querySelector('meta[property="og:title"]').setAttribute('content', document.title);
   document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
@@ -328,7 +328,7 @@ function processExternalLinks(root) {
   });
 }
 
-const DEFAULT_ABOUT = '**暇人技術部 (Himazin Technical Department)** は、技術好きが集まってプロダクト開発や研究を行うコミュニティです。\n\n部員それぞれが自由な発想でものづくりに取り組み、開発したツールや知見を発信しています。';
+const DEFAULT_ABOUT = '**暇人技術部 (Himazin Technical Department)** とは、SNSの運営やソフトの開発を行う日本のコミュニティです。\n\n部員それぞれが自由な発想でものづくりに取り組み、開発したツールや知見を発信しています。';
 
 function convertYouTubeEmbeds(html) {
   return html.replace(
