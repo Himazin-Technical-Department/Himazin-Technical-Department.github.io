@@ -748,16 +748,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = filters.parentElement;
     const cards = container?.querySelectorAll('.product-card[data-category]');
     if (!cards?.length) return;
-    const seen = new Set(['all']);
+    const seen = new Set();
+    filters.querySelectorAll('.category-filter').forEach(btn => seen.add(btn.dataset.category));
     cards.forEach(card => {
       const cat = card.dataset.category;
       if (!cat || seen.has(cat)) return;
       seen.add(cat);
-      const label = cat;
       const btn = document.createElement('button');
       btn.className = 'category-filter';
       btn.dataset.category = cat;
-      btn.textContent = label;
+      btn.textContent = cat;
       filters.appendChild(btn);
     });
   });

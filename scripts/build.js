@@ -339,6 +339,7 @@ function buildListing(sectionKey, registry) {
   <h2 class="section-title">${esc(meta.label)}</h2>
   <div class="category-filters" id="products-filters">
     <button class="category-filter active" data-category="all">すべて</button>
+    ${categories.map(cat => `<button class="category-filter" data-category="${esc(cat)}">${esc(cat)}</button>`).join('')}
   </div>
   ${categories.map(cat => `
   <h3 class="products-group-title">${esc(cat)}</h3>
