@@ -69,8 +69,13 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
   <meta name="msapplication-TileColor" content="#0a0a0f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap&font-display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap&font-display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Yuji+Syuku&display=swap" rel="stylesheet"></noscript>
   <link rel="stylesheet" href="/css/style.css?v=${BUILD_ID}">
+  <link rel="preload" href="/css/style-defer.css?v=${BUILD_ID}" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/css/style-defer.css?v=${BUILD_ID}"></noscript>
+  <link rel="preload" href="/logo.svg" as="image">
+  <link rel="preload" href="/js/script.js?v=${BUILD_ID}" as="script">
   <meta name="robots" content="index, follow">
   <meta name="format-detection" content="telephone=no, email=no, address=no">
   <meta property="og:type" content="website">
@@ -235,7 +240,7 @@ function buildHomepage(aboutHtml, updates, products, blog, featured) {
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-heading">
-      <span class="hero-icon-wrap"><img src="/logo.svg" alt="" class="hero-heading-icon"></span>
+      <span class="hero-icon-wrap"><img src="/logo.svg" alt="" class="hero-heading-icon" fetchpriority="high"></span>
       <h1 class="hero-title">${SITE_NAME}</h1>
     </div>
     <p class="hero-sub">Himazin Technical Department</p>
