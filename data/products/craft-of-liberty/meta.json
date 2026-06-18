@@ -4,5 +4,6 @@
   "excerpt": "物理演算を追加した四角い世界で、とんでもない自由度を誇るゲームです。",
   "icon": "data/products/craft-of-liberty/icon.png",
   "detailLabel": "詳細を見る",
-  "category": "HTDプロジェクト"
+  "category": "HTDプロジェクト",
+  "order": "2"
 }

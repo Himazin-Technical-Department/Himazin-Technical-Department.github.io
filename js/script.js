@@ -94,7 +94,11 @@ function renderProducts(containerId, items, options = {}) {
     return;
   }
 
-  const categories = [...new Set(items.map(i => i.category).filter(Boolean))].sort((a, b) => a === 'HTDプロジェクト' ? -1 : b === 'HTDプロジェクト' ? 1 : 0);
+  items = [...items].sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
+
+  const catOrder = {};
+  items.forEach(i => { if (i.category) catOrder[i.category] = Math.min(catOrder[i.category] ?? Infinity, i.categoryOrder ?? Infinity); });
+  const categories = [...new Set(items.map(i => i.category).filter(Boolean))].sort((a, b) => (catOrder[a] ?? Infinity) - (catOrder[b] ?? Infinity));
   const activeCategory = options.activeCategory || 'all';
 
   let html = '';

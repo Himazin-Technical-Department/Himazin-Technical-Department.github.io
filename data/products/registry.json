@@ -1,23 +1,5 @@
 [
   {
-    "slug": "chronicle",
-    "title": "Chronicle",
-    "date": "2026-06-18",
-    "excerpt": "PC、スマホで利用できる軽量で多機能な小説エディタ。",
-    "icon": "data/products/chronicle/icon.png",
-    "detailLabel": "詳細",
-    "category": "Danball Mikan Box"
-  },
-  {
-    "slug": "craft-of-liberty",
-    "title": "Craft of Liberty",
-    "date": "2026-06-18",
-    "excerpt": "物理演算を追加した四角い世界で、とんでもない自由度を誇るゲームです。",
-    "icon": "data/products/craft-of-liberty/icon.png",
-    "detailLabel": "詳細を見る",
-    "category": "HTDプロジェクト"
-  },
-  {
     "slug": "Flaxia",
     "title": "Flaxia",
     "date": "2026-03-08",
@@ -26,6 +8,30 @@
     "icon": "data/products/Flaxia/icon.png",
     "url": "https://flaxia.app",
     "urlLabel": "SNSを始める",
-    "detailLabel": "詳細"
+    "detailLabel": "詳細",
+    "order": 1,
+    "categoryOrder": 1
+  },
+  {
+    "slug": "chronicle",
+    "title": "Chronicle",
+    "date": "2026-06-18",
+    "excerpt": "PC、スマホで利用できる軽量で多機能な小説エディタ。",
+    "icon": "data/products/chronicle/icon.png",
+    "detailLabel": "詳細",
+    "category": "Danball Mikan Box",
+    "order": 1,
+    "categoryOrder": 2
+  },
+  {
+    "slug": "craft-of-liberty",
+    "title": "Craft of Liberty",
+    "date": "2026-06-18",
+    "excerpt": "物理演算を追加した四角い世界で、とんでもない自由度を誇るゲームです。",
+    "icon": "data/products/craft-of-liberty/icon.png",
+    "detailLabel": "詳細を見る",
+    "category": "HTDプロジェクト",
+    "order": 2,
+    "categoryOrder": 1
   }
 ]

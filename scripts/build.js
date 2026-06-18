@@ -332,7 +332,9 @@ function buildListing(sectionKey, registry) {
 }
 </script>`;
   if (sectionKey === 'products') {
-    const categories = [...new Set(registry.map(i => i.category).filter(Boolean))].sort((a, b) => a === 'HTDプロジェクト' ? -1 : b === 'HTDプロジェクト' ? 1 : 0);
+    const catOrdersPath = join(root, 'data', 'products', 'categories.json');
+    const catOrders = existsSync(catOrdersPath) ? JSON.parse(readFileSync(catOrdersPath, 'utf-8')) : {};
+    const categories = [...new Set(registry.map(i => i.category).filter(Boolean))].sort((a, b) => (catOrders[a] ?? Infinity) - (catOrders[b] ?? Infinity));
     writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
 <div class="section">
   <a href="/" class="back-link">← ホームに戻る</a>

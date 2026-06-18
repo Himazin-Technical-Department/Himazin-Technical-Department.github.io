@@ -15,6 +15,9 @@ function escXml(s) {
 
 /* ── registry.json + meta.json (from frontmatter) ── */
 function generateRegistries() {
+  const catOrdersPath = join(root, 'data', 'products', 'categories.json');
+  const catOrders = existsSync(catOrdersPath) ? JSON.parse(readFileSync(catOrdersPath, 'utf-8')) : {};
+
   for (const section of sections) {
     const dir = join(root, 'data', section);
     const entries = readdirSync(dir, { withFileTypes: true })
@@ -141,10 +144,19 @@ function generateRegistries() {
         const metaPath = join(dir, slug, 'meta.json');
         writeFileSync(metaPath, JSON.stringify(data, null, 2) + '\n', 'utf-8');
 
+        if (section === 'products' && data.category && catOrders[data.category] != null) {
+          data.categoryOrder = catOrders[data.category];
+        }
+        if (section === 'products' && data.order != null) data.order = Number(data.order);
         return { slug, ...data };
       })
       .filter(Boolean)
-      .sort((a, b) => new Date(b.date) - new Date(a.date));
+      .sort((a, b) => {
+        if (a.order != null && b.order != null) return a.order - b.order;
+        if (a.order != null) return -1;
+        if (b.order != null) return 1;
+        return new Date(b.date) - new Date(a.date);
+      });
 
     if (hasError) {
       console.error(`  ✖ エラーがあるため ${section} の registry.json は生成しませんでした。`);

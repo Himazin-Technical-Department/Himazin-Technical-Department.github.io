@@ -5,6 +5,7 @@ excerpt: PC、スマホで利用できる軽量で多機能な小説エディタ
 icon: data/products/chronicle/icon.png
 detailLabel: 詳細
 category: Danball Mikan Box
+order: 1
 ---
 ## Chronicleとは
 

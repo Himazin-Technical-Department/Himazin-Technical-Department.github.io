@@ -7,4 +7,5 @@ icon: data/products/Flaxia/icon.png
 url: https://flaxia.app
 urlLabel: SNSを始める
 detailLabel: 詳細
+order: 1
 ---
