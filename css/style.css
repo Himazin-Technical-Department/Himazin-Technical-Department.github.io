@@ -569,7 +569,7 @@ img {
 }
 
 .product-card:hover {
-  border-color: #1a1a1a;
+  border-color: #bbb;
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
@@ -789,7 +789,7 @@ img {
 }
 
 .blog-card:hover {
-  border-color: #1a1a1a;
+  border-color: #bbb;
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
@@ -1099,7 +1099,7 @@ img {
 }
 
 .link-preview:hover {
-  border-color: #2563eb !important;
+  border-color: #bbb !important;
 }
 
 .link-preview-image {
@@ -1283,7 +1283,7 @@ img {
 }
 
 .member-card:hover {
-  border-color: #1a1a1a;
+  border-color: #bbb;
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
 }
