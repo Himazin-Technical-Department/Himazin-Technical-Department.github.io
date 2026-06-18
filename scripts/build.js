@@ -63,6 +63,9 @@ function shell(title, description, canonical, activeNav, content, extraHead) {
   <meta name="keywords" content="暇人技術部,Himazin Technical Department,HTD,プロダクト開発,コミュニティ">
   <meta name="author" content="暇人技術部">
   <meta name="theme-color" content="#0a0a0f">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <link rel="canonical" href="${canonicalUrl}">
   <link rel="icon" type="image/svg+xml" href="/HTD.svg">
   <link rel="apple-touch-icon" href="/logo.svg">
