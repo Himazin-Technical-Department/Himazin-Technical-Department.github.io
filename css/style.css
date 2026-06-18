@@ -286,9 +286,31 @@ img {
 .hero-sub {
   margin-top: 12px;
   font-size: clamp(14px, 2vw, 20px);
-  font-weight: 300;
-  color: #888;
-  letter-spacing: 0.3em;
+  font-weight: 400;
+  color: #777;
+  letter-spacing: 0.35em;
+  text-shadow: 0 1px 4px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.08);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-sub::before,
+.hero-sub::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 1.5px;
+  background: #999;
+  border-radius: 1px;
+}
+
+.hero-sub::before {
+  right: calc(100% + 14px);
+}
+
+.hero-sub::after {
+  left: calc(100% + 14px);
 }
 
 .hero-accent {
@@ -362,13 +384,14 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 20px;
-  font-size: 13px;
+  padding: 10px 24px;
+  font-size: 14px;
   font-weight: 500;
-  color: #888;
-  border: 1.5px solid #e0e0e0;
-  border-radius: 6px;
+  color: #555;
+  border: 1.5px solid #aaa;
+  border-radius: 8px;
   text-decoration: none;
+  background: rgba(0,0,0,0.03);
   transition: all 0.25s;
 }
 .about-more::after {
@@ -377,8 +400,9 @@ img {
   transition: transform 0.25s;
 }
 .about-more:hover {
-  color: #1a1a1a;
+  color: #fff;
   border-color: #1a1a1a;
+  background: #1a1a1a;
 }
 .about-more:hover::after {
   transform: translateX(3px);
@@ -892,8 +916,8 @@ img {
 
 .footer-col p {
   font-size: 13px;
-  color: #888;
-  line-height: 1.6;
+  color: #444;
+  line-height: 1.7;
 }
 
 .footer-links {
@@ -908,7 +932,7 @@ img {
 
 .footer-links a {
   font-size: 13px;
-  color: #666;
+  color: #444;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -923,7 +947,7 @@ img {
   border-top: 1px solid #eee;
   text-align: center;
   font-size: 13px;
-  color: #999;
+  color: #666;
 }
 
 @media (max-width: 640px) {
