@@ -94,7 +94,7 @@ function renderProducts(containerId, items, options = {}) {
     return;
   }
 
-  const categories = [...new Set(items.map(i => i.category).filter(Boolean))];
+  const categories = [...new Set(items.map(i => i.category).filter(Boolean))].sort((a, b) => a === 'HTDプロジェクト' ? -1 : b === 'HTDプロジェクト' ? 1 : 0);
   const activeCategory = options.activeCategory || 'all';
 
   let html = '';

@@ -332,7 +332,7 @@ function buildListing(sectionKey, registry) {
 }
 </script>`;
   if (sectionKey === 'products') {
-    const categories = [...new Set(registry.map(i => i.category).filter(Boolean))];
+    const categories = [...new Set(registry.map(i => i.category).filter(Boolean))].sort((a, b) => a === 'HTDプロジェクト' ? -1 : b === 'HTDプロジェクト' ? 1 : 0);
     writePage(join(root, sectionKey, 'index.html'), meta.title, null, canonical, sectionKey, `
 <div class="section">
   <a href="/" class="back-link">← ホームに戻る</a>
