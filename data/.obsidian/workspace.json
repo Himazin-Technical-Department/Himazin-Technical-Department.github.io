@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "products/chronicle/index.md",
+                "file": "products/Flaxia/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -185,13 +185,13 @@
   },
   "active": "c483321ac3428b47",
   "lastOpenFiles": [
-    "products/categories.json",
     "products/craft-of-liberty/index.md",
-    "products/craft-of-liberty/icon.png",
-    "products/Flaxia/index.md",
-    "products/chronicle/index.md",
-    "products/chronicle/icon.png",
     "products/Flaxia/icon.png",
+    "products/craft-of-liberty/icon.png",
+    "products/chronicle/index.md",
+    "products/Flaxia/index.md",
+    "products/categories.json",
+    "products/chronicle/icon.png",
     "products/craft-of-liberty/icon.svg",
     "products/chronicle/icon.svg",
     "blog/Hello_mikan/index.md",
@@ -217,7 +217,6 @@
     "about",
     "products/my-new/index.md",
     "products/my-new/meta.json",
-    "products/my-new",
     "products/test-p/index.md",
     "products/himaweather/index.md",
     "products/test-product/index.md",
