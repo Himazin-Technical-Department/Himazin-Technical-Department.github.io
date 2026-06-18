@@ -1,8 +1,8 @@
 {
   "title": "Chronicle",
   "date": "2026-06-18",
-  "excerpt": "PC、スマホで利用できる小説エディタです。サイト出力が可能でFlaxiaにもあげやすい。",
-  "icon": "data/products/chronicle/icon.svg",
-  "detailLabel": "詳細を見る",
+  "excerpt": "PC、スマホで利用できる軽量で多機能な小説エディタ。",
+  "icon": "data/products/chronicle/icon.png",
+  "detailLabel": "詳細",
   "category": "Danball Mikan Box"
 }

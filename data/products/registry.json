@@ -3,17 +3,17 @@
     "slug": "chronicle",
     "title": "Chronicle",
     "date": "2026-06-18",
-    "excerpt": "PC、スマホで利用できる小説エディタです。サイト出力が可能でFlaxiaにもあげやすい。",
-    "icon": "data/products/chronicle/icon.svg",
-    "detailLabel": "詳細を見る",
+    "excerpt": "PC、スマホで利用できる軽量で多機能な小説エディタ。",
+    "icon": "data/products/chronicle/icon.png",
+    "detailLabel": "詳細",
     "category": "Danball Mikan Box"
   },
   {
     "slug": "craft-of-liberty",
     "title": "Craft of Liberty",
     "date": "2026-06-18",
-    "excerpt": "物理演算を追加した四角い世界でとんでもない自由度を誇るゲームです。",
-    "icon": "data/products/craft-of-liberty/icon.svg",
+    "excerpt": "物理演算を追加した四角い世界で、とんでもない自由度を誇るゲームです。",
+    "icon": "data/products/craft-of-liberty/icon.png",
     "detailLabel": "詳細を見る",
     "category": "HTDプロジェクト"
   },
