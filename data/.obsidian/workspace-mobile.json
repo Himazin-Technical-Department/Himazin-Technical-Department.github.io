@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "about/index.md",
+                "file": "products/craft-of-liberty/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -170,11 +170,17 @@
   },
   "active": "9947cec4a7135a0e",
   "lastOpenFiles": [
+    "products/Flaxia/index.md",
+    "products/craft-of-liberty/index.md",
+    "products/chronicle/index.md",
+    "products/chronicle/icon.png",
+    "products/craft-of-liberty/icon.png",
+    "members/Mikan_1.jpg",
+    "about/index.md",
     "blog/My-favorite-artists-mikan/index.md",
     "products/Flaxia/thumb-auto.svg",
     "products/himaweather/index.md",
     "products/無題のフォルダ",
-    "products/Flaxia/index.md",
     "products/Flaxia/icon.svg",
     "blog/hello-world/index.md",
     "blog/my-first-post/thumb-auto.svg",
@@ -188,7 +194,6 @@
     "blog/My-favorite-artists-mikan/meta.json",
     "blog/My-favorite-artists-mikan",
     "blog/site-update-2026-06/index.md",
-    "blog/Hello_mikan/thumb-auto.svg",
-    "about/index.md"
+    "blog/Hello_mikan/thumb-auto.svg"
   ]
 }
