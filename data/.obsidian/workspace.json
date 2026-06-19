@@ -11,10 +11,14 @@
             "id": "dc49a391e872008f",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "products/chronicle/index.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新規タブ"
+              "title": "index"
             }
           }
         ]
@@ -181,11 +185,11 @@
   },
   "active": "dc49a391e872008f",
   "lastOpenFiles": [
-    "products/Flaxia/index.md",
+    "products/craft-of-liberty/icon.png",
     "products/craft-of-liberty/index.md",
     "products/Flaxia/icon.png",
-    "products/craft-of-liberty/icon.png",
     "products/chronicle/index.md",
+    "products/Flaxia/index.md",
     "products/categories.json",
     "products/chronicle/icon.png",
     "products/craft-of-liberty/icon.svg",
