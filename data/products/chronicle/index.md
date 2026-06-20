@@ -3,7 +3,7 @@ title: Chronicle
 date: 2026-06-18
 excerpt: PC、スマホで利用できる軽量で多機能な小説エディタ。
 icon: data/products/chronicle/icon.png
-detailLabel: 詳細
+detailLabel: 詳細とダウンロード
 category: Danball Mikan Box
 order: 1
 ---
