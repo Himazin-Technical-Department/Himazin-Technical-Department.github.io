@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "7a85f56622bf8979",
+        "id": "14aa2b5aede68c62",
         "type": "tabs",
         "children": [
           {
-            "id": "dc49a391e872008f",
+            "id": "7ec76af87b92d379",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "blog/delete-col-problem/index.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新規タブ"
+              "title": "index"
             }
           }
         ]
@@ -179,13 +183,17 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "dc49a391e872008f",
+  "active": "7ec76af87b92d379",
   "lastOpenFiles": [
-    "products/Flaxia/index.md",
+    "blog/delete-col-problem/meta.json",
+    "blog/delete-col-problem/thumb-auto.svg",
+    "blog/delete-col-problem/index.md",
+    "products/chronicle/index.md",
+    "blog/delete-col-problem",
+    "products/craft-of-liberty/icon.png",
     "products/craft-of-liberty/index.md",
     "products/Flaxia/icon.png",
-    "products/craft-of-liberty/icon.png",
-    "products/chronicle/index.md",
+    "products/Flaxia/index.md",
     "products/categories.json",
     "products/chronicle/icon.png",
     "products/craft-of-liberty/icon.svg",
@@ -203,7 +211,6 @@
     "products/Flaxia/thumb-auto.svg",
     "blog/mikan_korosuzo/index.md",
     "blog/site-update-2026-06/index.md",
-    "blog/macaroni.1/thumb-auto.svg",
     "blog/macaroni.1/index.md",
     "blog/mikan_korosuzo",
     "blog/my-first-post/index.md",
@@ -212,7 +219,6 @@
     "blog/hello-world/index.md",
     "about",
     "products/my-new/index.md",
-    "products/my-new/meta.json",
     "products/test-p/index.md",
     "products/himaweather/index.md",
     "products/test-product/index.md",
@@ -224,7 +230,6 @@
     "products/myapp/index.md",
     "blog/test-slug/index.md",
     "products/testapp/index.md",
-    "updates/maintenance-notice/index.md",
-    "blog/test-post/index.md"
+    "updates/maintenance-notice/index.md"
   ]
 }

@@ -20,7 +20,22 @@ PCおよびスマホで使うことのできる軽量で多機能な小説エデ
 
 (そのうちMikan Launcherにて常に最新版を入れれるようになります。)
 
-### Ver 0.2.9(最新)
+### Ver 0.2.10(最新バージョン)
+
+変更: 戻す・やり直すのショートカットキーとボタンを追加
+
+| ダウンロード形式         | リンク                                                                                                                                                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Windows(インストーラー) | [chronicle-0.2.10-x86_64.msi](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/chronicle-0.2.10-x86_64.msi)                   |
+| Windows(ポータブル版)  | [chronicle-0.2.10-x86_64-windows.zip](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/chronicle-0.2.10-x86_64-windows.zip)   |
+| MacOS            | [chronicle-0.2.10-macos-universal.dmg](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/chronicle-0.2.10-macos-universal.dmg) |
+| Linux(AppImage版) | [chronicle-0.2.10-x86_64.AppImage](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/chronicle-0.2.10-x86_64.AppImage)         |
+| Linux(deb版)      | [chronicle_0.2.10-1_amd64.deb](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/chronicle_0.2.10-1_amd64.deb)                 |
+| Linux(rpm版)      | [chronicle-0.2.10-1.x86_64.rpm](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/chronicle-0.2.10-1.x86_64.rpm)               |
+| Linux(ポータブル版)    | [chronicle-0.2.10-x86_64-linux.tar.gz](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/chronicle-0.2.10-x86_64-linux.tar.gz) |
+| Android          | [Chronicle-release.apk](https://github.com/Danball-Mikan-Box/Chronicle/releases/download/v0.2.10/Chronicle-release.apk)                               |
+
+### Ver 0.2.9
 
 | ダウンロード形式         | リンク                                                                                                                                                |
 | ---------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
