@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "14aa2b5aede68c62",
+        "id": "98e47663266eb915",
         "type": "tabs",
         "children": [
           {
-            "id": "7ec76af87b92d379",
+            "id": "c5fecb1df95d7024",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "blog/delete-col-problem/index.md",
+                "file": "blog/gemini-slop/index.md",
                 "mode": "source",
                 "source": false
               },
@@ -183,11 +183,19 @@
       "bases:新規ベースを作成": false
     }
   },
-  "active": "7ec76af87b92d379",
+  "active": "c5fecb1df95d7024",
   "lastOpenFiles": [
+    "2026-06-19.md",
+    "blog/gemini-slop/index.md",
+    "blog/delete-col-problem/index.md",
+    "blog/gemini-slop/meta.json",
+    "blog/gemini-slop",
+    "blog/delete-col-problem (コピー)/thumb-auto.svg",
+    "blog/delete-col-problem (コピー)/meta.json",
+    "blog/delete-col-problem (コピー)/index.md",
+    "blog/delete-col-problem (コピー)",
     "blog/delete-col-problem/meta.json",
     "blog/delete-col-problem/thumb-auto.svg",
-    "blog/delete-col-problem/index.md",
     "products/chronicle/index.md",
     "blog/delete-col-problem",
     "products/craft-of-liberty/icon.png",
@@ -203,21 +211,15 @@
     "members/Remydre_S.png",
     "products/chronicle/meta.json",
     "products/chronicle",
-    "products/Chronicle",
     "products/Flaxia/icon.svg",
     "blog/My-favorite-artists-mikan/index.md",
-    "blog/mikan_korosuzo/meta.json",
     "blog/mikan_korosuzo/thumb-auto.svg",
-    "products/Flaxia/thumb-auto.svg",
     "blog/mikan_korosuzo/index.md",
     "blog/site-update-2026-06/index.md",
     "blog/macaroni.1/index.md",
-    "blog/mikan_korosuzo",
     "blog/my-first-post/index.md",
     "about/index.md",
-    "about.json~",
     "blog/hello-world/index.md",
-    "about",
     "products/my-new/index.md",
     "products/test-p/index.md",
     "products/himaweather/index.md",
@@ -228,8 +230,6 @@
     "blog/my-new/index.md",
     "updates/notice/index.md",
     "products/myapp/index.md",
-    "blog/test-slug/index.md",
-    "products/testapp/index.md",
-    "updates/maintenance-notice/index.md"
+    "blog/test-slug/index.md"
   ]
 }
