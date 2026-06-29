@@ -8,5 +8,6 @@ category: HTDプロジェクト
 order: 2
 ---
 ## Craft of Liberty
+現在準備中です。
 
-現在準備中です。ごめんね！
+HTD制作の本家版Craft of Libertyと完全作り直し(DMB制作)のMikan Edition版が存在します。
